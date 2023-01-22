@@ -1,4 +1,4 @@
-{self, lib, inputs, config, ...}:
+{self, lib, nixpkgs, home, nix-hw, ...}:
 let
 	inherit (builtins) baseNameOf readDir;
 	inherit (lib)      filterAttrs forEach hasSuffix mapAttrs mkOption nixosSystem;

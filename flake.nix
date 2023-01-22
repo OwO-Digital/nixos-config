@@ -30,7 +30,7 @@
 		};
 
 		nixpkgs.overlays = with inputs; [
-			(final: _:
+			(final: prev:
 			let system = final.system; in
 
 				/*   Nixpkgs branches   */
@@ -46,6 +46,14 @@
 					unstable = import unstable { inherit config system; };
 					stable   = import stable   { inherit config system; };
 					master   = import master   { inherit config system; };
+				
+					lib = prev.lib.extend (final: prev: 
+						import ./lib {
+							inherit prev;
+							lib = final;
+							isOverlayLib = true;
+						}
+					);
 				}
 			)
 
