@@ -5,7 +5,7 @@ nixpkgs.lib.nixosSystem {
 	
 	modules = [
 		{
-			nixpkgs = nixpkgs // pkgsConf;
+			nixpkgs = pkgsConf;
 			networking.hostName = "testvm";
 		}
 		./configuration.nix
