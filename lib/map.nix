@@ -1,26 +1,31 @@
-{self, lib, nixpkgs, home, nix-hw, ...}:
+{ self, lib, nixpkgs, home, nix-hw, ... }:
 let
-	inherit (builtins) baseNameOf readDir;
-	inherit (lib)      filterAttrs forEach hasSuffix mapAttrs mkOption nixosSystem;
+	inherit (builtins) readDir;
+	inherit (lib) filterAttrs forEach hasSuffix mapAttrsToList mkOption nixosSystem;
 in
 rec {
+	filterFolder = f: dir:
+		mapAttrs (n: _: (dir + "/" + n))
+			filterAttrs
+			(f)
+			(readDir dir);
+
 	importNixFiles = dir:
 		forEach
-			mapAttrsToList (name: _: dir + ("/" + name))
-				filterAttrs
-					(k: v: v == "regular" && hasSuffix ".nix" k)
-					readDir dir
-	import;
+			mapAttrsToList
+				(_: v: v)
+				filterFolder
+					(n: v: v == regular && hasSuffix ".nix" k)
+					dir
+			(file: import file);
 
 	mapHosts = dir:
-		forEach
-			mapAttrs (name: _: dir + ("/" + name))
-				filterAttrs
-					(k: v: v == "directory")
-					readDir dir
-		(hostDir:
-			host = baseNameOf hostDir;
-			host = import hostDir
-			{inherit nixpkgs home nix-hw;};
-		)
+		mapAttrs
+			filterFolder
+				(n: v: v == directory && n != "shared")
+				dir
+			(n: p:
+				import p
+					{ inherit nixpkgs home nix-hw; }
+			);
 }
