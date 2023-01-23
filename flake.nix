@@ -1,10 +1,10 @@
 {
-  description = "the gayest flake that you have ever seen";
+	description = "the gayest flake that you have ever seen";
 
 	inputs = {
 		home.url   = "github:nix-community/home-manager";
 		nix-hw.url = "github:nixos/nixos-hardware/master";
-	  f2k.url    = "github:fortuneteller2k/nixpkgs-f2k";
+		f2k.url    = "github:fortuneteller2k/nixpkgs-f2k";
 		nur.url    = "github:nix-community/NUR";
 
 		unstable.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -14,7 +14,7 @@
 		nixpkgs.follows             = "unstable";
 		home.inputs.nixpkgs.follows = "nixpkgs";
 		f2k.inputs.nixpkgs.follows  = "nixpkgs";
-  };
+	};
 
 	outputs = {
 		self,
@@ -60,6 +60,6 @@
 			nur.overlay
 			f2k.overlays.default
 		];
-	}
+	};
 
 }
