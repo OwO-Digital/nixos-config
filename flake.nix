@@ -21,47 +21,36 @@
 		nixpkgs,
 		nix-hw,
 		home,
+		nur,
+		f2k,
 		...
 	} @ inputs:
-	{
-		nixpkgs.config = {
-			allowUnfree = true;
-			allowBroken = true;
+	let
+		inherit (lib.ext) importNixFiles mapHosts;
+		
+		mkPkgs = system: import nixpkgs {
+			inherit system;
+
+			config = {
+				allowUnfree = true;
+				allowBroken = true;
+			};
+			
+			overlays = importNixFiles ./overlays ++
+				[
+					nur.overlay
+					f2k.overlays.default	
+				];
 		};
 
-		nixpkgs.overlays = with inputs; [
-			(final: prev:
-			let system = final.system; in
+		lib = nixpkgs.lib.extend (final: prev: {
+			ext = import ./lib
+			{ inherit inputs mkPkgs home nix-hw; lib = final; };
+		});
 
-				/*   Nixpkgs branches   */
+	in {
+		lib = lib.ext;
 
-				/*  Allows for specifying which branches to take packages from.
-				 *  
-				 * The branches can be accessed like so:
-				 * 'pkgs.master.srb2kart'
-				 * 'pkgs.stable.linuxKernel.kernels.linux_6_0'
-				 */ 
-
-				{
-					unstable = import unstable { inherit config system; };
-					stable   = import stable   { inherit config system; };
-					master   = import master   { inherit config system; };
-				
-					lib = prev.lib.extend (final: prev: 
-						import ./lib {
-							inherit prev;
-							lib = final;
-							isOverlayLib = true;
-						}
-					);
-				}
-			)
-
-			nur.overlay
-			f2k.overlays.default
-		];
-
-		nixosConfigurations = lib.mapHosts ./hosts;
+		nixosConfigurations = mapHosts ./hosts;
 	};
-
 }
