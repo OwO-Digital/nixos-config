@@ -1,3 +1,5 @@
+{ inputs, ... }:
+
 final: prev:
 {
 	ncmpcpp-git = prev.ncmpcpp.overrideAttrs (old: rec {
