@@ -1,7 +1,7 @@
 { self, lib, nixpkgs, home, nix-hw, ... }:
 let
-	inherit (builtins) readDir;
-	inherit (lib) filterAttrs forEach hasSuffix mapAttrsToList mkOption nixosSystem;
+	inherit (builtins) import readDir;
+	inherit (lib) filterAttrs forEach hasSuffix mapAttrs mapAttrsToList;
 in
 rec {
 	filterFolder = f: dir:
@@ -15,7 +15,7 @@ rec {
 			mapAttrsToList
 				(_: v: v)
 				filterFolder
-					(n: v: v == regular && hasSuffix ".nix" k)
+					(n: v: v == regular && hasSuffix ".nix" n)
 					dir
 			(file: import file);
 

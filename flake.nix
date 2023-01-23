@@ -60,6 +60,8 @@
 			nur.overlay
 			f2k.overlays.default
 		];
+
+		nixosConfigurations = lib.mapHosts ./hosts;
 	};
 
 }
