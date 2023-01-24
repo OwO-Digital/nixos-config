@@ -26,7 +26,7 @@
 		...
 	} @ inputs:
 	let
-		inherit (lib.ext) importNixFiles mapHosts;
+		inherit (lib.ext) importNixFiles mapModules mapHosts;
 		
 		pkgsConf = {
 			config = {
@@ -49,6 +49,7 @@
 	in {
 		lib = lib.ext;
 
+		nixosModules = mapModules ./modules;
 		nixosConfigurations = mapHosts ./hosts;
 	};
 }
