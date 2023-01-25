@@ -1,4 +1,4 @@
-{ lib, inputs, nixpkgs, pkgsConf, home, nix-hw, ... }:
+{ lib, inputs, repoConf, ... }:
 let
 	inherit (builtins) import readDir;
 	inherit (lib) filterAttrs forEach hasSuffix mapAttrs mapAttrs' mapAttrsToList nameValuePair removeSuffix;
@@ -24,7 +24,7 @@ rec {
 		mapAttrs
 			(n: v:
 				import v
-					{ inherit lib nixpkgs pkgsConf home nix-hw; } )
+					{ inherit inputs repoConf; })
 			(filterFolder
 				(n: v: v == "directory" && n != "shared")
 				dir);

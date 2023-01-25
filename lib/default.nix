@@ -1,15 +1,17 @@
-{ lib, inputs, nixpkgs, pkgsConf, home, nix-hw, ... }:
+{ lib, inputs, repoConf ,... }:
 
 let
 	inherit (lib) makeExtensible;
 	extLib = makeExtensible (self:
 	let
-		callLibs = file: import file { inherit lib inputs nixpkgs pkgsConf home nix-hw; };
+		callLibs = file: import file { inherit lib inputs repoConf; };
 	in {
 
-		map = callLibs ./map.nix;
+		import  = callLibs ./map.nix;
+		options = callLibs ./options.nix;
 
-		inherit (self.map) filterFolder importNixFiles mapHosts;
+		inherit (self.import)  filterFolder importNixFiles mapHosts;
+		inherit (self.options) ;
 
 	});
 in extLib

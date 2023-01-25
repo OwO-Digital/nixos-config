@@ -28,7 +28,7 @@
 	let
 		inherit (lib.ext) importNixFiles mapModules mapHosts;
 		
-		pkgsConf = {
+		repoConf = {
 			config = {
 				allowUnfree = true;
 				allowBroken = true;
@@ -43,7 +43,7 @@
 
 		lib = nixpkgs.lib.extend (final: prev: {
 			ext = import ./lib
-			{ inherit inputs nixpkgs pkgsConf home nix-hw; lib = final; };
+			{ inherit inputs repoConf; lib = final; };
 		});
 
 	in {

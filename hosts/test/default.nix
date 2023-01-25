@@ -1,11 +1,17 @@
-{ lib, nixpkgs, pkgsConf, home, nix-hw, ... }:
+{ inputs, repoConf, ... }:
+
+let
+	nixpkgs =  inputs.nixpkgs;
+	home    =  inputs.home;
+	nix-hw  =  inputs.nix-hw;
+in
 
 nixpkgs.lib.nixosSystem {
 	system = "x86_64-linux";
 	
 	modules = [
 		{
-			nixpkgs = pkgsConf;
+			nixpkgs = repoConf;
 			networking.hostName = "testvm";
 		}
 		./configuration.nix
