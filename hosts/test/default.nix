@@ -14,7 +14,9 @@ nixpkgs.lib.nixosSystem {
 			nixpkgs = repoConf;
 			networking.hostName = "testvm";
 		}
-		./configuration.nix
+		../shared/configuration.nix
+		./hardware-configuration.nix
+		# ./configuration.nix
 	];
 	
 	specialArgs = { inherit home; };

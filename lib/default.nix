@@ -7,7 +7,7 @@ let
 		callLibs = file: import file { inherit lib inputs repoConf; };
 	in {
 
-		import  = callLibs ./map.nix;
+		import  = callLibs ./import.nix;
 		options = callLibs ./options.nix;
 
 		inherit (self.import)  filterFolder importNixFiles mapHosts;

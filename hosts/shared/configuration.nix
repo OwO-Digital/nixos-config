@@ -50,7 +50,7 @@
 		];
 
 		shells = with pkgs; [ bash zsh ];
-		binsh  = ${pkgs.bash}/bin/bash;
+		binsh  = "${pkgs.bash}/bin/bash";
 
 		sessionVariables.MOZ_USE_XINPUT2 = "1";
 	};
@@ -59,6 +59,20 @@
 		mutableUsers = true;
 		defaultUserShell = pkgs.zsh;
 	};
+
+	programs = {
+		neovim = {
+			enable = true;
+			defaultEditor = true;
+			viAlias = true;
+			vimAlias = true;
+		}
+	}
+
+	systemd.user.services = {
+        pipewire.wantedBy = ["default.target"];
+        pipewire-pulse.wantedBy = ["default.target"];
+    };
 
 	services = {
 		pipewire = {
