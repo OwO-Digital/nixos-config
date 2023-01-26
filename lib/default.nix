@@ -1,10 +1,10 @@
-{ inputs, lib, repoConf, ... }:
+{ inputs, lib, repoConf, ... } @ args:
 
 let
 	inherit (lib) makeExtensible;
 	extLib = makeExtensible (self:
 	let
-		callLibs = file: import file { inherit inputs lib repoConf; };
+		callLibs = file: import file args;
 	in {
 
 		import  = callLibs ./import.nix;

@@ -47,8 +47,6 @@
 		});
 
 	in {
-		lib = lib.ext;
-
 		# nixosModules = mapModulesRec ./modules;
 		nixosConfigurations = mapHosts ./hosts;
 	};

@@ -1,11 +1,4 @@
-{ inputs, repoConf, ... }:
-
-let
-	nixpkgs = inputs.nixpkgs;
-	home    = inputs.home;
-	nix-hw  = inputs.nix-hw;
-	lib     = nixpkgs.lib;
-in
+{ inputs, lib, repoConf, ... }:
 
 lib.nixosSystem {
 	system = "x86_64-linux";
@@ -16,11 +9,11 @@ lib.nixosSystem {
 			networking.hostName = "testvm";
 		}
 
-		# home.nixosModules.home-manager
-		# lib.mapModulesRec' ../../modules import
+		inputs.home.nixosModules.home-manager
+		({ pkgs, ... }: pkgs.lib.mapModulesRec' ../../modules import)
 
-		# ../shared/configuration.nix
-		# ./hardware-configuration.nix
-		# ./configuration.nix
+		../shared/configuration.nix
+		./hardware-configuration.nix
+		./configuration.nix
 	];
 }
