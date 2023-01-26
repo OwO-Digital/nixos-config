@@ -26,7 +26,7 @@
 		...
 	} @ inputs:
 	let
-		inherit (lib.ext) importNixFiles mapModules mapHosts;
+		inherit (lib.ext) importNixFiles mapHosts;
 		
 		repoConf = {
 			config = {
@@ -49,7 +49,7 @@
 	in {
 		lib = lib.ext;
 
-		nixosModules = mapModules ./modules;
+		# nixosModules = mapModulesRec ./modules;
 		nixosConfigurations = mapHosts ./hosts;
 	};
 }

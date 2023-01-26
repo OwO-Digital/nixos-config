@@ -1,7 +1,7 @@
-{ lib, inputs, repoConf, ... }:
+{ inputs, lib, repoConf, ... }:
 let
-	inherit (builtins) import readDir;
-	inherit (lib) filterAttrs forEach hasSuffix mapAttrs mapAttrs' mapAttrsToList nameValuePair removeSuffix;
+	inherit (builtins) concatLists import map readDir;
+	inherit (lib) attrValues filterAttrs forEach hasSuffix id mapAttrs mapAttrs' mapAttrsToList nameValuePair pathExists removeSuffix;
 in
 rec {
 	filterFolder = f: dir:
@@ -13,31 +13,55 @@ rec {
 
 	importNixFiles = dir:
 		forEach
-			(mapAttrsToList
-				(n: v: v)
+			(attrValues
 				(filterFolder
 					(n: v: v == "regular" && hasSuffix ".nix" n)
 					dir))
-			(file: import file { inherit inputs; });
+			(file: import file);
 
 	mapHosts = dir:
 		mapAttrs
 			(n: v:
 				import v
-					{ inherit inputs repoConf; })
+				{ inherit inputs repoConf; } )
 			(filterFolder
 				(n: v: v == "directory" && n != "shared")
 				dir);
 
-	mapModules = dir:
+	mapModules = dir: fn:
+    mapAttrs'
+      (n: v:
+        let path = "${toString dir}/${n}"; in
+        	if v == "directory" && pathExists "${path}/default.nix"
+        		then nameValuePair n (fn path)
+        	else if (v == "regular" &&
+        	        hasSuffix ".nix" n &&
+        	        n != "default.nix")
+        		then nameValuePair (removeSuffix ".nix" n) (fn path)
+        	else nameValuePair "" null)
+      (readDir dir);
+
+	mapModulesRec = dir: fn:
 		mapAttrs'
 			(n: v:
-				let path = "${toString dir}/${n}";
-				in
+				let path = "${toString dir}/${n}"; in
 					if v == "directory"
-						then nameValuePair n (mapModules path)
-					else if v == "regular" && hasSuffix ".nix" n && n != "default.nix"
-						then nameValuePair (removeSuffix ".nix" n) (import path)
+						then nameValuePair n (mapModules path fn)
+					else if (v == "regular" &&
+							hasSuffix ".nix" n &&
+							n != "default.nix")
+						then nameValuePair (removeSuffix ".nix" n) (fn path)
 					else nameValuePair "" null)
 			(readDir dir);
+	
+	mapModulesRec' = dir: fn:
+		let
+			dirs = mapAttrsToList
+				(k: _: "${dir}/${k}")
+				(filterAttrs
+					(n: v: v == "directory")
+					(readDir dir));
+			files = attrValues (mapModules dir id);
+			paths = files ++ concatLists (map (d: mapModulesRec' d id) dirs);
+		in map fn paths;
 }

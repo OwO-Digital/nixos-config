@@ -1,23 +1,26 @@
 { inputs, repoConf, ... }:
 
 let
-	nixpkgs =  inputs.nixpkgs;
-	home    =  inputs.home;
-	nix-hw  =  inputs.nix-hw;
+	nixpkgs = inputs.nixpkgs;
+	home    = inputs.home;
+	nix-hw  = inputs.nix-hw;
+	lib     = nixpkgs.lib;
 in
 
-nixpkgs.lib.nixosSystem {
+lib.nixosSystem {
 	system = "x86_64-linux";
-	
+
 	modules = [
 		{
 			nixpkgs = repoConf;
 			networking.hostName = "testvm";
 		}
-		../shared/configuration.nix
-		./hardware-configuration.nix
+
+		# home.nixosModules.home-manager
+		# lib.mapModulesRec' ../../modules import
+
+		# ../shared/configuration.nix
+		# ./hardware-configuration.nix
 		# ./configuration.nix
 	];
-	
-	specialArgs = { inherit home; };
 }

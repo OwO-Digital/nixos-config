@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }: {
+{ config, pkgs, inputs, ... }: {
 
 	nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -49,16 +49,14 @@
 			zip
 		];
 
-		shells = with pkgs; [ bash zsh ];
+		shells = with pkgs; [ zsh bash ];
 		binsh  = "${pkgs.bash}/bin/bash";
 
-		sessionVariables.MOZ_USE_XINPUT2 = "1";
-	};
-
-	users = {
-		mutableUsers = true;
-		defaultUserShell = pkgs.zsh;
-	};
+		variables = {
+			NIXPKGS_ALLOW_UNFREE = "1";
+			MOZ_USE_XINPUT2 = "1";
+		};
+	};                                            
 
 	programs = {
 		neovim = {
@@ -66,8 +64,8 @@
 			defaultEditor = true;
 			viAlias = true;
 			vimAlias = true;
-		}
-	}
+		};
+	};
 
 	systemd.user.services = {
         pipewire.wantedBy = ["default.target"];
