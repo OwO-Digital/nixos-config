@@ -1,6 +1,6 @@
 { inputs, lib, repoConf, ... } @ args:
 let
-	inherit (builtins) concatLists import map readDir;
+	inherit (builtins) concatLists import map readDir toString;
 	inherit (lib) attrValues filterAttrs forEach hasSuffix id mapAttrs mapAttrs' mapAttrsToList nameValuePair pathExists removeSuffix;
 in
 rec {
@@ -28,7 +28,9 @@ rec {
 				dir);
 
 	mapModules = dir: fn:
-    	mapAttrs'
+		filterAttrs
+			(n: v: v != null)
+    	(mapAttrs'
     	  (n: v:
     	    let path = "${toString dir}/${n}"; in
     	    	if v == "directory" && pathExists "${path}/default.nix"
@@ -38,7 +40,7 @@ rec {
     	    	        n != "default.nix")
     	    		then nameValuePair (removeSuffix ".nix" n) (fn path)
     	    	else nameValuePair "" null)
-    	  (readDir dir);
+    	  (readDir dir));
 
 	mapModulesRec = dir: fn:
 		mapAttrs'
@@ -56,10 +58,10 @@ rec {
 	mapModulesRec' = dir: fn:
 		let
 			dirs = mapAttrsToList
-				(k: _: "${dir}/${k}")
-				(filterAttrs
+				(_: k: k)
+				(filterFolder
 					(n: v: v == "directory")
-					(readDir dir));
+					dir);
 			files = attrValues (mapModules dir id);
 			paths = files ++ concatLists (map (d: mapModulesRec' d id) dirs);
 		in map fn paths;

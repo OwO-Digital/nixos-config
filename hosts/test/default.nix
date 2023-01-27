@@ -10,7 +10,9 @@ lib.nixosSystem {
 		}
 
 		inputs.home.nixosModules.home-manager
-		({ pkgs, ... }: pkgs.lib.mapModulesRec' ../../modules import)
+
+		../../modules/users.nix
+		../../modules/desktop/awesome.nix
 
 		../shared/configuration.nix
 		./hardware-configuration.nix

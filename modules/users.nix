@@ -1,35 +1,39 @@
-{ config, options, lib, pkgs, home-manager, ... }:
+{ config, pkgs, ... }:
 
 with builtins;
-with lib;
-with lib.ext;
-let cfg = config.modules.users;
+with pkgs.lib;
+with pkgs.lib.ext;
+let
+	cfg = config.modules.users;
+
+	nixosCfg = mapAttrs 
+		(n: v: {
+			description = v.desc;
+			isNormalUser = true;
+			extraGroups = [ "networkmanager" "wheel" "input" "video" "audio" ];
+			homeMode = "755";
+			initialPassword = "gay";
+		}) cfg;
+	
+	homeCfg = mapAttrs
+		(n: v:
+			let dir = (toString ../users/${n}); in {
+			home = {
+				username = n;
+				homeDirectory = "/home/${n}";
+				stateVersion = "22.11";
+				file.".face".source = "${dir}/avatar.png";
+			};
+			imports = [
+				# "${dir}"
+			];
+		}
+	) cfg;
 in {
 	options.modules.users = mkOpt types.attrs {
 		apro = { desc = "Emily Aproxia"; };
 		octelly = { desc = "Eli Štefků"; };
 	};
-
-	nixosCfg = mapAttrs cfg (n: v: {
-		description = v.desc;
-		isNormalUser = true;
-		extraGroups = [ "networkmanager" "wheel" "input" "video" "audio" ];
-		homeMode = "755";
-		initialPassword = "gay";
-	});
-	
-	homeCfg = mapAttrs cfg (n: v:
-		let dir = "../users/${n}"; in {
-		home = {
-			username = n;
-			homeDirectory = "/home/${n}";
-			stateVersion = "22.11";
-			file.".face".source = "${dir}/avatar.png";
-		};
-		imports = [
-			"${dir}"
-		];
-	});
 
 	config.home-manager = {
 		useGlobalPkgs = true;
