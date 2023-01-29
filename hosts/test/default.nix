@@ -5,17 +5,15 @@ lib.nixosSystem {
 
 	modules = [
 		{
+			_module.args = { inherit lib; };
 			nixpkgs = repoConf;
 			networking.hostName = "testvm";
 		}
 
 		inputs.home.nixosModules.home-manager
 
-		../../modules/users.nix
-		../../modules/desktop/awesome.nix
-
 		../shared/configuration.nix
 		./hardware-configuration.nix
 		./configuration.nix
-	];
+	] ++ (lib.mapModulesRec' ../../modules import);
 }

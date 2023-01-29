@@ -2,8 +2,8 @@
 let
 	inherit (builtins) concatLists import map readDir toString;
 	inherit (lib) attrValues filterAttrs forEach hasSuffix id mapAttrs mapAttrs' mapAttrsToList nameValuePair pathExists removeSuffix;
-in
-rec {
+
+	inheritArgs = { inherit inputs repoConf; lib = lib // { inherit filterFolder importNixFiles mapHosts mapModules mapModulesRec mapModulesRec'; }; };
 	filterFolder = f: dir:
 		mapAttrs
 			(n: v: dir + ("/" + n))
@@ -13,7 +13,7 @@ rec {
 
 	importNixFiles = dir:
 		map
-			(file: import file args)
+			(file: import file inheritArgs)
 			(attrValues
 				(filterFolder
 					(n: v: v == "regular" && hasSuffix ".nix" n)
@@ -22,7 +22,7 @@ rec {
 	mapHosts = dir:
 		mapAttrs
 			(n: v:
-				import v args)
+				import v inheritArgs)
 			(filterFolder
 				(n: v: v == "directory" && n != "shared")
 				dir);
@@ -65,4 +65,7 @@ rec {
 			files = attrValues (mapModules dir id);
 			paths = files ++ concatLists (map (d: mapModulesRec' d id) dirs);
 		in map fn paths;
+in
+rec {
+	inherit filterFolder importNixFiles mapHosts mapModules mapModulesRec mapModulesRec';
 }

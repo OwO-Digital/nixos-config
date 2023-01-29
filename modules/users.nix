@@ -1,8 +1,7 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 with builtins;
-with pkgs.lib;
-with pkgs.lib.ext;
+with lib;
 let
 	cfg = config.modules.users;
 
@@ -30,9 +29,12 @@ let
 		}
 	) cfg;
 in {
-	options.modules.users = mkOpt types.attrs {
-		apro = { desc = "Emily Aproxia"; };
-		octelly = { desc = "Eli Štefků"; };
+	options.modules.users = mkOption {
+		type = types.attrs;
+		default = {
+			apro = { desc = "Emily Aproxia"; };
+			octelly = { desc = "Eli Štefků"; };
+		};
 	};
 
 	config.home-manager = {

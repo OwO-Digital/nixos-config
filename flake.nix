@@ -43,7 +43,7 @@
 
 		lib = nixpkgs.lib.extend (final: prev: {
 			ext = import ./lib
-			{ inherit inputs repoConf; lib = final; };
+			{ inherit inputs repoConf; lib = prev; };
 		});
 
 	in {

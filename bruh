@@ -9,7 +9,7 @@ error: infinite recursion encountered
              |                            ^
           484|       ) (lib.functionArgs f);
 
-       … while evaluating the module argument `pkgs' in "/nix/store/l0w1s9jphcpvf7m08a4rq0mzmfkz5b2j-source/modules/desktop/awesome.nix":
+       … while evaluating the module argument `pkgs' in "/nix/store/xm3l7vg9cpnkf55a018hsqpd24gvx92l-source/modules/desktop/awesome.nix":
 
        … while calling anonymous lambda
 
@@ -24,7 +24,7 @@ error: infinite recursion encountered
 
        … while evaluating the attribute 'config'
 
-       at /nix/store/l0w1s9jphcpvf7m08a4rq0mzmfkz5b2j-source/modules/desktop/awesome.nix:11:2:
+       at /nix/store/xm3l7vg9cpnkf55a018hsqpd24gvx92l-source/modules/desktop/awesome.nix:11:2:
 
            10|
            11|  config = mkIf cfg.enable { };

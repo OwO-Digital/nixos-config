@@ -8,10 +8,8 @@ let
 	in {
 
 		import  = callLibs ./import.nix;
-		options = callLibs ./options.nix;
 
 		inherit (self.import)  filterFolder importNixFiles mapHosts mapModules mapModulesRec mapModulesRec';
-		inherit (self.options) mkOpt mkBoolOpt mkStringOpt mkStrListOpt;
 
 	});
 in extLib
