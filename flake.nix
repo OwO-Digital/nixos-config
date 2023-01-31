@@ -3,7 +3,7 @@
 
 	inputs = {
 		home.url   = "github:nix-community/home-manager";
-		nix-hw.url = "github:nixos/nixos-hardware/master";
+		nixHW.url = "github:nixos/nixos-hardware/master";
 		f2k.url    = "github:fortuneteller2k/nixpkgs-f2k";
 		nur.url    = "github:nix-community/NUR";
 
@@ -14,13 +14,17 @@
 		nixpkgs.follows             = "unstable";
 		home.inputs.nixpkgs.follows = "nixpkgs";
 		f2k.inputs.nixpkgs.follows  = "nixpkgs";
+
+		newm = { url = "github:jbuchermn/newm";
+				 inputs.nixpkgs.follows = "nixpkgs"; };
+
+		hyprland = { url = "github:hyprwm/Hyprland";
+					 inputs.nixpkgs.follows = "nixpkgs"; };
 	};
 
 	outputs = {
 		self,
 		nixpkgs,
-		nix-hw,
-		home,
 		nur,
 		f2k,
 		...
@@ -32,6 +36,9 @@
 			config = {
 				allowUnfree = true;
 				allowBroken = true;
+				permittedInsecurePackages = [
+					"electron-11.5.0"
+				];
 			};
 			
 			overlays = importNixFiles ./overlays ++

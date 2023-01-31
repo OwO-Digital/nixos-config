@@ -67,42 +67,9 @@
 		};
 	};
 
-	systemd.user.services = {
-        pipewire.wantedBy = ["default.target"];
-        pipewire-pulse.wantedBy = ["default.target"];
-    };
-
 	services = {
-		pipewire = {
-			enable = true;
-
-			jack.enable = true;
-			pulse.enable = true;
-			alsa = {
-				enable = true;
-				support32Bit = true;
-			};
-		};
-
 		dbus.enable = true;
 		openssh.enable = true;
-
-		xserver = {
-			libinput = {
-				mouse.accelProfile = "flat";
-				touchpad = {
-					middleEmulation = false;
-					tapping = false;
-					naturalScrolling = true;
-				};
-			};
-
-			extraLayouts.codemakcz = {
-				description = "Czech Programmer version of Colemak DH";
-				languages = [ "en" "cs" ];
-				symbolsFile = ../../misc/keymaps/fck;
-			};
-		};
 	};
 
 	system.stateVersion = "22.11";

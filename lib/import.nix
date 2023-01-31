@@ -46,7 +46,7 @@ let
 		mapAttrs'
 			(n: v:
 				let path = "${toString dir}/${n}"; in
-					if v == "directory"
+					if v == "directory" && !hasSuffix ".bak" n
 						then nameValuePair n (mapModules path fn)
 					else if (v == "regular" &&
 							hasSuffix ".nix" n &&
@@ -60,7 +60,7 @@ let
 			dirs = mapAttrsToList
 				(_: k: k)
 				(filterFolder
-					(n: v: v == "directory")
+					(n: v: v == "directory" && !hasSuffix ".bak" n)
 					dir);
 			files = attrValues (mapModules dir id);
 			paths = files ++ concatLists (map (d: mapModulesRec' d id) dirs);

@@ -6,10 +6,12 @@ lib.nixosSystem {
 	modules = [
 		{
 			nixpkgs = repoConf;
-			networking.hostName = "testvm";
+			networking.hostName = "twinkpad";
 		}
 
 		inputs.home.nixosModules.home-manager
+		inputs.hyprland.nixosModules.default
+		inputs.nixHW.nixosModules.lenovo-thinkpad-t460s
 
 		../shared/configuration.nix
 		./configuration.nix
