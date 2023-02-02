@@ -13,5 +13,6 @@
 				layout = "fck";
 			};
 		};
+		services.mpdscribble.enable = true;
 	};
 }

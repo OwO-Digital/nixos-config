@@ -1,7 +1,6 @@
 {
 	config,
 	pkgs,
-	inputs,
 	...
 }: {
 	services.mpd = {
@@ -13,16 +12,16 @@
 			restore_paused             "yes"
 
 			audio_output {
-			    type                   "pipewire"
-			    name                   "PipeWire Sound Server"
-			    buffer_time            "100000"
+				type                   "pipewire"
+				name                   "PipeWire Sound Server"
+				buffer_time            "100000"
 			}
 
 			audio_output {
-			    type                   "fifo"
-			    name                   "Visualizer"
-			    format                 "44100:16:2"
-			    path                   "/tmp/mpd.fifo"
+				type                   "fifo"
+				name                   "Visualizer"
+				format                 "44100:16:2"
+				path                   "/tmp/mpd.fifo"
 			}
 
 			audio_output {
@@ -40,23 +39,9 @@
 	home.packages = with pkgs; [mpc_cli];
 
 	services.mpdris2 = {
-    	enable = true;
-    	mpd = {
-    		host = "127.0.0.1";
-    	};
-	};
-
-	services.mpdscribble = {
-    	enable = true;
-    	config = {
-			host = "localhost";
-			port = 6600;
-			
-			"last.fm" = {
-				url = "https://post.audioscrobbler.com/";
-        		password = import "${inputs.secrets}/lastfm-pass.nix";
-        		username = "apr0";
-    		};
+		enable = true;
+		mpd = {
+			host = "127.0.0.1";
 		};
 	};
 

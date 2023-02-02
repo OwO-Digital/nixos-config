@@ -1,7 +1,8 @@
 { inputs, lib, repoConf, ... }:
 
+let system = "x86_64-linux"; in
 lib.nixosSystem {
-	system = "x86_64-linux";
+	inherit system;
 
 	modules = [
 		{
@@ -18,4 +19,6 @@ lib.nixosSystem {
 		./hardware-configuration.nix
 	] ++
 	(lib.mapModulesRec' ../../modules import);
+
+	specialArgs = { inherit inputs system; };
 }

@@ -7,8 +7,8 @@ final: prev:
 			src = prev.fetchFromGitHub {
 				owner = "Aproxia-dev";
 				repo = "st-flexipatch";
-				rev = "98cb137c116a997c70bdf6a49ca0a5ef463d9ff3";
-        		sha256 = "1j0spdlqmi8q6ghxg2b095r470hdfmmpspr5wmqgj431cp2cz5v9";
+				rev = "d7d1b63ba03e73d5042e9ea431d46b98cff57a4e";
+        sha256 = "4jXJSCaBWhfS0qCkb7g34al7CsuEXkoVM7mUuIyv/r8=";
 			};
 
 			buildInputs = old.buildInputs ++ [ prev.harfbuzz ];

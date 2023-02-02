@@ -63,17 +63,14 @@ in {
 	xresources.extraConfig = import ./etc/xresources.nix;
 
 	xdg.configFile = {
-		# awesome.source = ./config/awesome;
+		awesome.source = ./config/awesome;
 		nvim.source = ./config/nvim;
 		picom.source = ./config/picom;
 		rofi.source = ./config/rofi;
 		"libinput-gestures.conf".source = ./config/libinput-gestures.conf;
 	};
 
-	imports = let nurNoPkgs = import inputs.nur { nurpkgs = inputs.nixpkgs.legacyPackages.x86_64-linux; };
-	in [
-		# nurNoPkgs.repos.splintah.hmModules.mpdscribble
-
+	imports = [
 		./programs/browser
 		./programs/shell
 
@@ -84,7 +81,7 @@ in {
 		./programs/utils/git.nix
 
 		./programs/apps/discocss.nix
-		# ./programs/apps/mpd.nix
+		./programs/apps/mpd.nix
 		./programs/apps/vscodium.nix
 	];
 }
