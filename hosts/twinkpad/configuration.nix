@@ -1,9 +1,12 @@
 { config, pkgs, ... }: {
 
 	modules = {
-		desktop.awesome = {
-			enable = true;
-			package = pkgs.awesome-git;
+		desktop = {
+			gaming.steam.enable = true;
+			awesome = {
+				enable = true;
+				package = pkgs.awesome-git;
+			};
 		};
 		hardware.laptop.enable = true;
 		system = {
