@@ -4,8 +4,8 @@ let # run = import ../..  /misc/bin/run.nix { inherit pkgs; };
 in {
 	home = {
 		packages = with pkgs; [
-			rofi
 			(pcmanfm.override { withGtk3 = true; })
+			rofi
 			scrot
 			picom
 			ranger
@@ -43,7 +43,7 @@ in {
 		iconTheme = {
 			name = "Papirus-Dark";
 			package = pkgs.papirus-icon-theme;
-    	};
+		};
 
 		font = {
 			name = "Roboto Condensed";
@@ -51,22 +51,45 @@ in {
 		};
 
 		gtk3.extraConfig = {
-    		gtk-xft-antialias = 1;
-    		gtk-xft-hinting = 1;
-    		gtk-xft-hintstyle = "hintslight";
-    		gtk-xft-rgba = "rgb";
-    		gtk-decoration-layout = "menu:";
-    	};
+			gtk-xft-antialias = 1;
+			gtk-xft-hinting = 1;
+			gtk-xft-hintstyle = "hintslight";
+			gtk-xft-rgba = "rgb";
+			gtk-decoration-layout = "menu:";
+		};
 	};
 
 	xresources.extraConfig = import ./etc/xresources.nix;
 
-	xdg.configFile = {
-		awesome.source = ./config/awesome;
-		nvim.source = ./config/nvim;
-		picom.source = ./config/picom;
-		rofi.source = ./config/rofi;
-		"libinput-gestures.conf".source = ./config/libinput-gestures.conf;
+	xdg = {
+		enable = true;
+
+		mime.enable = true;
+		mimeApps = {
+			enable = true;
+			defaultApplications = {
+				"inode/directory" = [ "pcmanfm.desktop" ];
+				"video" = [ "mpv.desktop" ];
+				"image" = [ "sxiv.desktop" ];
+			};
+		};
+
+		userDirs = {
+			enable = true;
+			createDirectories = true;
+
+			download = "${config.home.homeDirectory}/Downloads";
+			music = "${config.home.homeDirectory}/Music";
+			pictures = "${config.home.homeDirectory}/Pictures";
+			videos = "${config.home.homeDirectory}/Videos";
+		};
+
+		configFile = {
+			awesome.source = ./config/awesome;
+			nvim.source = ./config/nvim;
+			picom.source = ./config/picom;
+			rofi.source = ./config/rofi;
+			"libinput-gestures.conf".source = ./config/libinput-gestures.conf;
 	};
 
 	imports = [
