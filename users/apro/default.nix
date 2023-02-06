@@ -12,7 +12,6 @@ in {
 			obsidian
 			nicotine-plus # yarr harr
 			jrnl
-			itch
 			feh
 			ncdu
 			duf
