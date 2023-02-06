@@ -78,6 +78,11 @@ in {
 			enable = true;
 			createDirectories = true;
 
+			desktop = null;
+			documents = null;
+			publicShare = null;
+			templates = null;
+
 			download = "${config.home.homeDirectory}/Downloads";
 			music = "${config.home.homeDirectory}/Music";
 			pictures = "${config.home.homeDirectory}/Pictures";
