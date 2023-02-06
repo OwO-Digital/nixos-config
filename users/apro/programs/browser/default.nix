@@ -6,24 +6,23 @@
 	programs.firefox = {
 		enable = true;
 
-		extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-			ublock-origin
-			darkreader
-			sponsorblock
-			return-youtube-dislikes
-			tabcenter-reborn
-			stylus
-			enhanced-github
-			refined-github
-			octotree
-			new-tab-override
-			h264ify
-			i-dont-care-about-cookies
-		];
-
 		profiles = {
 			apro = {
 				id = 0;
+				extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+					ublock-origin
+					darkreader
+					sponsorblock
+					return-youtube-dislikes
+					tabcenter-reborn
+					stylus
+					enhanced-github
+					refined-github
+					octotree
+					new-tab-override
+					h264ify
+					i-dont-care-about-cookies
+				];
 				settings = {
 					"browser.startup.homepage" = "https://start.emii.lol/";
 					"general.smoothScrolling" = true;
