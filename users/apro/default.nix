@@ -90,6 +90,7 @@ in {
 			picom.source = ./config/picom;
 			rofi.source = ./config/rofi;
 			"libinput-gestures.conf".source = ./config/libinput-gestures.conf;
+		};
 	};
 
 	imports = [
