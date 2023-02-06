@@ -2,7 +2,11 @@
 
 	modules = {
 		desktop = {
-			gaming.steam.enable = true;
+			gaming = {
+				steam.enable   = true;
+				itch.enable    = true;
+				olympus.enable = true;
+			};
 			awesome = {
 				enable = true;
 				package = pkgs.awesome-git;
@@ -16,6 +20,5 @@
 				layout = "fck";
 			};
 		};
-		services.mpdscribble.enable = true;
 	};
 }
