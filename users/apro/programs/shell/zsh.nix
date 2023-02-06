@@ -5,11 +5,11 @@
 }: {
 	programs.zsh = {
 		enable = true;
-    	autocd = true;
-    	enableAutosuggestions = true;
-			enableSyntaxHighlighting = true;
-    	enableCompletion = true;
-    	dotDir = ".config/zsh";
+		autocd = true;
+		enableAutosuggestions = true;
+		enableSyntaxHighlighting = true;
+		enableCompletion = true;
+		dotDir = ".config/zsh";
 
 		shellAliases = {
 			"ls" = "exa --icons";
@@ -67,7 +67,7 @@
 			zstyle ":completion:*" matcher-list "" "m:{a-zA-Z}={A-Za-z}" "r:|[._-]=* r:|=*" "l:|=* r:|=*"
 
 			export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
-			export SUDO_PROMPT='[\033[35m%u\033[0m] passwd: '
+			export SUDO_PROMPT=$'[\033[35m%u\033[0m] passwd: '
 
 			bindkey "^[[1;5D" backward-word
 			bindkey "^[[1;5C" forward-word
