@@ -16,6 +16,7 @@ in {
 			ncdu
 			duf
 			pamixer
+			pulsemixer
 			apro.st
 			dconf
 			btop
