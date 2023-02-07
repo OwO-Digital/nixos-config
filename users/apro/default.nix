@@ -100,9 +100,7 @@ in {
 	};
 
 	imports = [
-		./programs/browser
 		./programs/shell
-
 
 		./programs/utils/bat.nix
 		./programs/utils/direnv.nix
@@ -110,6 +108,7 @@ in {
 		./programs/utils/git.nix
 
 		./programs/apps/discocss.nix
+		./programs/apps/firefox.nix
 		./programs/apps/mpd.nix
 		./programs/apps/vscodium.nix
 	];

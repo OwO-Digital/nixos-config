@@ -1,6 +1,6 @@
 { inputs, ... }:
 
-let theme = import ../misc/themes/everblush.nix; in
+let theme = import ../misc/themes/everblush/cols.nix; in
 
 final: prev:
 {

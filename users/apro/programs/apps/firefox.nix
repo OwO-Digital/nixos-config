@@ -37,8 +37,7 @@
 				  "privacy.webrtc.hideGlobalIndicator" = true;
 				};
 				
-				userChrome = import ./userChrome.nix;
-				# userContent = import ./userContent.nix;
+				userChrome = import ../../../../misc/themes/cascade + builtins.readFile ../../../../misc/themes/everblush/cascade.css;
 				
 				extraConfig = ''
 				  user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
