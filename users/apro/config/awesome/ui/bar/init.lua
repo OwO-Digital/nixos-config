@@ -9,7 +9,7 @@ awful.screen.connect_for_each_screen(function(s)
 
 	local barmenu = wibox.widget {
 		awful.widget.launcher({ image = beautiful.launcher,
-                                        menu = menu }),
+										menu = menu }),
 		widget = wibox.container.margin,
 		margins = 4 + beautiful.launcher_padding
 	}

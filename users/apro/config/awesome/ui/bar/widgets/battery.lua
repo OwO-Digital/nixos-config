@@ -29,9 +29,9 @@ local battery_icon = wibox.widget {
 				{
 					batbar0,
 					batbar1,
-			     		layout = wibox.layout.flex.vertical,
-			     		spacing = 2,
-			     		forced_height = 20
+				 		layout = wibox.layout.flex.vertical,
+				 		spacing = 2,
+				 		forced_height = 20
 				},
 				widget = wibox.container.rotate,
 				direction = "east",

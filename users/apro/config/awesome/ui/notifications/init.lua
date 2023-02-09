@@ -27,7 +27,7 @@ naughty.connect_signal("request::display", function(n)
 
 	local icon = wibox.widget {
 		image  = n.app_icon
-		      or menubar.utils.lookup_icon(n.app_name:lower()),
+			  or menubar.utils.lookup_icon(n.app_name:lower()),
 		forced_width  = 18,
 		forced_height = 18,
 		widget = wibox.widget.imagebox,

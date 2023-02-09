@@ -54,11 +54,11 @@ helpers.embox = function(w, plfix, padding, hover_effects, have_margin)
 	local plfix = plfix or false
 	local padding = padding or 2
 	if plfix == true then
-	    w = wibox.widget {
-		    w,
-		    widget = wibox.container.place,
-		    halign = "center",
-		    valign = "center"
+		w = wibox.widget {
+			w,
+			widget = wibox.container.place,
+			halign = "center",
+			valign = "center"
 		}
 	end
 
@@ -70,23 +70,23 @@ helpers.embox = function(w, plfix, padding, hover_effects, have_margin)
 
 	local boxed = wibox.widget
 	{
-	    {
-	        {
-	            {
-                         w,
+		{
+			{
+				{
+						 w,
 			 widget  = wibox.container.margin,
 			 margins = padding
-		    },
-		    widget = wibox.container.background,
-		    bg     = beautiful.dbg,
-		    id     = "bgcol"
+			},
+			widget = wibox.container.background,
+			bg     = beautiful.dbg,
+			id     = "bgcol"
 		},
 		widget = wibox.container.background,
 		shape  = helpers.rrect(4),
 		id     = "shape"
-	    },
-	    widget  = wibox.container.margin,
-	    margins = margin
+		},
+		widget  = wibox.container.margin,
+		margins = margin
 	}
 
 	if hover_effects ~= false then
