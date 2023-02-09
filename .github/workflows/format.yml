@@ -15,4 +15,4 @@ jobs:
                     extra_nix_config: |
                         auto-optimise-store = true
                         experimental-features = nix-command flakes
-            - run: nix run nixpkgs#eclint -- -exclude {**.svg,users/apro/config/**,.git*,flake.lock,**.css}
+            - run: nix run nixpkgs#eclint -- -exclude "{**.svg,users/apro/config/**,.git*,flake.lock,**.css}"
