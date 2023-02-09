@@ -6,7 +6,7 @@
 @media (prefers-color-scheme: dark) { :root {
   
   /* These colours are (mainly) used by the
-     Container Tabs Plugin */
+	 Container Tabs Plugin */
   --uc-identity-colour-blue:      #7ED6DF;
   --uc-identity-colour-turquoise: #55E6C1;
   --uc-identity-colour-green:     #B8E994;
@@ -29,7 +29,7 @@
 @media (prefers-color-scheme: light) { :root {
   
   /* These colours are (mainly) used by the
-     Container Tabs Plugin */
+	 Container Tabs Plugin */
   --uc-identity-colour-blue:      #1D65F5;
   --uc-identity-colour-turquoise: #209FB5;
   --uc-identity-colour-green:     #40A02B;

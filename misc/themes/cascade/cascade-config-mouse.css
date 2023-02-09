@@ -63,7 +63,7 @@
    *  If enabled the max-width is applied on focus
    *  otherwise the URL Bar will always be it's min-width
    */ --uc-urlbar-min-width: 40vw;
-      --uc-urlbar-max-width: 40vw;
+	  --uc-urlbar-max-width: 40vw;
 
   /*  Position of the URL Bar
    *  possible values:
@@ -106,7 +106,7 @@
   /*  Allow tabs to have dynamic widths based on
    *  the Tab Bars maximum width
    */ --uc-active-tab-width:   clamp(100px, 30vw, 300px);
-      --uc-inactive-tab-width: clamp(100px, 20vw, 200px);
+	  --uc-inactive-tab-width: clamp(100px, 20vw, 200px);
 
 
   /*  Enable this to always show the Tab Close button

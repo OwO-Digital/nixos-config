@@ -31,10 +31,10 @@ theming.menu_width   = 150
 theming.icon_theme   = "Papirus"
 
 if cols.launcher == nil then
-    theming.launcher = require("icons").distro
-    theming.launcher_padding = 2
+	theming.launcher = require("icons").distro
+	theming.launcher_padding = 2
 else
-    theming.launcher_padding = 0
+	theming.launcher_padding = 0
 end
 
 require("awful").spawn("feh --bg-fill -z " .. (gfs.get_configuration_dir() .. "themes/assets/walls/".. theme))

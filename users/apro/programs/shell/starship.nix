@@ -23,9 +23,9 @@
 				vicmd_symbol = "[](bold blue)";
 			};
 			hostname = {
-    			ssh_only = true;
-    			format = "[$hostname](bold blue) ";
-    			disabled = false;
+				ssh_only = true;
+				format = "[$hostname](bold blue) ";
+				disabled = false;
   			};
 		};
 	};

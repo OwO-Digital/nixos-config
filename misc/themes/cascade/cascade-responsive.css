@@ -6,24 +6,24 @@
 
   #nav-bar {
 
-    order: var(--uc-urlbar-position);
-    width: var(--uc-urlbar-min-width);
+	order: var(--uc-urlbar-position);
+	width: var(--uc-urlbar-min-width);
 
   }
 
 
   #titlebar {
 
-    order: 2;
-    width: calc(100vw - var(--uc-urlbar-min-width) - 1px);
+	order: 2;
+	width: calc(100vw - var(--uc-urlbar-min-width) - 1px);
 
   }
 
 
   #PersonalToolbar {
 
-    order: var(--uc-toolbar-position);
-    width: 100%;
+	order: var(--uc-toolbar-position);
+	width: 100%;
 
   }
 

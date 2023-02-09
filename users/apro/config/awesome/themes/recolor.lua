@@ -20,7 +20,7 @@ recol.layout_fairv      = gcr(icons.fairv,      cols.barbtns)
 recol.layout_fairh      = gcr(icons.fairh,      cols.barbtns)
 recol.layout_floating   = gcr(icons.floating,   cols.barbtns)
 recol.layout_max        = cmb(icons.max1,       cols.barbtns,
-                              icons.max2,       cols.green)
+							  icons.max2,       cols.green)
 
 recol.titlebar_close_button_normal              = gcr(icons.btn,     cols.dfg)
 recol.titlebar_close_button_focus               = gcr(icons.btn,     cols.red)
@@ -29,9 +29,9 @@ recol.titlebar_minimize_button_focus            = gcr(icons.btn,     cols.yellow
 recol.titlebar_maximized_button_normal_inactive = gcr(icons.btn,     cols.dfg)
 recol.titlebar_maximized_button_focus_inactive  = gcr(icons.btn,     cols.green)
 recol.titlebar_maximized_button_focus_active    = cmb(icons.btn,     cols.green,
-                                                      icons.maxicon, cols.bg)
+													  icons.maxicon, cols.bg)
 recol.titlebar_maximized_button_normal_active   = cmb(icons.btn,     cols.green,
-                                                      icons.maxicon, cols.bg)
+													  icons.maxicon, cols.bg)
 
 recol.titlebar_close_button_focus_hover               = cmb(icons.btn, brighten(cols.red),    icons.closeicon, cols.bg)
 recol.titlebar_close_button_normal_hover              = cmb(icons.btn, brighten(cols.red),    icons.closeicon, cols.bg)

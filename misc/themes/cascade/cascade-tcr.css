@@ -33,5 +33,5 @@
 #main-window[inFullscreen][inDOMFullscreen] #appcontent { margin-left: 0; }
 /* Removes gap between active tab highlight and edge of bar */
 #sidebar-box[sidebarcommand="tabcenter-reborn_ariasuni-sidebar-action"] #sidebar-header, #sidebar-box[sidebarcommand="tabcenter-reborn_ariasuni-sidebar-action"] ~ #sidebar-splitter {
-    display: none;
+	display: none;
 }

@@ -30,17 +30,17 @@ let
 	mapModules = dir: fn:
 		filterAttrs
 			(n: v: v != null)
-    	(mapAttrs'
-    	  (n: v:
-    	    let path = "${toString dir}/${n}"; in
-    	    	if v == "directory" && pathExists "${path}/default.nix"
-    	    		then nameValuePair n (fn path)
-    	    	else if (v == "regular" &&
-    	    	        hasSuffix ".nix" n &&
-    	    	        n != "default.nix")
-    	    		then nameValuePair (removeSuffix ".nix" n) (fn path)
-    	    	else nameValuePair "" null)
-    	  (readDir dir));
+		(mapAttrs'
+		  (n: v:
+			let path = "${toString dir}/${n}"; in
+				if v == "directory" && pathExists "${path}/default.nix"
+					then nameValuePair n (fn path)
+				else if (v == "regular" &&
+						hasSuffix ".nix" n &&
+						n != "default.nix")
+					then nameValuePair (removeSuffix ".nix" n) (fn path)
+				else nameValuePair "" null)
+		  (readDir dir));
 
 	mapModulesRec = dir: fn:
 		mapAttrs'

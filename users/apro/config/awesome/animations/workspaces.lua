@@ -11,20 +11,20 @@ local icons = require("icons")
 local output = { }
 
 tag.connect_signal("property::selected", function(t)
-    gears.timer
-    {
-        timeout = 0.1,
-        call_now  = false,
-        autostart = true,
-        single_shot = true,
-        callback = function()
-            if t.selected == true then
-                for _, c in ipairs(t:clients()) do
-                    c.prev_content = gears.surface.duplicate_surface(c.content)
-                end
-            end
-        end
-    }
+	gears.timer
+	{
+		timeout = 0.1,
+		call_now  = false,
+		autostart = true,
+		single_shot = true,
+		callback = function()
+			if t.selected == true then
+				for _, c in ipairs(t:clients()) do
+					c.prev_content = gears.surface.duplicate_surface(c.content)
+				end
+			end
+		end
+	}
 end)
 
 awful.screen.connect_for_each_screen(function(s)
@@ -44,28 +44,28 @@ function to_surface(t)
 	for _, c in ipairs(t:clients()) do
 		if not c.minimized and not c.hidden then
 			local content
-	                if c.first_tag.selected then
-	                    content = gears.surface(c.content)
-	                else
-	                    content = gears.surface(c.prev_content)
-	                end
-	                local cr = cairo.Context(content)
-	                local x, y, w, h = cr:clip_extents()
-	                local img = cairo.ImageSurface.create(
-	                    cairo.Format.ARGB32,
-	                    w - x,
-	                    h - y
-	                )
-	                local cr = cairo.Context(img)
-	                cr:set_source_surface(content, 0, 0)
-	                cr.operator = cairo.Operator.SOURCE
-	                cr:paint()
+					if c.first_tag.selected then
+						content = gears.surface(c.content)
+					else
+						content = gears.surface(c.prev_content)
+					end
+					local cr = cairo.Context(content)
+					local x, y, w, h = cr:clip_extents()
+					local img = cairo.ImageSurface.create(
+						cairo.Format.ARGB32,
+						w - x,
+						h - y
+					)
+					local cr = cairo.Context(img)
+					cr:set_source_surface(content, 0, 0)
+					cr.operator = cairo.Operator.SOURCE
+					cr:paint()
 	
-	                local img_box = wibox.widget({
-	                    image = gears.surface.load(img),
-	                    resize = true,
-	                    widget = wibox.widget.imagebox,
-	                })
+					local img_box = wibox.widget({
+						image = gears.surface.load(img),
+						resize = true,
+						widget = wibox.widget.imagebox,
+					})
 	
 			local client_box = wibox.widget {
 				{
@@ -189,15 +189,15 @@ function switch_tag(i)
 			-- naughty.notify { text = tostring(pos) }
 			if time == 0.2 then
 				t2:view_only()
-    				gears.timer {
-    				    timeout = 0.1,
-    				    call_now  = false,
-    				    autostart = true,
-    				    single_shot = true,
-				    callback = function()
+					gears.timer {
+						timeout = 0.1,
+						call_now  = false,
+						autostart = true,
+						single_shot = true,
+					callback = function()
 					s.nyoom.visible = false
 					-- naughty.notify { text = tostring(pos) }
-				    end
+					end
 				}
 			end
 		end

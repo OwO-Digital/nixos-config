@@ -54,14 +54,14 @@ return function()
 			s.wyoom.widget:set_clip_shape(function(cr) clip(cr, start_pos.x, start_pos.y, pos) end)
 			if time == 1 then
 				awful.wallpaper { screen = s, widget = s.wyoom.widget }
-    				gears.timer {
-    				    timeout = 0.1,
-    				    call_now  = false,
-    				    autostart = true,
-    				    single_shot = true,
-				    callback = function()
+					gears.timer {
+						timeout = 0.1,
+						call_now  = false,
+						autostart = true,
+						single_shot = true,
+					callback = function()
 					s.wyoom.visible = false
-				    end
+					end
 				}
 			end
 		end

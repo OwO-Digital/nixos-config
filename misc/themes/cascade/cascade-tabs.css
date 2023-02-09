@@ -45,10 +45,10 @@
   > .tab-background
   > .tab-context-line {
 
-    margin: -1px var(--container-tabs-indicator-margin) 0 var(--container-tabs-indicator-margin) !important;
-    height: 1px !important;
+	margin: -1px var(--container-tabs-indicator-margin) 0 var(--container-tabs-indicator-margin) !important;
+	height: 1px !important;
 
-    box-shadow: var(--uc-identity-glow) var(--identity-tab-color) !important;
+	box-shadow: var(--uc-identity-glow) var(--identity-tab-color) !important;
 
 }
 

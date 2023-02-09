@@ -7,7 +7,7 @@
 		enable = true;
 		css = builtins.readFile ../../../../misc/themes/everblush/discord.css;
 
-    # WAITING FOR FIX
+	# WAITING FOR FIX
 		discordAlias = false;
 		discordPackage = pkgs.discord-canary.override {
 			withOpenASAR = true;
