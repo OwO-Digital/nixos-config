@@ -1,10 +1,10 @@
 
 @import url("https://mwittrien.github.io/BetterDiscordAddons/Themes/BlurpleRecolor/BlurpleRecolor.css");
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+HK&family=Noto+Sans+JP&family=Noto+Sans+KR&family=Noto+Sans+SC&family=Noto+Sans+TC&family=Roboto+Condensed&display=swap');
 @import url("https://zzzmario.github.io/modern-indicators/src/source.css");
 
 ::-webkit-input-placeholder, body, button, input, select, textarea {
-	font-family: 'Roboto Condensed', Whitney, sans-serif;
+	font-family: sans-serif;
 	background-color: #141b1e;
 }
 
@@ -32,7 +32,8 @@
 	/* native (default), windows, osx, linux (framed) */
 	--glasscord-titlebar: windows;
 
-	--font: 'Roboto Condensed';
+	--font:      sans-serif;
+	--font-code: monospace;
 
 	--accentcolor: 94,129,172;		/* blurple - default: 114,137,218 */
 	--linkcolor: 136,192,208;		/* link - default: 0,176,244 */
@@ -43,7 +44,7 @@
 
 	--unread-badge: #eceff499 !important;
 	--unread-background: #eceff402 !important;
-	--selected-badge: ##67b0e8 !important;
+	--selected-badge: #67b0e8 !important;
 	--selected-background: #5e81ac1a !important;
 	--hovered: #81a1c109 !important;
 	--active: #81a1c13d !important;

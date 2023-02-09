@@ -1,0 +1,27 @@
+{
+	config,
+	pkgs,
+	...
+}: {
+	programs.discocss = rec {
+		enable = true;
+		css = builtins.readFile ../../../../misc/themes/everblush/discord.css;
+
+    # WAITING FOR FIX
+		discordAlias = false;
+		discordPackage = pkgs.discord-canary.override {
+			withOpenASAR = true;
+		};
+
+		package = pkgs.unstable.discocss.overrideAttrs (prev: {
+			installPhase = prev.installPhase + ''
+				wrapProgram $out/bin/discocss --set DISCOCSS_DISCORD_BIN ${discordPackage}/bin/DiscordCanary
+				ln -s $out/bin/discocss $out/bin/discord
+				ln -s $out/bin/discocss $out/bin/Discord
+				ln -s $out/bin/discocss $out/bin/DiscordCanary
+				mkdir -p $out/share
+				ln -s ${discordPackage}/share/* $out/share
+			'';
+		});
+	};
+}
