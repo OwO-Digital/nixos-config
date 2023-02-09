@@ -26,7 +26,7 @@
 				ssh_only = true;
 				format = "[$hostname](bold blue) ";
 				disabled = false;
-  			};
+			};
 		};
 	};
 }

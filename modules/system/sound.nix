@@ -10,9 +10,9 @@ in {
 
 	config = mkIf cfg.enable {
 		systemd.user.services = {
- 	       pipewire.wantedBy = ["default.target"];
- 	       pipewire-pulse.wantedBy = ["default.target"];
- 	   };
+			pipewire.wantedBy = ["default.target"];
+			pipewire-pulse.wantedBy = ["default.target"];
+		};
 
 		services.pipewire = {
 			enable = true;

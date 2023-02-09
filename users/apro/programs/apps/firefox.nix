@@ -28,22 +28,22 @@
 					"general.smoothScrolling" = true;
 				
 					# Enable DRM support (Spotify, Netflix, so on and so forth... i really don't want to enable this, but... oh well...)
-				  "media.eme.enabled" = true;
-				  "media.gmp-widevinecdm.enabled" = true;
-				  "media.gmp-widevinecdm.visible" = true;
+					"media.eme.enabled" = true;
+					"media.gmp-widevinecdm.enabled" = true;
+					"media.gmp-widevinecdm.visible" = true;
 				
-				  # Remove annoying indicator that's shown when webcam or mic is in use via firefox.
-				  "privacy.webrtc.legacyGlobalIndicator" = false;
-				  "privacy.webrtc.hideGlobalIndicator" = true;
+					# Remove annoying indicator that's shown when webcam or mic is in use via firefox.
+					"privacy.webrtc.legacyGlobalIndicator" = false;
+					"privacy.webrtc.hideGlobalIndicator" = true;
 				};
 				
 				userChrome = import ../../../../misc/themes/cascade + builtins.readFile ../../../../misc/themes/everblush/cascade.css;
 				
 				extraConfig = ''
-				  user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
-				  user_pref("full-screen-api.ignore-widgets", false);
-				  user_pref("media.ffmpeg.vaapi.enabled", true);
-				  user_pref("media.rdd-vpx.enabled", true);
+					user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
+					user_pref("full-screen-api.ignore-widgets", false);
+					user_pref("media.ffmpeg.vaapi.enabled", true);
+					user_pref("media.rdd-vpx.enabled", true);
 				'';
 			};
 		};
