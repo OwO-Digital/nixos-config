@@ -1,4 +1,4 @@
-terminal = "st"
+terminal = "wezterm"
 editor = os.getenv("EDITOR") or "nvim"
 browser = "firefox"
 mail = "mailspring"

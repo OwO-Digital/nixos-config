@@ -17,7 +17,6 @@ in {
 			duf
 			pamixer
 			pulsemixer
-			apro.st
 			dconf
 			btop
 			htop
@@ -111,5 +110,6 @@ in {
 		./programs/apps/firefox.nix
 		./programs/apps/mpd.nix
 		./programs/apps/vscodium.nix
+		./programs/apps/wezterm.nix
 	];
 }

@@ -5,27 +5,39 @@
 		package = pkgs.master.vscodium;
 
 		userSettings = {
-			"editor.fontFamily" = "'Iosevka Nerd Font'";
-			"editor.cursorBlinking" = "smooth";
-			"editor.insertSpaces" = false;
-			"editor.detectIndentation" = false;
-			"editor.tabSize" = 4;
-			"editor.minimap.enabled" = false;
+			editor = {
+				fontFamily = "'Iosevka Nerd Font'";
+				fontLigatures = "'ss14'";
+				cursorBlinking = "smooth";
+				cursorSmoothCaretAnimation = "on";
+				insertSpaces = false;
+				detectIndentation = false;
+				tabSize = 4;
+				minimap.enabled = false;
+				renderWhitespace = "none";
+			};
 
-			"terminal.integrated.cursorStyle" = "underline";
-			"terminal.integrated.cursorWidth" = 2;
-			"terminal.integrated.fontFamily" = "Iosevka Nerd Font";
-			"terminal.integrated.tabs.defaultIcon" = "heart-filled";
+			terminal.integrated = {
+				cursorStyle = "underline";
+				cursorWidth = 2;
+				fontFamily = "Iosevka Nerd Font";
+				tabs.defaultIcon = "heart-filled";
+			};
 
-			"workbench.colorTheme" = "Everblush";
-			"workbench.productIconTheme" = "material-product-icons";
-			"workbench.iconTheme" = "file-icons";
+			workbench = {
+				colorTheme = "Everblush";
+				productIconTheme = "material-product-icons";
+				iconTheme = "file-icons";
+			};
 
-			"window.menuBarVisibility" = "compact";
-			"window.zoomLevel" = 1;
+			window = {
+				menuBarVisibility = "compact";
+				zoomLevel = 1;
+			};
 
-			"nix.serverPath" = "nil";
-			"git.confirmSync" = false;
+			nix.serverPath = "nil";
+			git.confirmSync = false;
+			extensions.autoCheckUpdates = true;
 		};
 
 		extensions = (with pkgs.vscode-extensions; [
@@ -37,6 +49,8 @@
 			jnoortheen.nix-ide
 			catppuccin.catppuccin-vsc
 			editorconfig.editorconfig
+			eamodio.gitlens
+			oderwat.indent-rainbow
 		])
 		++ (with pkgs.master.vscode-extensions; [
 			ms-python.python
