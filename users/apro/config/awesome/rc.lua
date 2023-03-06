@@ -16,6 +16,12 @@ require("error_handling") -- Notify the user if there was an error
 theme = "everblush"
 require("themes")
 
+-- Define bar's properties
+bar_position = "left" -- Must be one of "top", "bottom", "left", or "right"
+bar_floating = true
+bar_outline  = true
+bar_size     = 36
+
 require("conf")      -- Import configuration
 require("ui")        -- Import widgets
 require("signals")   -- Import signals

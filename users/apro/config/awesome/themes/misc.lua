@@ -18,6 +18,8 @@ theming.taglist_fg_occupied = cols.taglist
 theming.taglist_fg_empty    = cols.dfg
 theming.taglist_fg_focus    = cols.bg
 
+theming.tasklist_plain_task_name = true
+
 theming.bg_systray = cols.dbg
 
 theming.tabbar_disable = true

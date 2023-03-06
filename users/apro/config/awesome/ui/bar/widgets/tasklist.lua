@@ -5,21 +5,44 @@ local helpers = require("helpers")
 local beautiful = require("beautiful")
 
 local tasklist_buttons = gears.table.join(
-				awful.button({ }, 1, function (c)
-										 if c == client.focus then
-											 c.minimized = true
-										 else
-											 c:emit_signal(
-												 "request::activate",
-												 "tasklist",
-												 {raise = true}
-											 )
-										 end
-									 end),
-				awful.button({ }, 3, function () awful.menu.client_list({ theme = { width = 300 } }) end),
-				awful.button({ }, 4, function () awful.client.focus.byidx( 1) end),
-				awful.button({ }, 5, function () awful.client.focus.byidx(-1) end)
+	awful.button({ }, 1, function (c)
+			if c == client.focus then
+				c.minimized = true
+			else
+				c:emit_signal(
+					"request::activate",
+					"tasklist",
+					{raise = true}
+				)
+			end
+		end),
+	awful.button({ }, 3, function () awful.menu.client_list({ theme = { width = 300 } }) end),
+	awful.button({ }, 4, function () awful.client.focus.byidx( 1) end),
+	awful.button({ }, 5, function () awful.client.focus.byidx(-1) end)
 )
+
+local task_margins, task_title
+if bar_orientation == "vertical" then
+	task_margins = {
+		left   = 5,
+		right  = 5,
+		top    = 2,
+		bottom = 2,
+	}
+	task_title = nil
+elseif bar_orientation == "horizontal" then
+	task_margins = {
+		left   = 2,
+		right  = 2,
+		top    = 4,
+		bottom = 4,
+	}
+	task_title = {
+		id = "text_role",
+		widget = wibox.widget.textbox
+	}
+end
+
 return function(s)
 	tasklist = awful.widget.tasklist {
 		screen  = s,
@@ -28,15 +51,20 @@ return function(s)
 		style = { valign = "center" },
 		layout  = {
 			spacing = 8,
-			layout = wibox.layout.fixed.vertical
+			layout = wibox.layout.fixed[bar_orientation]
 		},
 		widget_template = {
 			{
 				{
 					{
 						{
-							id = "icon_role",
-							widget = wibox.widget.imagebox
+							{
+								id = "icon_role",
+								widget = wibox.widget.imagebox
+							},
+							task_title,
+							layout = wibox.layout.fixed.horizontal,
+							spacing = 8
 						},
 						widget = wibox.container.margin,
 						margins = 3
@@ -48,10 +76,7 @@ return function(s)
 				widget = wibox.container.background
 			},
 			widget = wibox.container.margin,
-			left = 5,
-			right = 5,
-			up = 2,
-			down = 2
+			margins = task_margins,
 		}
 	}
 	return tasklist

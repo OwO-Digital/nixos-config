@@ -133,7 +133,7 @@ client.connect_signal("request::titlebars", function(c)
 	})
 	awful.titlebar(c, {
 		position = "bottom",
-		size = beautiful.border_radius * 2,
+		size = beautiful.border_radius * 2 + beautiful.border_size + beautiful.bottom_padding,
 		bg = "#00000000"
 	})
 	:setup({
@@ -187,7 +187,7 @@ client.connect_signal("request::titlebars", function(c)
 	awesome.connect_signal("bling::tabbed::update", function(obj)
 		if #obj.clients == 1 or nil then
 			for _, c in ipairs(obj.clients) do
-				awful.titlebar(c, { position = "bottom", size = beautiful.border_radius * 2 })
+				awful.titlebar(c, { position = "bottom", size = beautiful.border_radius * 2 + beautiful.border_size + beautiful.bottom_padding})
 			end
 		elseif #obj.clients > 1 then
 			for _, c in ipairs(obj.clients) do
@@ -197,16 +197,16 @@ client.connect_signal("request::titlebars", function(c)
 	end)
 	
 	awesome.connect_signal("bling::tabbed::client_removed", function(obj, c)
-		awful.titlebar(c, { position = "bottom", size = beautiful.border_radius * 2 })
+		awful.titlebar(c, { position = "bottom", size = beautiful.border_radius * 2 + beautiful.border_size + beautiful.bottom_padding})
 	end)
 	
 	local tabcheck = function(c)
 		if c.bling_tabbed == nil then
-			return beautiful.border_radius * 2
+			return beautiful.border_radius * 2 + beautiful.border_size + beautiful.bottom_padding
 		else
 			if #c.bling_tabbed.clients == 1 then
 				bling.module.tabbed.remove(c)
-				return beautiful.border_radius * 2
+				return beautiful.border_radius * 2 + beautiful.border_size + beautiful.bottom_padding
 			else
 				return 30
 			end
@@ -237,10 +237,10 @@ client.connect_signal("request::titlebars", function(c)
 		local bs = tabcheck(c)
 		if c.requests_no_titlebar ~= true then
 			if c.maximized then
-				awful.titlebar(c, { position = "top",    size = 24 }).widget.shape          = helpers.rect()
-				awful.titlebar(c, { position = "top",    size = 24 }).widget.lol.lmao.shape = helpers.rect()
-				awful.titlebar(c, { position = "bottom", size = bs }).widget.shape          = helpers.rect()
-				awful.titlebar(c, { position = "bottom", size = bs }).widget.lol.lmao.shape = helpers.rect()
+				awful.titlebar(c, { position = "top",    size = 24 }).widget.shape          = gears.shape.rectangle
+				awful.titlebar(c, { position = "top",    size = 24 }).widget.lol.lmao.shape = gears.shape.rectangle
+				awful.titlebar(c, { position = "bottom", size = bs }).widget.shape          = gears.shape.rectangle
+				awful.titlebar(c, { position = "bottom", size = bs }).widget.lol.lmao.shape = gears.shape.rectangle
 			else
 				awful.titlebar(c, { position = "top",    size = 24 }).widget.shape          = helpers.prrect(beautiful.border_radius, true, true, false, false)
 				awful.titlebar(c, { position = "top",    size = 24 }).widget.lol.lmao.shape = helpers.prrect(beautiful.border_radius, true, true, false, false)

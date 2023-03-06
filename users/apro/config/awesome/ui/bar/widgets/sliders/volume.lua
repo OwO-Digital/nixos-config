@@ -6,6 +6,17 @@ local rubato = require("modules.rubato")
 local color = require("modules.color")
 local helpers = require("helpers")
 
+local bar_dir, bar_h_rev, bar_w_rev
+if bar_orientation == "vertical" then
+	bar_dir = "east"
+	bar_h_rev = { 0,   80  }
+	bar_w_rev = { nil, nil }
+elseif bar_orientation == "horizontal" then
+	bar_dir = "south"
+	bar_h_rev = { nil, nil }
+	bar_w_rev = { 0,   80  }
+end
+
 return function(s)
 	local volbar = wibox.widget {
 		{
@@ -28,38 +39,38 @@ return function(s)
 					},
 					id        = "rotate",
 					widget    = wibox.container.rotate,
-					direction = "east"
+					direction = bar_dir
 				},
-				id     = "margin",
-				widget = wibox.container.margin,
-				top    = 8,
-				bottom = 8
+				id      = "margin",
+				widget  = wibox.container.margin,
+				margins = 8,
 			},
 			id       = "reveal",
 			widget   = wibox.container.constraint,
 			strategy = "max",
-			height   = 0
+			width    = bar_w_rev[1],
+			height   = bar_h_rev[1],
 		},
-		{
 		{
 			{
-					widget = wibox.widget.textbox,
-					markup = "<span foreground='" .. beautiful.barbtns .. "'></span>",
-					align  = "center",
-					valign = "center",
-					font = helpers.join({beautiful.icfontsp, beautiful.fontsize * 1.4}),
-					forced_width  = 28,
-					forced_height = 28,
-					id = "icon"
-				},
+				{
+						widget = wibox.widget.textbox,
+						markup = "<span foreground='" .. beautiful.barbtns .. "'></span>",
+						align  = "center",
+						valign = "center",
+						font = helpers.join({beautiful.icfontsp, beautiful.fontsize * 1.4}),
+						forced_width  = 28,
+						forced_height = 28,
+						id = "icon"
+					},
+				widget = wibox.container.background,
+				id     = "bgcol"
+			},
 			widget = wibox.container.background,
-			id     = "bgcol"
+			shape  = helpers.rrect(4),
+			id     = "shape"
 		},
-		widget = wibox.container.background,
-		shape  = helpers.rrect(4),
-		id     = "shape"
-		},
-		layout = wibox.layout.fixed.vertical
+		layout = wibox.layout.fixed[bar_orientation]
 	}
 
 	local icon = volbar.shape.bgcol.icon
@@ -82,10 +93,10 @@ return function(s)
 	local update_mute = function()
 		awful.spawn.easy_async_with_shell("pamixer --get-mute", function(stdout)
 			if stdout:gsub("\n", "") == "true" then
-  	          icon:set_markup("<span foreground='" .. beautiful.dfg .. "'>󰝟</span>")
+				icon:set_markup("<span foreground='" .. beautiful.dfg .. "'>󰝟</span>")
 			
 				vol:set_bar_active_color(beautiful.dfg)
-  	        	vol:set_handle_color    (beautiful.dfg)
+  	        		vol:set_handle_color    (beautiful.dfg)
 			else
 				vol:set_bar_active_color(beautiful.barbtns)
 				vol:set_handle_color    (beautiful.barbtns)
@@ -107,14 +118,25 @@ return function(s)
 		awful.button({ }, 3, function() awful.spawn.with_shell(terminal .. " -e pulsemixer") end)
 	))
 
-	local volume_slide = rubato.timed {
+	local volume_slide
+	if bar_orientation == "vertical" then
+	volume_slide = rubato.timed {
 		pos        = 0,
 		duration   = 0.5,
 		intro      = 0,
 		outro      = 0.4,
 		easing     = rubato.quadratic,
 		subscribed = function(pos) volbar.reveal:set_height(pos) end
-	}
+	} elseif bar_orientation == "horizontal" then
+	volume_slide = rubato.timed {
+		pos        = 0,
+		duration   = 0.5,
+		intro      = 0,
+		outro      = 0.4,
+		easing     = rubato.quadratic,
+		subscribed = function(pos) volbar.reveal:set_width(pos) end
+	} end
+
 
 	volbar:connect_signal("mouse::enter", function()
 		awful.spawn.easy_async_with_shell("pamixer --get-volume", function(stdout)

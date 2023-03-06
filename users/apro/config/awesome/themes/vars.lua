@@ -19,6 +19,7 @@ vars.playerctl_player = { "mpd", "spotify", "%any" }
 vars.useless_gap = 8
 vars.border_radius = 6
 vars.border_size = 2
+vars.bottom_padding = 0
 vars.btnsize = 16
 vars.iconsize = 20
 vars.systray_icon_spacing = 4

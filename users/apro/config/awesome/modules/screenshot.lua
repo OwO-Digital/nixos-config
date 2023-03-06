@@ -11,9 +11,9 @@
 
 -- Grab environment we need
 local capi = { root = root,
-			   screen = screen,
-			   client = client,
-			   mousegrabber = mousegrabber }
+               screen = screen,
+               client = client,
+               mousegrabber = mousegrabber }
 local aw_screen = require("awful.screen")
 local gears = require("gears")
 local beautiful = require("beautiful")
@@ -44,11 +44,11 @@ local function get_default_dir()
   local d = os.getenv("HOME")
   
   if d then
-	d = string.gsub(d, '/$', '') .. '/Images'
-	if os.execute("bash -c \"if [ -d \\\"" .. d .. "\\\" -a -w \\\"" .. d ..
-					"\\\" ] ; then exit 0 ; else exit 1 ; fi ;\"") then
-	  return d .. '/'
-	end
+    d = string.gsub(d, '/$', '') .. '/Images'
+    if os.execute("bash -c \"if [ -d \\\"" .. d .. "\\\" -a -w \\\"" .. d ..
+                    "\\\" ] ; then exit 0 ; else exit 1 ; fi ;\"") then
+      return d .. '/'
+    end
   end
 
   return nil
@@ -63,29 +63,29 @@ end
 local function check_directory(directory)
   if directory and type(directory) == "string"  then
 
-	-- By putting everything in dquotes, we should only need to escape
-	-- dquotes and dollar signs. Exclamation must be escaped outside the quote.
-	directory = string.gsub(directory, '"', '\\\\\\"')
-	directory = string.gsub(directory, '%$', '\\$')
-	directory = string.gsub(directory, '!', '"\\!"')
-	-- Assure that we return exactly one trailing slash
-	directory = string.gsub(directory, '/+$', '')
+    -- By putting everything in dquotes, we should only need to escape
+    -- dquotes and dollar signs. Exclamation must be escaped outside the quote.
+    directory = string.gsub(directory, '"', '\\\\\\"')
+    directory = string.gsub(directory, '%$', '\\$')
+    directory = string.gsub(directory, '!', '"\\!"')
+    -- Assure that we return exactly one trailing slash
+    directory = string.gsub(directory, '/+$', '')
 
-	if os.execute("bash -c \"if [ -d \\\"" .. directory .. "\\\" -a -w \\\"" ..
-			   directory ..  "\\\" ] ; then exit 0 ; else exit 1 ; fi ;\"") then
-	  return directory .. '/'
-	else
-	  -- Currently returns nil if the requested directory string cannot be used.
-	  -- This can be swapped to a silent fallback to the default directory if
-	  -- desired. It is debatable which way is better.
-	  return nil
-	end
+    if os.execute("bash -c \"if [ -d \\\"" .. directory .. "\\\" -a -w \\\"" ..
+               directory ..  "\\\" ] ; then exit 0 ; else exit 1 ; fi ;\"") then
+      return directory .. '/'
+    else
+      -- Currently returns nil if the requested directory string cannot be used.
+      -- This can be swapped to a silent fallback to the default directory if
+      -- desired. It is debatable which way is better.
+      return nil
+    end
 
   else
-	-- No directory argument means use the default. Technically an outrageously
-	-- invalid argument (i.e. not even a string) currently falls back to the
-	-- default as well.
-	return get_default_dir()
+    -- No directory argument means use the default. Technically an outrageously
+    -- invalid argument (i.e. not even a string) currently falls back to the
+    -- default as well.
+    return get_default_dir()
   end
 end
 
@@ -97,10 +97,10 @@ end
 local function check_prefix(prefix)
   -- Maybe add more sanitizing eventually
   if prefix and type(prefix) == "string" then
-	prefix = string.gsub(prefix, '/', '')
-	if string.len(prefix) ~= 0 then
-	  return prefix
-	end
+    prefix = string.gsub(prefix, '/', '')
+    if string.len(prefix) ~= 0 then
+      return prefix
+    end
   end
   return get_default_prefix()
 end
@@ -121,30 +121,30 @@ function screenshot.init(directory, prefix, color)
   tmp = check_directory(directory)
 
   if tmp then
-	ss_dir = tmp
+    ss_dir = tmp
   else
-	initialized = nil
-	return false
+    initialized = nil
+    return false
   end
 
   tmp = check_prefix(prefix)
 
   if tmp then
-	ss_prfx = tmp
+    ss_prfx = tmp
   else
-	-- Should be unreachable as the default will always be taken
-	initialized = nil
-	return false
+    -- Should be unreachable as the default will always be taken
+    initialized = nil
+    return false
   end
 
   -- Don't throw out prior init data if only color is misformed
   initialized = true
 
   if color then
-	tmp = gears.color(color)
-	if tmp then
-	  frame_color = tmp
-	end
+    tmp = gears.color(color)
+    if tmp then
+      frame_color = tmp
+    end
   end
 
   return true
@@ -163,30 +163,30 @@ local function configure_call(directory, prefix)
   local d, p
 
   if not initialized or directory then
-	d = check_directory(directory)
-	if not d then
-	  return
-	end
+    d = check_directory(directory)
+    if not d then
+      return
+    end
   else
-	d = ss_dir
+    d = ss_dir
   end
 
 
   if not initialized or prefix then
-	p = check_prefix(prefix)
-	if not p then 
-	  return
-	end
+    p = check_prefix(prefix)
+    if not p then 
+      return
+    end
   else
-	p = ss_prfx
+    p = ss_prfx
   end
 
   -- In the case of taking a screenshot in an unitialized state, store the
   -- configuration parameters and toggle to initialized going forward.
   if not initialized then
-	ss_dir = d
-	ss_prfx = p
-	initilialized = true
+    ss_dir = d
+    ss_prfx = p
+    initilialized = true
   end
   
   return d, p
@@ -204,7 +204,7 @@ local function crop_shot(x, y, width, height)
 
   source = gears.surface(root.content())
   target = source:create_similar(cairo.Content.COLOR,
-						 width, height)
+                         width, height)
 
   cr = cairo.Context(target)
   cr:set_source_surface(source, -x, -y)
@@ -225,15 +225,15 @@ end
 local function show_frame(geo)
 
   if not geo then
-	  if frame then
-		  frame.visible = false
-	  end
-	  return
+      if frame then
+          frame.visible = false
+      end
+      return
   end
 
   frame = frame or wibox {
-	  ontop = true,
-	  bg    = frame_color
+      ontop = true,
+      bg    = frame_color
   }
 
   frame:geometry(geo)
@@ -255,8 +255,8 @@ local function show_frame(geo)
 
   cr:translate(line_width,line_width)
   gears.shape.partially_rounded_rect(cr, geo.width - 2*line_width,
-									 geo.height - 2*line_width,
-									 false, false, false, false, nil)
+                                     geo.height - 2*line_width,
+                                     false, false, false, false, nil)
 
   cr:stroke()
 
@@ -277,71 +277,71 @@ end
 -- incorporated into the init() configuration routine).
 local function mg_callback(mouse_data)
   if mouse_data["buttons"][3] then
-	if frame and frame.visible then
-	  show_frame()
-	end
-	return false
+    if frame and frame.visible then
+      show_frame()
+    end
+    return false
   end
 
   if mg_first_pnt[1] then
 
-	local min_x, max_x, min_y, max_y
-	min_x = math.min(mg_first_pnt[1], mouse_data["x"])
-	max_x = math.max(mg_first_pnt[1], mouse_data["x"])
-	min_y = math.min(mg_first_pnt[2], mouse_data["y"])
-	max_y = math.max(mg_first_pnt[2], mouse_data["y"])
+    local min_x, max_x, min_y, max_y
+    min_x = math.min(mg_first_pnt[1], mouse_data["x"])
+    max_x = math.max(mg_first_pnt[1], mouse_data["x"])
+    min_y = math.min(mg_first_pnt[2], mouse_data["y"])
+    max_y = math.max(mg_first_pnt[2], mouse_data["y"])
 
-	-- Force a minimum size to the box
-	if  max_x - min_x < 4 or max_y - min_y < 4 then
-	  if frame and frame.visible then
-		show_frame()
-	  end
-	elseif not mouse_data["buttons"][1] then
-	  show_frame({x = min_x, y = min_y, width = max_x - min_x, height = max_y - min_y})
-	end
+    -- Force a minimum size to the box
+    if  max_x - min_x < 4 or max_y - min_y < 4 then
+      if frame and frame.visible then
+        show_frame()
+      end
+    elseif not mouse_data["buttons"][1] then
+      show_frame({x = min_x, y = min_y, width = max_x - min_x, height = max_y - min_y})
+    end
 
-	if mouse_data["buttons"][1] then
+    if mouse_data["buttons"][1] then
 
-	  local dir, prfx
-	  local date_time, fname
-	  local snip_surf
+      local dir, prfx
+      local date_time, fname
+      local snip_surf
 
-	  if frame and frame.visible then
-		show_frame()
-	  end
+      if frame and frame.visible then
+        show_frame()
+      end
 
-	  frame = nil
-	  mg_first_pnt = {}
+      frame = nil
+      mg_first_pnt = {}
 
-	  -- This may fail gracefully anyway but require a minimum 2x2 of pixels
-	  if min_x >= max_x-1 or min_y >= max_y-1 then
-		return false
-	  end
+      -- This may fail gracefully anyway but require a minimum 2x2 of pixels
+      if min_x >= max_x-1 or min_y >= max_y-1 then
+        return false
+      end
 
-	  dir, prfx = configure_call(mg_dir, mg_prfx)
-	  snip_surf = crop_shot(min_x, min_y, max_x - min_x, max_y - min_y)
+      dir, prfx = configure_call(mg_dir, mg_prfx)
+      snip_surf = crop_shot(min_x, min_y, max_x - min_x, max_y - min_y)
 
-	  if dir and prfx and snip_surf then
-		date_time = tostring(os.date("%Y%m%d%H%M%S"))
-		fname = dir .. prfx .. date_time .. ".png"
+      if dir and prfx and snip_surf then
+        date_time = tostring(os.date("%Y%m%d%H%M%S"))
+        fname = dir .. prfx .. date_time .. ".png"
 
-		gears.surface(snip_surf):write_to_png(fname)
+        gears.surface(snip_surf):write_to_png(fname)
 
-		if mg_onsuccess_cb then
-		  mg_onsuccess_cb(fname)  -- This should probably be a separate thread
-		end
-	  end
+        if mg_onsuccess_cb then
+          mg_onsuccess_cb(fname)  -- This should probably be a separate thread
+        end
+      end
 
-	  mg_onsuccess_cb = nil       -- Revert callback unconditionally
-	  return false
+      mg_onsuccess_cb = nil       -- Revert callback unconditionally
+      return false
 
-	end
+    end
 
   else
-	if mouse_data["buttons"][1] then
-	  mg_first_pnt[1] = mouse_data["x"]
-	  mg_first_pnt[2] = mouse_data["y"]
-	end
+    if mouse_data["buttons"][1] then
+      mg_first_pnt[1] = mouse_data["x"]
+      mg_first_pnt[2] = mouse_data["y"]
+    end
   end
 
   return true
@@ -360,10 +360,10 @@ function screenshot.root(directory, prefix)
   dir, prfx = configure_call(directory, prefix)
 
   if dir and prfx then
-	date_time = tostring(os.date("%Y%m%d%H%M%S"))
-	fname = dir .. prfx .. date_time .. ".png"
-	gears.surface(capi.root.content()):write_to_png(fname)
-	return fname
+    date_time = tostring(os.date("%Y%m%d%H%M%S"))
+    fname = dir .. prfx .. date_time .. ".png"
+    gears.surface(capi.root.content()):write_to_png(fname)
+    return fname
   end
 end
 
@@ -380,22 +380,22 @@ function screenshot.screen(directory, prefix, target)
   local date_time, fname
 
   if target then
-	if type(target) == "number" then
-	  s = capi.screen[target] and aw_screen.focused()
-	elseif target.index and type(target.index) == "number" then
-	  s = capi.screen[target.index] and aw_screen.focused()
-	end
+    if type(target) == "number" then
+      s = capi.screen[target] and aw_screen.focused()
+    elseif target.index and type(target.index) == "number" then
+      s = capi.screen[target.index] and aw_screen.focused()
+    end
   else
-	s = aw_screen.focused()
+    s = aw_screen.focused()
   end
 
   dir, prfx = configure_call(directory, prefix)
 
   if s and dir and prfx then
-	date_time = tostring(os.date("%Y%m%d%H%M%S"))
-	fname = dir .. prfx .. date_time .. ".png"
-	gears.surface(s.content):write_to_png(fname)
-	return fname
+    date_time = tostring(os.date("%Y%m%d%H%M%S"))
+    fname = dir .. prfx .. date_time .. ".png"
+    gears.surface(s.content):write_to_png(fname)
+    return fname
   end
 end
 
@@ -418,10 +418,10 @@ function screenshot.client(directory, prefix)
   c = capi.client.focus
 
   if c and dir and prfx then
-	date_time = tostring(os.date("%Y%m%d%H%M%S"))
-	fname = dir .. prfx .. date_time .. ".png"
-	gears.surface(c.content):write_to_png(fname)
-	return fname
+    date_time = tostring(os.date("%Y%m%d%H%M%S"))
+    fname = dir .. prfx .. date_time .. ".png"
+    gears.surface(c.content):write_to_png(fname)
+    return fname
   end
 end
 
@@ -441,16 +441,16 @@ function screenshot.snipper(directory, prefix, onsuccess_cb)
 
   if dir and prfx then
 
-	mg_dir = dir
-	mg_prfx = prfx
+    mg_dir = dir
+    mg_prfx = prfx
 
-	capi.mousegrabber.run(mg_callback, "crosshair")
+    capi.mousegrabber.run(mg_callback, "crosshair")
 
-	if onsuccess_cb and type(onsuccess_cb) == "function" then
-	  mg_onsuccess_cb = onsuccess_cb
-	end
+    if onsuccess_cb and type(onsuccess_cb) == "function" then
+      mg_onsuccess_cb = onsuccess_cb
+    end
 
-	return
+    return
 
   end  
 end
@@ -473,24 +473,24 @@ function screenshot.snip(geom, directory, prefix)
   dir, prfx = configure_call(directory, prefix)
 
   if dir and prfx and geom and
-	   geom.x and geom.y and geom.width and geom.height then
+       geom.x and geom.y and geom.width and geom.height then
 
-	if type(geom.x) == "number" and type(geom.y) == "number" and
-		 type(geom.width) == "number" and type(geom.height) == "number" then
+    if type(geom.x) == "number" and type(geom.y) == "number" and
+         type(geom.width) == "number" and type(geom.height) == "number" then
 
-	  root_intrsct = gears.geometry.rectangle.get_intersection(geom,
-											   {x = 0, y = 0,
-											   width = root_w, height = root_h})
-	  snip_surf = crop_shot(root_intrsct.x, root_intrsct.y,
-							root_intrsct.width, root_intrsct.height)
+      root_intrsct = gears.geometry.rectangle.get_intersection(geom,
+                                               {x = 0, y = 0,
+                                               width = root_w, height = root_h})
+      snip_surf = crop_shot(root_intrsct.x, root_intrsct.y,
+                            root_intrsct.width, root_intrsct.height)
 
-	  date_time = tostring(os.date("%Y%m%d%H%M%S"))
-	  fname = dir .. prfx .. date_time .. ".png"
-	  gears.surface(snip_surf):write_to_png(fname)
+      date_time = tostring(os.date("%Y%m%d%H%M%S"))
+      fname = dir .. prfx .. date_time .. ".png"
+      gears.surface(snip_surf):write_to_png(fname)
 
-	  return fname
+      return fname
 
-	end
+    end
 
   end 
 end

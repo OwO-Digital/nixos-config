@@ -4,8 +4,19 @@ local gears = require("gears")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 local beautiful = require("beautiful")
 local tabbed = require("modules.bling.module.tabbed")
-local screenshot = require("modules.screenshot")
-screenshot.init(os.getenv("HOME") .. "/.screenshots/", "AweShot-", beautiful.black)
+
+local function sht(args)
+	if not args.directory       then args.directory       = os.getenv("HOME") .. "/.screenshots/" end
+	if not args.auto_save_delay then args.auto_save_delay = 0 end
+	local ss = awful.screenshot(args)
+
+	if args.copy then
+		require("naughty").notify { title = "Screenshot Saved" , text = ss.file_path}
+		awful.spawn("xclip -selection clipboard " .. ss.file_path .. " -t image/png")
+	end
+	
+	return ss
+end
 
 require("conf.menu")
 
@@ -110,8 +121,7 @@ globalkeys = gears.table.join(
 --	awful.key({ "Shift"          }, "Alt_L", function() kbdcfg.switch_next() end),
 
 	awful.key({ scrkey.mod            }, scrkey.key, function()
-						local sht = screenshot.screen() 
-						awful.spawn("xclip -selection clipboard " .. sht .. " -t image/png")
+						local ss = sht({ screen = awful.screen.focused(), copy = true })
 					  	end,
 		  {description = "take a screenshot of the monitor", group = "screenshot"}),
 	awful.key({ "Control", scrkey.mod }, scrkey.key, function() awful.spawn.with_shell("scrot -fs -e 'xclip -selection clipboard -t image/png < $f && mv $f ~/.screenshots/' --line style=solid,mode=edge '%Y-%m-%d-%H.%M.%S_$wx$h.png'") end,

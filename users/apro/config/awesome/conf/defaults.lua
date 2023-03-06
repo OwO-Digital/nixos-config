@@ -10,8 +10,7 @@ emoji_picker = "emoji-picker"
 editor_cmd = terminal .. " -e " .. editor
 termfiles_cmd = terminal .. " -e " .. termfiles
 
-laptop = true
+laptop = false
 
-scrkey = { mod = nil,   key = "Print" }
--- scrkey = { mod = "Mod3", key = "Return" }
+scrkey = { mod = nil,   key = "Insert" }
 --- I don't have Print Screen on my Desktop keyboard shut up >:(
