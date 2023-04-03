@@ -21,6 +21,8 @@ in {
 			btop
 			htop
 			libinput-gestures
+			mpv
+			unityhub
 			# run # credit to alpha for this
 		];
 
@@ -90,8 +92,7 @@ in {
 		};
 
 		configFile = {
-			awesome.source = ./config/awesome;
-			nvim.source = ./config/nvim;
+			# awesome.source = ./config/awesome;
 			picom.source = ./config/picom;
 			rofi.source = ./config/rofi;
 			"libinput-gestures.conf".source = ./config/libinput-gestures.conf;
