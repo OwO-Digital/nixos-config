@@ -134,24 +134,24 @@ return {
 				selection_fg = "141b1e";
 				selection_bg = "#dadada";
 				ansi = [
-				    "#232a2d"
-				    "#e57474"
-				    "#8ccf7e"
-				    "#e5c76b"
-				    "#67b0e8"
-				    "#c47fd5"
-				    "#6cbfbf"
-				    "#b3b9b8"
+				  "#232a2d"
+				  "#e57474"
+				  "#8ccf7e"
+				  "#e5c76b"
+				  "#67b0e8"
+				  "#c47fd5"
+				  "#6cbfbf"
+				  "#b3b9b8"
 				];
 				brights = [
-				    "#2d3437"
-				    "#ef7d7d"
-				    "#96d988"
-				    "#f4d67a"
-				    "#71baf2"
-				    "#ce89df"
-				    "#67cbe7"
-				    "#bdc3c2"
+				  "#2d3437"
+				  "#ef7d7d"
+				  "#96d988"
+				  "#f4d67a"
+				  "#71baf2"
+				  "#ce89df"
+				  "#67cbe7"
+				  "#bdc3c2"
 				];
 			};
 		};
