@@ -7,12 +7,12 @@ apps = {
   terminal        = "kitty",
 
   -- Your default text editor
-  editor          = os.getenv("EDITOR") or "vim",
+  editor          = os.getenv("EDITOR") or "nvim",
 
   -- editor_cmd = terminal .. " -e " .. editor,
 
   -- Your default file explorer
-  explorer        = "pcmanfm",
+  explorer        = "nemo",
 
 }
 

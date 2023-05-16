@@ -18,6 +18,10 @@
       networkmanager-l2tp
 
       libgnome-keyring
+      picom
+      pantheon-agent-polkit
+      numlockx
+      udiskie
     ];
     keyboard = {
       layout = "us,cz(qwerty)";
