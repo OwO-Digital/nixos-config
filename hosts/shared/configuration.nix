@@ -17,7 +17,10 @@
 		};
 	};
 
-	networking.networkmanager.enable = true;
+	networking.networkmanager = {
+		enable = true;
+		enableStrongSwan = true;
+	};
 
 	time = {
 		timeZone = "Europe/Prague";
@@ -65,11 +68,17 @@
 			viAlias = true;
 			vimAlias = true;
 		};
+		zsh.enable = true;
 	};
 
 	services = {
 		dbus.enable = true;
 		openssh.enable = true;
+		xl2tpd.enable = true;
+		strongswan = {
+			enable = true;
+			secrets = [ "ipsec.d/ipsec.nm-l2tp.secrets" ];
+		};
 	};
 
 	system.stateVersion = "22.11";
