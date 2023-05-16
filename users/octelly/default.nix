@@ -7,8 +7,12 @@
 			pulsemixer
 			maple-mono-NF
 			ranger
+			cinnamon.nemo-with-extensions
 			firefox
 			armcord
+
+			rnix-lsp
+			nixpkgs-fmt
 
 			networkmanagerapplet
 			networkmanager-l2tp
@@ -174,6 +178,31 @@
 	xdg = {
 		enable = true;
 		mime.enable = true;
+		mimeApps = {
+			enable = true;
+			defaultApplications = {
+				"inode/directory" = [ "nemo.desktop" ];
+				"video" = [ "mpv.desktop" ];
+				"audio" = [ "mpv.desktop" ];
+				"text" = [ "neovim.desktop" ];
+			};
+		};
+
+		userDirs = {
+			enable = true;
+			createDirectories = true;
+
+			desktop = null;
+			publicShare = null;
+			templates = null;
+
+			download  = "${config.home.homeDirectory}/Downloads";
+			documents = "${config.home.homeDirectory}/Documents";
+			music     = "${config.home.homeDirectory}/Music";
+			pictures  = "${config.home.homeDirectory}/Pictures";
+			videos    = "${config.home.homeDirectory}/Videos";
+		};
+
 		configFile = {
 			"chromium/policies/managed/extra.json".text = builtins.toJSON {
 				"OsColorMode" = "dark";
