@@ -22,6 +22,7 @@
       pantheon.pantheon-agent-polkit
       numlockx
       udiskie
+      xfce.xfce4-power-manager
     ];
     keyboard = {
       layout = "us,cz(qwerty)";

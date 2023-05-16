@@ -8,7 +8,7 @@ return {
     'picom --config ' .. filesystem.get_configuration_dir() .. 'configuration/picom.conf',
     'nm-applet --indicator', -- wifi
     'blueberry-tray', -- Bluetooth tray icon
-    --'xfce4-power-manager', -- Power manager
+    'xfce4-power-manager', -- Power manager
     'numlockx on', -- enable numlock
     -- '/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 & eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg)', -- credential manager (alternate directory if the first one is incorrect)
     -- '/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1  & eval $(gnome-keyring-daemon -s --components=pkcs11,secrets,ssh,gpg)', -- credential manager
