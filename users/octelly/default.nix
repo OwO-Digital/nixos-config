@@ -19,7 +19,7 @@
 
       libgnome-keyring
       picom
-      pantheon-agent-polkit
+      pantheon.pantheon-agent-polkit
       numlockx
       udiskie
     ];
