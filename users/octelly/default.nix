@@ -10,6 +10,8 @@
       cinnamon.nemo-with-extensions
       firefox
       armcord
+      prismlauncher
+      openjdk17-bootstrap
 
       rnix-lsp
       nixpkgs-fmt
