@@ -1,5 +1,5 @@
-[submodule "users/apro/config/awesome/modules/bling"]
-	path = users/apro/config/awesome/modules/bling
+[submodule "users/apro/config/awesome/modules/bling_stable"]
+	path = users/apro/config/awesome/modules/bling_stable
 	url = https://github.com/BlingCorp/bling.git
 [submodule "users/apro/config/awesome/modules/battery_widget"]
 	path = users/apro/config/awesome/modules/battery_widget
@@ -10,3 +10,7 @@
 [submodule "users/apro/config/awesome/modules/rubato"]
 	path = users/apro/config/awesome/modules/rubato
 	url = https://github.com/andOrlando/rubato.git
+[submodule "users/apro/config/awesome/modules/bling"]
+	path = users/apro/config/awesome/modules/bling
+	url = git@github.com:Aproxia-dev/bling.git
+	branch = playerctl_metadata_v2
