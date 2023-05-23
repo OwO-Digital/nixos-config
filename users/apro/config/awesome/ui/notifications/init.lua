@@ -107,8 +107,8 @@ naughty.connect_signal("request::display", function(n)
 			upscale = false,
 			halign = "center",
 			valign = "center",
-			forced_height = beautiful.get_font_height(helpers.join({beautiful.uifontsp, beautiful.fontsize})) * 3,
-			forced_width  = beautiful.get_font_height(helpers.join({beautiful.uifontsp, beautiful.fontsize})) * 3,
+			forced_height = beautiful.get_font_height(helpers.join({beautiful.uifontsp, beautiful.fontsize})) * 4,
+			forced_width  = beautiful.get_font_height(helpers.join({beautiful.uifontsp, beautiful.fontsize})) * 4,
 		}
 	else
 		image = nil
@@ -150,7 +150,8 @@ naughty.connect_signal("request::display", function(n)
 				margins = {
 					left = 4,
 					right = 4,
-					bottom = 4,
+					top = 8,
+					bottom = 12,
 				}
 			},
 			widget = wibox.container.constraint,

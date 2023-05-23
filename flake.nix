@@ -15,11 +15,11 @@
 		home.inputs.nixpkgs.follows = "nixpkgs";
 		f2k.inputs.nixpkgs.follows  = "nixpkgs";
 
-		newm =    {	url = "github:jbuchermn/newm";
-					inputs.nixpkgs.follows = "nixpkgs"; };
-
-		hyprland =    {	url = "github:hyprwm/Hyprland";
-						inputs.nixpkgs.follows = "nixpkgs"; };
+		### newm is currently unmaintained...
+		# newm = {
+		# 	url = "github:jbuchermn/newm";
+		# 	inputs.nixpkgs.follows = "nixpkgs";
+		# };
 	};
 
 	outputs = {

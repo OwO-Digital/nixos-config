@@ -2,7 +2,7 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local icons = require("icons")
 local gc = require("gears.color")
-local playerctl = require("modules.bling").signal.playerctl.lib()
+local playerctl = require("modules.bling").signal.playerctl.lib({metadata_v2 = true})
 
 local prev = naughty.action {
 	name = "Previous",
@@ -36,13 +36,12 @@ prev:connect_signal("invoked",      function() playerctl:previous()   end)
 playpause:connect_signal("invoked", function() playerctl:play_pause() end)
 skip:connect_signal("invoked",      function() playerctl:next()       end)
 
-playerctl:connect_signal("metadata", function(_, title, artist, album_path, album, new, player_name, extra)
+playerctl:connect_signal("metadata", function(_, metadata, album_art, new, player_name)
 	if new == true then
-
 		naughty.notify({
-			title    = extra.track .. ". " .. artist .. " - " .. title,
-			text     =  "from <b><i>" .. album .. "</i></b> (" .. extra.year .. ")",
-			image    = album_path,
+			title    = metadata.trackNumber .. ". " .. metadata.artist .. " - " .. metadata.title,
+			text     =  "from <b><i>" .. metadata.album .. "</i></b> (" .. metadata.contentCreated .. ")",
+			image    = album_art,
 			app_name = player_name,
 			app_icon = gc.recolor_image(icons.music, beautiful.notifs),
 			actions  = { prev, playpause, skip }

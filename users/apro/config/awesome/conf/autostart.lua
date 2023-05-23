@@ -3,10 +3,10 @@ local awful = require("awful")
 local autostart = {
 }
 local desktop_autostart = {
-	"picom -b --no-vsync",
+	"picom -b --animations --no-vsync",
 }
 local laptop_autostart = {
-	"picom -b --vsync",
+	"picom -b --animations --vsync",
 	"nm-applet",
 	"libinput-gestures"
 }

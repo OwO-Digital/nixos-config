@@ -7,10 +7,11 @@ in {
 			(pcmanfm.override { withGtk3 = true; })
 			rofi
 			scrot
-			picom
+			picom-dccsillag
 			ranger
 			obsidian
 			nicotine-plus # yarr harr
+			obs-studio
 			jrnl
 			feh
 			ncdu

@@ -2,7 +2,7 @@
 
 	programs.wezterm = {
 		enable = true;
-		extraConfig = ''
+		extraConfig = /* lua */ ''
 wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_width)
 	local title = tab.active_pane.title
 	local left = "█"

@@ -1,1 +1,12 @@
-themes/catppuccin.rasi
+* {
+	bg-col:  #1e1e2e;
+	bg-col-light: #313244;
+	border-col: #1e1e2e;
+	selected-col: #313244;
+	accent: #f5c2e7;
+	fg-col: #cdd6f4;
+	fg-col2: #f38ba8;
+	grey: #cdd6f4;
+	width: 600;
+}
+

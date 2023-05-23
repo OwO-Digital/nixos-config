@@ -12,6 +12,7 @@
 				enable = true;
 				package = pkgs.awesome-git;
 			};
+			hyprland.enable = true;
 		};
 		hardware.laptop.enable = true;
 		system = {

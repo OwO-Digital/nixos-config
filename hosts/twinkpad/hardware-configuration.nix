@@ -5,7 +5,12 @@
 
 	fileSystems = {
 		"/" = {
-			device = "/dev/disk/by-label/nix";
+			device = "/dev/disk/by-label/NIXOS";
+			fsType = "ext4";
+		};
+
+		"/home" = {
+			device = "/dev/disk/by-label/HOME";
 			fsType = "ext4";
 		};
 

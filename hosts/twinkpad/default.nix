@@ -11,7 +11,6 @@ lib.nixosSystem {
 		}
 
 		inputs.home.nixosModules.home-manager
-		inputs.hyprland.nixosModules.default
 		inputs.nixHW.nixosModules.lenovo-thinkpad-t460s
 
 		../shared/configuration.nix

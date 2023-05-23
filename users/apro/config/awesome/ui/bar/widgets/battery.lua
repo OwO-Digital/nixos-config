@@ -8,6 +8,24 @@ local helpers = require("helpers")
 
 require("signals.battery")
 
+local bar_dir, charge_place_h, charge_place_v, pie_start, pie_end
+
+if bar_orientation == "vertical" then
+	bar_dir = "east"
+	bar_mirror = false
+	charge_place_h = "right"
+	charge_place_v = "top"
+	pie_start = math.pi
+	pie_end = math.pi/2
+elseif bar_orientation == "horizontal" then
+	bar_dir = "north"
+	bar_mirror = true
+	charge_place_h = "right"
+	charge_place_v = "top"
+	pie_start = math.pi
+	pie_end = math.pi/2
+end
+
 local batbar0 = wibox.widget {
 	widget = wibox.widget.progressbar,
 	background_color = "#00000000",
@@ -34,10 +52,12 @@ local battery_icon = wibox.widget {
 				 		forced_height = 20
 				},
 				widget = wibox.container.rotate,
-				direction = "east",
-				forced_height = 20
+				direction = bar_dir,
+				forced_height = 20,
+				forced_width = 20,
 			},
-			layout = wibox.layout.stack
+			widget = wibox.container.mirror,
+			reflection = { horizontal = bar_mirror },
 		},
 		widget = wibox.container.margin,
 		margins = beautiful.border_size
@@ -48,20 +68,38 @@ local battery_icon = wibox.widget {
 	border_strategy = "inner",
 }
 
-local battery_notch = wibox.widget {
-	{
-		widget = wibox.container.background,
-		id = "col",
-	},
-	widget = wibox.container.margin,
-	forced_height = 2,
-	margins = {
-		top = 0,
-		bottom = 0,
-		left = 6,
-		right = 6,
+local battery_notch
+if bar_orientation == "vertical" then
+	battery_notch = wibox.widget {
+		{
+			widget = wibox.container.background,
+			id = "col",
+		},
+		widget = wibox.container.margin,
+		forced_height = 2,
+		margins = {
+			top = 0,
+			bottom = 0,
+			left = 6,
+			right = 6,
+		}
 	}
-}
+elseif bar_orientation == "horizontal" then
+	battery_notch = wibox.widget {
+		{
+			widget = wibox.container.background,
+			id = "col",
+		},
+		widget = wibox.container.margin,
+		forced_width = 2,
+		margins = {
+			top = 6,
+			bottom = 6,
+			left = 0,
+			right = 0,
+		}
+	}
+end
 
 local charging_icon = wibox.widget {
 	{
@@ -79,29 +117,30 @@ local charging_icon = wibox.widget {
 				id = "bg"
 			},
 			widget = wibox.container.place,
-			halign = "right",
-			valign = "top",
+			halign = charge_place_h,
+			valign = charge_place_v,
 			id = "place"
 		},
 		widget = wibox.container.background,
 		forced_height = 15,
 		forced_width = 12,
 		shape = function(cr,w,h)
-			return gears.shape.pie(cr,w,h,math.pi,math.pi/2)
+			return gears.shape.pie(cr,w,h,pie_start,pie_end)
 		end,
 		id = "shape"
 	},
 	widget = wibox.container.place,
-	halign = "right",
-	valign = "top"
+	halign = charge_place_h,
+	valign = charge_place_v,
 }
+
 
 local bat_widget = helpers.embox(wibox.widget {
 	{
 		{
 			battery_notch,
 			battery_icon,
-			layout = wibox.layout.fixed.vertical,
+			layout = wibox.layout.fixed[bar_orientation],
 		},
 		widget = wibox.container.margin,
 		margins = 3
@@ -145,7 +184,7 @@ awesome.connect_signal("signal::battery", function(bat0, bat1, charging, time_to
 	battery_icon:set_border_color({
 		type = "linear",
 		from = {0, 0},
-		to = {20, 0},
+		to = {tonumber(bar_orientation == "vertical" and 20), tonumber(bar_orientation == "horizontal" and 20)},
 		stops = {
 			{0,   bat0color},
 			{0.3, bat0color},
@@ -158,7 +197,7 @@ awesome.connect_signal("signal::battery", function(bat0, bat1, charging, time_to
 	battery_notch.col:set_bg({
 		type = "linear",
 		from = {0, 0},
-		to = {6, 0},
+		to = {tonumber(bar_orientation == "vertical" and 6), tonumber(bar_orientation == "horizontal" and 6)},
 		stops = {
 			{0,   bat0color},
 			{1,   bat1color}
