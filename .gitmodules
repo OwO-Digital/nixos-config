@@ -1,6 +1,3 @@
-[submodule "users/apro/config/awesome/modules/bling_stable"]
-	path = users/apro/config/awesome/modules/bling_stable
-	url = https://github.com/BlingCorp/bling.git
 [submodule "users/apro/config/awesome/modules/battery_widget"]
 	path = users/apro/config/awesome/modules/battery_widget
 	url = https://github.com/Aire-One/awesome-battery_widget.git
@@ -14,3 +11,6 @@
 	path = users/apro/config/awesome/modules/bling
 	url = git@github.com:Aproxia-dev/bling.git
 	branch = playerctl_metadata_v2
+[submodule "users/apro/config/awesome/modules/bling_stable"]
+	path = users/apro/config/awesome/modules/bling_stable
+	url = git@github.com:BlingCorp/bling.git

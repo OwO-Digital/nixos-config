@@ -6,6 +6,7 @@
 		nixHW.url = "github:nixos/nixos-hardware/master";
 		f2k.url    = "github:fortuneteller2k/nixpkgs-f2k";
 		nur.url    = "github:nix-community/NUR";
+		vscode-ext.url = "github:nix-community/nix-vscode-extensions";
 
 		unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 		stable.url   = "github:nixos/nixpkgs/nixos-22.11";
@@ -27,6 +28,7 @@
 		nixpkgs,
 		nur,
 		f2k,
+		vscode-ext,
 		...
 	} @ inputs:
 	let
@@ -45,6 +47,7 @@
 				[
 					nur.overlay
 					f2k.overlays.default	
+					vscode-ext.overlays.default
 				];
 		};
 

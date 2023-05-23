@@ -3,12 +3,12 @@ final: prev:
 	let
 		pkgOlympus = prev.stdenv.mkDerivation rec {
 			pname = "olympus";
-			version = "2681";
+			version = "3170";
 
 			# https://everestapi.github.io/
 			src = prev.fetchzip {
 				url = "https://dev.azure.com/EverestAPI/Olympus/_apis/build/builds/${version}/artifacts?artifactName=linux.main&$format=zip#linux.main.zip";
-				hash = "sha256-r+Zqby5q4FfLaCCu56WW8i6y1GCUFyXeTCRoCEPbtEY=";
+				hash = "sha256-0w7vg4bwL6XZl6VkgP1T/iriBNWE1lnZtWnefNEL5Co=";
 			};
 
 			buildInputs = [ prev.unzip ];

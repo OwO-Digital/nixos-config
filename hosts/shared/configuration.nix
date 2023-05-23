@@ -17,7 +17,10 @@
 		};
 	};
 
-	networking.networkmanager.enable = true;
+	networking.networkmanager = {
+		enable = true;
+		enableStrongSwan = true;
+	};
 
 	time = {
 		timeZone = "Europe/Prague";
@@ -47,16 +50,17 @@
 			wget
 			xclip
 			zip
+			wireguard-tools
 		];
 
 		shells = with pkgs; [ zsh bash ];
-		binsh  = "${pkgs.bash}/bin/bash";
+		binsh = "${pkgs.bash}/bin/bash";
 
 		variables = {
 			NIXPKGS_ALLOW_UNFREE = "1";
 			MOZ_USE_XINPUT2 = "1";
 		};
-	};                                            
+	};
 
 	programs = {
 		neovim = {
@@ -71,6 +75,12 @@
 	services = {
 		dbus.enable = true;
 		openssh.enable = true;
+		xl2tpd.enable = true;
+		strongswan = {
+			enable = true;
+			secrets = [ "ipsec.d/ipsec.nm-l2tp.secrets" ];
+		};
+		gvfs.enable = true;
 	};
 
 	system.stateVersion = "22.11";
