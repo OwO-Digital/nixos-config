@@ -75,6 +75,7 @@
 	services = {
 		dbus.enable = true;
 		openssh.enable = true;
+		tailscale.enable = true;
 		xl2tpd.enable = true;
 		strongswan = {
 			enable = true;
