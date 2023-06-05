@@ -23,8 +23,9 @@ in {
 			htop
 			libinput-gestures
 			mpv
-			unityhub
 			# run # credit to alpha for this
+		] ++ with pkgs.stable; [
+			unityhub
 		];
 
 		pointerCursor = {

@@ -12,7 +12,7 @@
 final: prev:
 with inputs; let system = final.system; in
 {
-	unstable = import unstable { inherit system; };
-	stable   = import stable   { inherit system; };
-	master   = import master   { inherit system; };
+	unstable = import unstable { inherit system; config = { allowUnfree = true; }; };
+	stable   = import stable   { inherit system; config = { allowUnfree = true; }; };
+	master   = import master   { inherit system; config = { allowUnfree = true; }; };
 }

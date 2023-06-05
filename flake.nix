@@ -9,7 +9,7 @@
 		vscode-ext.url = "github:nix-community/nix-vscode-extensions";
 
 		unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-		stable.url   = "github:nixos/nixpkgs/nixos-22.11";
+		stable.url   = "github:nixos/nixpkgs/nixos-23.05";
 		master.url   = "github:nixos/nixpkgs/master";
 
 		nixpkgs.follows             = "unstable";
