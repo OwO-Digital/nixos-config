@@ -23,7 +23,7 @@ in {
 			htop
 			libinput-gestures
 			mpv
-			etterna
+			# etterna
 			# run # credit to alpha for this
 		]) ++ (with pkgs.stable; [
 			unityhub
