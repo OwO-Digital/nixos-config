@@ -25,6 +25,7 @@
       numlockx
       udiskie
       xfce.xfce4-power-manager
+      remmina
     ];
     keyboard = {
       layout = "us,cz(qwerty)";
