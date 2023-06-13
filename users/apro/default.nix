@@ -26,7 +26,7 @@ in {
 			# etterna
 			# run # credit to alpha for this
 		]) ++ (with pkgs.stable; [
-			unityhub
+			#unityhub
 		]);
 
 		pointerCursor = {
