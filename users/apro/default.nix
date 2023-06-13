@@ -3,7 +3,7 @@
 let # run = import ../..  /misc/bin/run.nix { inherit pkgs; };
 in {
 	home = {
-		packages = with pkgs; [
+		packages = (with pkgs; [
 			(pcmanfm.override { withGtk3 = true; })
 			rofi
 			scrot
@@ -23,10 +23,11 @@ in {
 			htop
 			libinput-gestures
 			mpv
+			etterna
 			# run # credit to alpha for this
-		] ++ with pkgs.stable; [
+		]) ++ (with pkgs.stable; [
 			unityhub
-		];
+		]);
 
 		pointerCursor = {
 			x11.enable = true;
