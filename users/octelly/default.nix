@@ -4,6 +4,9 @@ let
   chromiumFlags = [
     "--force-dark-mode"
     "--ozone-platform-hint=auto" # automatic wayland
+    "--ignore-gpu-blocklist"
+    "--enable-gpu-rasterization"
+    "--enable-unsafe-webgpu"
   ];
 in
 {
@@ -49,7 +52,7 @@ in
   fonts.fontconfig.enable = true;
 
   programs.chromium = {
-    enable = true;
+    enable = false;
     package = (pkgs.chromium.override {
       ungoogled = true;
       channel = "ungoogled-chromium";
