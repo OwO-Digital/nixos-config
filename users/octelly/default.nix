@@ -9,6 +9,8 @@
       ranger
       cinnamon.nemo-with-extensions
       firefox
+      vivaldi
+      vivaldi-ffmpeg-codecs
       armcord
       prismlauncher
       openjdk17-bootstrap
