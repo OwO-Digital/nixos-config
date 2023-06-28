@@ -1,5 +1,11 @@
 { config, inputs, lib, pkgs, system, ... }:
 
+let
+  chromiumFlags = [
+    "--force-dark-mode"
+    "--ozone-platform-hint=auto" # automatic wayland
+  ];
+in
 {
   home = {
     packages = with pkgs; [
@@ -9,8 +15,13 @@
       ranger
       cinnamon.nemo-with-extensions
       firefox
-      vivaldi
-      vivaldi-ffmpeg-codecs
+      (vivaldi.override {
+        proprietaryCodecs = true;
+        vivaldi-ffmpeg-codecs = vivaldi-ffmpeg-codecs;
+        enableWidevine = true;
+        widevine-cdm = widevine-cdm;
+        commandLineArgs = chromiumFlags;
+      })
       armcord
       prismlauncher
       openjdk17-bootstrap
@@ -43,11 +54,9 @@
       ungoogled = true;
       channel = "ungoogled-chromium";
     });
-    commandLineArgs = [
-      "--force-dark-mode"
+    commandLineArgs = chromiumFlags ++ [
       "--enable-features=WebUIDarkMode"
       "--disable-features=ClearDataOnExit"
-      "--ozone-platform-hint=auto" # automatic wayland
       "--remove-tabsearch-button"
       "--show-avatar-button=never"
     ];
@@ -195,6 +204,8 @@
         "video" = [ "mpv.desktop" ];
         "audio" = [ "mpv.desktop" ];
         "text" = [ "neovim.desktop" ];
+        "x-scheme-handler/http" = [ "vivaldi.desktop " ];
+        "x-scheme-handler/https" = [ "vivaldi.desktop " ];
       };
     };
 
