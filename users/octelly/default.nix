@@ -42,6 +42,8 @@ in
       wofi
       waybar
 
+      nvtop
+
       networkmanagerapplet
       networkmanager-l2tp
 
