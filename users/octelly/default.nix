@@ -179,7 +179,7 @@ in
   programs.zsh = {
     enable = true;
     enableAutosuggestions = true;
-    enableSyntaxHighlighting = true;
+    syntaxHighlighting.enable = true;
     enableVteIntegration = true;
     autocd = true;
     historySubstringSearch.enable = true;
@@ -228,7 +228,8 @@ in
     };
 
     configFile = {
-      "awesome".source = ./awesome;
+      "awesome".source = ./desktop_environments/awesome/awesomecfg;
+      "sway".source = ./desktop_environments/sway/config;
       "chromium/policies/managed/extra.json".text = builtins.toJSON {
         "OsColorMode" = "dark";
         "WebAppInstallForceList" = [
