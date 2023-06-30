@@ -1,7 +1,7 @@
 { config, pkgs, lib, inputs, system, ... }:
 
 with builtins;
-with lib
+with lib;
 let cfg = config.modules.desktop.sway;
 in {
   options.modules.desktop.sway = {
