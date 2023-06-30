@@ -32,6 +32,15 @@ in
       rnix-lsp
       nixpkgs-fmt
 
+      swaysome
+      swww
+      sov
+      wl-clipboard
+      playerctl
+      brightnessctl
+      pamixer
+      wofi
+
       networkmanagerapplet
       networkmanager-l2tp
 
@@ -254,5 +263,9 @@ in
       "kitty/themes/sonokai-shusia.conf".source = ./sonokai-shusia.conf;
     };
   };
+
+  imports = [
+    ./desktop_environments/sway
+  ];
 }
 
