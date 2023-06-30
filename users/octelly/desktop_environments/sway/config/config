@@ -1,0 +1,272 @@
+### Variables
+#
+# Logo key. Use Mod1 for Alt.
+set $mod Mod4
+# Home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+# Your preferred terminal emulator
+set $term kitty
+# Your preferred application launcher
+# Note: pass the final command to swaymsg so that the resulting window can be opened
+# on the original workspace that the command was run on.
+#set $menu "rofi -no-default-config -config ~/.config/awesome/rofi/config.rasi -switchers combi,drun,calc -show combi"
+set $menu "wofi --show drun"
+
+### Appearance
+# window corner radius in px
+corner_radius 10
+
+# inactive window fade amount. 0.0 = no dimming, 1.0 = fully dimmed
+dim_inactive 0.0
+dim_inactive_colors.unfocused #000000FF
+dim_inactive_colors.urgent #900000FF
+
+font Maple Mono NF 10
+
+gaps inner 5
+gaps outer 10
+
+default_border pixel 2
+
+client.focused             #f85e84ff #2d2a2eff #e3e1e4ff #f85e84ff #f85e84ff
+client.focused_inactive    #f85e84ff #2d2a2eff #e3e1e4ff #f85e84ff #f85e84ff
+client.focused_tab_title   #f85e84ff #2d2a2eff #e3e1e4ff #f85e84ff #f85e84ff
+client.unfocused           #2d2a2eff #2d2a2eff #49464eff #2d2a2eff #2d2a2eff
+client.urgent              #2d2a2eff #2d2a2eff #49464eff #2d2a2eff #2d2a2eff
+
+### Output configuration
+#
+# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+# output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+#
+# Example configuration:
+#
+#   output HDMI-A-1 resolution 1920x1080 position 1920,0
+#
+# You can get the names of your outputs by running: swaymsg -t get_outputs
+output DP-2 resolution 1680x1050@59.88Hz position 0,320
+output DP-3 resolution 1920x1080@143.855Hz position 1680,0 adaptive_sync on
+
+### Idle configuration
+#
+# Example configuration:
+#
+# exec swayidle -w \
+#          timeout 300 'swaylock -f -c 000000' \
+#          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+#          before-sleep 'swaylock -f -c 000000'
+#
+# This will lock your screen after 300 seconds of inactivity, then turn off
+# your displays after another 300 seconds, and turn your screens back on when
+# resumed. It will also lock your screen before your computer goes to sleep.
+
+### Input configuration
+#
+# Example configuration:
+#
+#   input "2:14:SynPS/2_Synaptics_TouchPad" {
+#       dwt enabled
+#       tap enabled
+#       natural_scroll enabled
+#       middle_emulation enabled
+#   }
+#
+# You can get the names of your inputs by running: swaymsg -t get_inputs
+# Read `man 5 sway-input` for more information about this section.
+
+input "1241:41144:E-Signal_USB_Gaming_Mouse" {
+	accel_profile "flat"
+	pointer_accel -0.65
+}
+
+input type:keyboard xkb_numlock enabled
+input type:keyboard xkb_layout us,cz(qwerty)
+input type:keyboard xkb_options grp:win_space_toggle
+
+focus_follows_mouse no
+
+### Key bindings
+#
+# Basics:
+#
+    # Start a terminal
+    bindsym $mod+Return exec $term
+
+    # Kill focused window
+    bindsym $mod+q kill
+
+    # Start your launcher
+    bindsym $mod+r exec $menu
+
+    bindsym $mod+l exec swaylock
+
+    # Drag floating windows by holding down $mod and left mouse button.
+    # Resize them with right mouse button + $mod.
+    # Despite the name, also works for non-floating windows.
+    # Change normal to inverse to use left mouse button for resizing and right
+    # mouse button for dragging.
+    floating_modifier $mod normal
+
+    # Reload the configuration file
+    bindsym $mod+Control+r reload
+
+    # Exit sway (logs you out of your Wayland session)
+    bindsym $mod+Shift+q exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+#
+# Moving around:
+#
+    # Move your focus around
+    #bindsym $mod+$left focus left
+    #bindsym $mod+$down focus down
+    #bindsym $mod+$up focus up
+    #bindsym $mod+$right focus right
+    # Or use $mod+[up|down|left|right]
+    bindsym $mod+Left focus left
+    bindsym $mod+Down focus down
+    bindsym $mod+Up focus up
+    bindsym $mod+Right focus right
+
+    # Move the focused window with the same, but add Shift
+    #bindsym $mod+Shift+$left move left
+    #bindsym $mod+Shift+$down move down
+    #bindsym $mod+Shift+$up move up
+    #bindsym $mod+Shift+$right move right
+    # Ditto, with arrow keys
+    bindsym $mod+Shift+Left move left
+    bindsym $mod+Shift+Down move down
+    bindsym $mod+Shift+Up move up
+    bindsym $mod+Shift+Right move right
+#
+
+bindsym --no-repeat $mod+1 exec "swaysome focus 1"; exec "echo 1 > /tmp/sovpipe"
+bindsym --no-repeat $mod+2 exec "swaysome focus 2"; exec "echo 1 > /tmp/sovpipe"
+bindsym --no-repeat $mod+3 exec "swaysome focus 3"; exec "echo 1 > /tmp/sovpipe"
+bindsym --no-repeat $mod+4 exec "swaysome focus 4"; exec "echo 1 > /tmp/sovpipe"
+bindsym --no-repeat $mod+5 exec "swaysome focus 5"; exec "echo 1 > /tmp/sovpipe"
+bindsym --no-repeat $mod+6 exec "swaysome focus 6"; exec "echo 1 > /tmp/sovpipe"
+bindsym --no-repeat $mod+7 exec "swaysome focus 7"; exec "echo 1 > /tmp/sovpipe"
+bindsym --no-repeat $mod+8 exec "swaysome focus 8"; exec "echo 1 > /tmp/sovpipe"
+bindsym --no-repeat $mod+9 exec "swaysome focus 9"; exec "echo 1 > /tmp/sovpipe"
+bindsym --no-repeat $mod+0 exec "swaysome focus 0"; exec "echo 1 > /tmp/sovpipe"
+
+bindsym --no-repeat $mod+Shift+1 exec "swaysome move 1"; exec "echo 1 > /tmp/sovpipe"
+bindsym --no-repeat $mod+Shift+2 exec "swaysome move 2"; exec "echo 1 > /tmp/sovpipe"
+bindsym --no-repeat $mod+Shift+3 exec "swaysome move 3"; exec "echo 1 > /tmp/sovpipe"
+bindsym --no-repeat $mod+Shift+4 exec "swaysome move 4"; exec "echo 1 > /tmp/sovpipe"
+bindsym --no-repeat $mod+Shift+5 exec "swaysome move 5"; exec "echo 1 > /tmp/sovpipe"
+bindsym --no-repeat $mod+Shift+6 exec "swaysome move 6"; exec "echo 1 > /tmp/sovpipe"
+bindsym --no-repeat $mod+Shift+7 exec "swaysome move 7"; exec "echo 1 > /tmp/sovpipe"
+bindsym --no-repeat $mod+Shift+8 exec "swaysome move 8"; exec "echo 1 > /tmp/sovpipe"
+bindsym --no-repeat $mod+Shift+9 exec "swaysome move 9"; exec "echo 1 > /tmp/sovpipe"
+bindsym --no-repeat $mod+Shift+0 exec "swaysome move 0"; exec "echo 1 > /tmp/sovpipe"
+
+bindsym --release $mod+1 exec "echo 0 > /tmp/sovpipe"
+bindsym --release $mod+2 exec "echo 0 > /tmp/sovpipe"
+bindsym --release $mod+3 exec "echo 0 > /tmp/sovpipe"
+bindsym --release $mod+4 exec "echo 0 > /tmp/sovpipe"
+bindsym --release $mod+5 exec "echo 0 > /tmp/sovpipe"
+bindsym --release $mod+6 exec "echo 0 > /tmp/sovpipe"
+bindsym --release $mod+7 exec "echo 0 > /tmp/sovpipe"
+bindsym --release $mod+8 exec "echo 0 > /tmp/sovpipe"
+bindsym --release $mod+9 exec "echo 0 > /tmp/sovpipe"
+bindsym --release $mod+0 exec "echo 0 > /tmp/sovpipe"
+
+bindsym --release $mod+Shift+1 exec "echo 0 > /tmp/sovpipe"
+bindsym --release $mod+Shift+2 exec "echo 0 > /tmp/sovpipe"
+bindsym --release $mod+Shift+3 exec "echo 0 > /tmp/sovpipe"
+bindsym --release $mod+Shift+4 exec "echo 0 > /tmp/sovpipe"
+bindsym --release $mod+Shift+5 exec "echo 0 > /tmp/sovpipe"
+bindsym --release $mod+Shift+6 exec "echo 0 > /tmp/sovpipe"
+bindsym --release $mod+Shift+7 exec "echo 0 > /tmp/sovpipe"
+bindsym --release $mod+Shift+8 exec "echo 0 > /tmp/sovpipe"
+bindsym --release $mod+Shift+9 exec "echo 0 > /tmp/sovpipe"
+bindsym --release $mod+Shift+0 exec "echo 0 > /tmp/sovpipe"
+
+bindsym $mod+Shift+bracketright exec "swaysome next_output"
+bindsym $mod+Shift+bracketleft exec "swaysome prev_output"
+
+
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86Search exec $menu
+
+
+#
+# Layout stuff:
+#
+    # You can "split" the current object of your focus with
+    # $mod+b or $mod+v, for horizontal and vertical splits
+    # respectively.
+
+    # Switch the current container between different layout styles
+
+    # Make the current focus fullscreen
+    bindsym $mod+d fullscreen
+
+    # Toggle the current focus between tiling and floating mode
+    bindsym $mod+Control+space floating toggle
+
+    bindsym $mod+tab layout toggle tabbed split
+#
+# Scratchpad:
+#
+    # Sway has a "scratchpad", which is a bag of holding for windows.
+    # You can send windows there and get them back later.
+
+    # Move the currently focused window to the scratchpad
+    bindsym $mod+Shift+minus move scratchpad
+
+    # Show the next scratchpad window or hide the focused scratchpad window.
+    # If there are multiple scratchpad windows, this command cycles through them.
+    bindsym $mod+minus scratchpad show
+#
+# Resizing containers:
+#
+
+#
+# Status Bar:
+#
+# Read `man 5 sway-bar` for more information about this section.
+# bar {
+#     position top
+# 
+#     # When the status_command prints a new line to stdout, swaybar updates.
+#     # The default just shows the current date and time.
+#     status_command while date +'%Y-%m-%d %I:%M:%S %p'; do sleep 1; done
+# 
+#     colors {
+#         statusline #ffffff
+#         background #323232
+#         inactive_workspace #32323200 #32323200 #5c5c5c
+#     }
+# }
+
+bar swaybar_command waybar
+
+exec swww init
+exec_always swww img ~/Wallpapers/wallhaven-5wdg85.png -t random --transition-fps 144
+
+exec wl-paste --watch clipman store --no-persist
+
+exec "swaysome init 1"
+
+exec "/usr/lib/policykit-1-pantheon/io.elementary.desktop.agent-polkit"
+
+exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
+exec hash dbus-update-activation-environment 2>/dev/null && \
+     dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+
+exec rm -f /tmp/sovpipe && mkfifo /tmp/sovpipe && tail -f /tmp/sovpipe | sov
+
+include /etc/sway/config.d/*
+# vim: filetype=swayconfig
