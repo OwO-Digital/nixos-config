@@ -10,6 +10,7 @@
         enable = true;
         package = pkgs.awesome-git;
       };
+      sway.enable = true;
     };
     hardware.laptop.enable = true;
     system = {
