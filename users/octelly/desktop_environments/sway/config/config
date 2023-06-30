@@ -251,7 +251,7 @@ bindsym XF86Search exec $menu
 #     }
 # }
 
-#bar swaybar_command waybar
+bar swaybar_command waybar
 
 exec swww init
 exec_always swww img ~/Wallpapers/wallhaven-5wdg85.png -t random --transition-fps 144

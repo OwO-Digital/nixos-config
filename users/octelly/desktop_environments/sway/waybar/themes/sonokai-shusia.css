@@ -1,0 +1,23 @@
+/*
+*
+* Sonokai Shusia palette
+* Maintainer: :)
+*
+*/
+
+@define-color black    #1a181a;
+@define-color red      #f85e84;
+@define-color green    #9ecd6f;
+@define-color yellow   #e5c463;
+@define-color blue     #7accd7;
+@define-color magenta  #ab9df2;
+@define-color cyan     #78dce8;
+@define-color white    #e3e1e4;
+
+@define-color base   #2d2a2e;
+@define-color mantle @black;
+@define-color crust  @black;
+
+@define-color text     @white;
+@define-color subtext0 @white;
+@define-color subtext1 @white;

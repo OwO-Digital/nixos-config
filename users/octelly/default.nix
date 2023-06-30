@@ -40,6 +40,7 @@ in
       brightnessctl
       pamixer
       wofi
+      waybar
 
       networkmanagerapplet
       networkmanager-l2tp

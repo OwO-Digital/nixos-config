@@ -1,0 +1,252 @@
+@import "themes/sonokai-shusia.css";
+/*@import "themes/death.css";*/
+
+/* Download icons font: https://github.com/Templarian/MaterialDesign-Font */
+* {
+  font-family: Iosevka Fixed, Material Design Icons Desktop;
+  font-size: 14px;
+}
+
+/* Waybar */
+window#waybar {
+  background-image: linear-gradient(@black, transparent);
+  background-color: transparent;
+  color: @text;
+  transition-property: background-color;
+  transition-duration: 0.5s;
+}
+
+/* Modules */
+#tray,
+#custom-media,
+#cpu,
+#memory,
+#backlight,
+#pulseaudio,
+#network,
+#bluetooth,
+#battery,
+/*#clock,*/
+#custom-sysmenu,
+#idle_inhibitor,
+#window {
+  padding: 2px 10px;
+  color: @text;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 2px;
+  margin-right: 2px;
+  border-radius: 20px;
+}
+
+/* Launcher */
+#custom-launcher {
+  background-color: @lavender;
+  color: @crust;
+  padding: 1px 8px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 10px;
+  margin-right: 2px;
+  border-radius: 20px;
+  transition-duration: 0.2s;
+}
+
+#idle_inhibitor {
+  background-color: @black;
+  color: @white;
+}
+#idle_inhibitor.activated {
+  background-color: @white;
+  color: @black;
+}
+
+/* Workspaces */
+#workspaces {
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+#workspaces button {
+  background-color: @base;
+  padding: 1px 8px;
+  color: @text;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 2px;
+  margin-right: 2px;
+  border-radius: 20px;
+  transition-duration: 0.2s;
+}
+
+#workspaces button:hover {
+  background-color: @white;
+  color: @black;
+  transition-duration: 0.2s;
+}
+
+#workspaces button.active {
+  padding: 1px 12px;
+  background-color: @red;
+  color: @black;
+  transition-duration: 0.2s;
+}
+
+#workspaces button.focused {
+  background-color: @blue;
+  color: @black;
+}
+
+#workspaces button.urgent {
+  background-color: @red;
+  color: @black;
+}
+
+/* Tray */
+#tray {
+  background-color: @white;
+  color: @black;
+}
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+  background-color: @red;
+}
+
+/* CPU */
+#cpu {
+  background-color: @sapphire;
+  color: @crust;
+}
+
+/* Custom Media */
+#custom-media {
+  background-color: @mauve;
+  color: @crust;
+}
+
+#custom-media.playing {
+  background-color: @green;
+  transition-duration: 0.5s;
+}
+
+#custom-media.paused {
+  background-color: @red;
+  transition-duration: 0.5s;
+}
+
+/* Memory */
+#memory {
+  background-color: @green;
+  color: @text;
+}
+
+/* Backlight */
+#backlight {
+  background-color: @yellow;
+  color: @black;
+}
+
+/* Pulseaudio */
+#pulseaudio {
+  background-color: @magenta;
+  color: @black;
+}
+
+#pulseaudio.muted {
+  background-color: @red;
+  color: @black;
+}
+
+/* Network */
+#network {
+  background-color: @blue;
+  color: @crust;
+}
+
+#network.disconnected {
+  background-color: @red;
+  color: @crust;
+}
+
+/* Bluetooth */
+#bluetooth {
+  background-color: @blue;
+  color: @crust;
+}
+
+#bluetooth.disabled {
+  background-color: @lavender;
+}
+
+#bluetooth.off {
+  background-color: @red;
+}
+
+/* Battery */
+#battery {
+  background-color: @green;
+  color: @black;
+}
+
+#battery.charging,
+#battery.plugged {
+  background-color: @cyan;
+  color: @black;
+}
+
+@keyframes blink {
+  to {
+    background-color: #ffffff;
+    color: #000000;
+  }
+}
+
+#battery.critical:not(.charging) {
+  background-color: @red;
+  color: @crust;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+/* Clock */
+/*#clock {
+  background-color: @white;
+  color: @black;
+}*/
+/*#clock {
+  background-color: transparent;
+  color: @text;
+  font-size: 15;
+  border-style: solid;
+  border-width: 1.5;
+  border-color: @red;
+}*/
+
+
+#clock {
+  background-image: linear-gradient(rgba(248, 94, 132, 0.5), transparent);
+  background-color: transparent;
+  padding: 0 5;
+  color: @text;
+  font-size: 16;
+  font-weight: 600;
+  border-width: 2.5 0 0 0;
+  border-style: solid;
+  border-color: @red;
+}
+
+/* Custom SysMenu */
+#custom-sysmenu {
+  background-color: @red;
+  color: @crust;
+  padding: 1px 8px;
+  margin-right: 10px;
+}
