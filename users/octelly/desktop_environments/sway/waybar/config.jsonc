@@ -6,46 +6,56 @@
     "spacing": 6, // Gaps between modules (4px)
     "gtk-layer-shell": false,
     // Choose the order of the modules
-    "modules-left": ["sway/workspaces"],
-    "modules-center": ["clock"],
-    //"modules-right": ["tray", "idle_inhibitor", "pulseaudio", "backlight", "bluetooth", "battery", ],
-    "modules-right": ["tray", "idle_inhibitor", "pulseaudio", "backlight", ],
-
+    "modules-left": [
+        "sway/workspaces"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "tray",
+        "idle_inhibitor",
+        "pulseaudio",
+        "backlight",
+        "bluetooth",
+        "battery#bat0",
+        "battery#bat1"
+    ],
+    //"modules-right": ["tray", "idle_inhibitor", "pulseaudio", "backlight", ],
     "wlr/workspaces": {
         "on-click": "activate",
         "format": "{icon}",
         "format-icons": {
-          //"1": "1",
-          //"2": "2",
-          //"3": "3",
-          //"4": "4",
-          //"5": "5",
-          //"6": "6",
-          //"7": "7",
-          //"8": "8",
-          //"9": "9",
-          //"1": "🗿",
-          //"2": "🥺",
-          //"3": "🥴",
-          //"4": "✊",
-          //"5": "💖",
-          //"6": "🈷️",
-          //"7": "💀",
-          //"8": "🤓",
-          //"9": "⚰️",
-          "1": "c",
-          "2": "r",
-          "3": "y",
-          "4": "4",
-          "5": "h",
-          "6": "e",
-          "7": "l",
-          "8": "p",
-          "9": ".",
-          "default": "xd"
+            //"1": "1",
+            //"2": "2",
+            //"3": "3",
+            //"4": "4",
+            //"5": "5",
+            //"6": "6",
+            //"7": "7",
+            //"8": "8",
+            //"9": "9",
+            //"1": "🗿",
+            //"2": "🥺",
+            //"3": "🥴",
+            //"4": "✊",
+            //"5": "💖",
+            //"6": "🈷️",
+            //"7": "💀",
+            //"8": "🤓",
+            //"9": "⚰️",
+            //"1": "c",
+            //"2": "r",
+            //"3": "y",
+            //"4": "4",
+            //"5": "h",
+            //"6": "e",
+            //"7": "l",
+            //"8": "p",
+            //"9": ".",
+            //"default": "xd"
         }
-      },
-
+    },
     "idle_inhibitor": {
         "format": "{icon}",
         "format-icons": {
@@ -59,7 +69,7 @@
     },
     "clock": {
         "interval": 1,
-        "format": "{:%H:%M:%S | %A %d.%m. | %b %Y}",
+        "format": "{:%H:%M:%S | %A %d.%m. | %b %Y}"
     },
     "cpu": {
         "format": "{usage}% ",
@@ -74,14 +84,29 @@
         "critical-threshold": 80,
         // "format-critical": "{temperatureC}°C {icon}",
         "format": "{temperatureC}°C {icon}",
-        "format-icons": ["", "", ""]
+        "format-icons": [
+            "",
+            "",
+            ""
+        ]
     },
     "backlight": {
         // "device": "acpi_video1",
         "format": "{percent}% {icon}",
-        "format-icons": ["", "", "", "", "", "", "", "", ""]
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ]
     },
-    "battery": {
+    "battery#bat0": {
+        "bat": "BAT0",
         "states": {
             // "good": 95,
             "warning": 30,
@@ -93,10 +118,34 @@
         "format-alt": "{time} {icon}",
         // "format-good": "", // An empty format will hide the module
         // "format-full": "",
-        "format-icons": ["", "", "", "", ""]
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            ""
+        ]
     },
-    "battery#bat2": {
-        "bat": "BAT2"
+    "battery#bat1": {
+        "bat": "BAT1",
+        "states": {
+            // "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{capacity}% {icon}",
+        "format-charging": "{capacity}% ",
+        "format-plugged": "{capacity}% ",
+        "format-alt": "{time} {icon}",
+        // "format-good": "", // An empty format will hide the module
+        // "format-full": "",
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            ""
+        ]
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
@@ -122,7 +171,11 @@
             "phone": "",
             "portable": "",
             "car": "",
-            "default": ["", "", ""]
+            "default": [
+                "",
+                "",
+                ""
+            ]
         },
         "on-click": "pavucontrol"
     },
@@ -139,4 +192,3 @@
         // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
     }
 }
-

@@ -3,10 +3,17 @@
 let
   chromiumFlags = [
     "--force-dark-mode"
-    "--ozone-platform-hint=auto" # automatic wayland
+
     "--ignore-gpu-blocklist"
     "--enable-gpu-rasterization"
-    "--enable-unsafe-webgpu"
+    "--enable-zero-copy"
+    #"--disable-gpu-driver-bug-workarounds"
+    "--enable-native-gpu-memory-buffers"
+
+    "--enable-features=VaapiVideoDecoder"
+    "--use-gl=egl"
+
+    "--ozone-platform-hint=auto" # automatic wayland
   ];
 in
 {
@@ -18,6 +25,7 @@ in
       ranger
       cinnamon.nemo-with-extensions
       firefox
+	  bitwarden
       (vivaldi.override {
         proprietaryCodecs = true;
         vivaldi-ffmpeg-codecs = vivaldi-ffmpeg-codecs;
@@ -25,7 +33,6 @@ in
         widevine-cdm = widevine-cdm;
         commandLineArgs = chromiumFlags;
       })
-      armcord
       prismlauncher
       openjdk17-bootstrap
 	  parsec-bin
@@ -34,10 +41,12 @@ in
 
       rnix-lsp
       nixpkgs-fmt
-
+		
+      # sway
       swaysome
       swww
       sov
+	  clipman
       wl-clipboard
       playerctl
       brightnessctl
@@ -57,6 +66,9 @@ in
       udiskie
       xfce.xfce4-power-manager
       remmina
+
+	  osu-lazer-bin
+	  srb2kart
     ];
     keyboard = {
       layout = "us,cz(qwerty)";
@@ -211,6 +223,15 @@ in
   };
 
   programs.btop.enable = true;
+
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      "color-scheme" = "prefer-dark";
+    };
+    "org/freedesktop/interface" = {
+      "color-scheme" = "prefer-dark";
+    };
+  };
 
   xdg = {
     enable = true;
