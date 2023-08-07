@@ -28,6 +28,9 @@ in
       armcord
       prismlauncher
       openjdk17-bootstrap
+	  parsec-bin
+
+	  luakit
 
       rnix-lsp
       nixpkgs-fmt

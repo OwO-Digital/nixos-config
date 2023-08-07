@@ -86,6 +86,10 @@ input "1241:41144:E-Signal_USB_Gaming_Mouse" {
 	pointer_accel -0.65
 }
 
+input "1356:3302:Sony_Interactive_Entertainment_DualSense_Wireless_Controller_Touchpad" {
+	events disabled
+}
+
 input "type:touchpad" {
     natural_scroll enabled
     dwt enabled
