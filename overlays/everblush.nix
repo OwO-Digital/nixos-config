@@ -5,7 +5,7 @@ let theme = import ../misc/themes/everblush/cols.nix; in
 final: prev:
 {
 	everblush = {
-		phocus = inputs.f2k.packages.x86_64-linux.phocus.override {
+		phocus = inputs.f2k.packages.x86_64-linux.phocus-modified.override {
 			colors = with theme; {
 				base00 = "${dbg}";
 				base01 = "${bg}";

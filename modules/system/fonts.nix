@@ -13,5 +13,5 @@ let
 		(n: v: v.fc.nerd-fonts)
 		config.modules.users));
 in {
-	config.fonts.fonts =fontList ++ [ (pkgs.nerdfonts.override { fonts = nerdFontList; }) ];
+	config.fonts.packages = fontList ++ [ (pkgs.nerdfonts.override { fonts = nerdFontList; }) ];
 }
