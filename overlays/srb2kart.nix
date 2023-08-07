@@ -1,4 +1,4 @@
-{ inputs, .. }:
+{ inputs, ... }:
 
 final: prev: {
 	srb2kart = (prev.srb2kart.overrideAttrs (old:
@@ -20,7 +20,7 @@ final: prev: {
 				categories = [ "Game" "ArcadeGame" ];
 			};
 			
-			oglDesktop = makeDesktopItem {
+			oglDesktop = prev.makeDesktopItem {
 				name = old.pname + "-opengl";
 				exec = "srb2kart -opengl";
 				terminal = false;
@@ -58,4 +58,5 @@ final: prev: {
 			
 			desktopItems = [ swDesktop oglDesktop ];
 		}                                            	
-	)) 
+	));
+	}
