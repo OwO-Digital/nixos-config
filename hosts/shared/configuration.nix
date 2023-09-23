@@ -81,6 +81,17 @@
       secrets = [ "ipsec.d/ipsec.nm-l2tp.secrets" ];
     };
     gvfs.enable = true;
+    tumbler.enable = true;
+
+    printing = {
+      enable = true;
+      drivers = with pkgs; [
+        epson-escpr
+      ];
+
+      # whether shared printers are advertised
+      browsing = true;
+    };
   };
 
   system.stateVersion = "22.11";
