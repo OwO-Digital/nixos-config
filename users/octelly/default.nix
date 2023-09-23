@@ -2,9 +2,16 @@
 
 let
   chromiumFlags = [
-    "--force-dark-mode"
+    #"--force-dark-mode"
 
     "--ignore-gpu-blocklist"
+    "--enable-reader-mode"
+    "--smooth-scrolling"
+    "--enable-quic"
+
+    "--download-bubble"
+    "--enable-system-notifications"
+
     "--enable-gpu-rasterization"
     "--enable-zero-copy"
     #"--disable-gpu-driver-bug-workarounds"
@@ -15,6 +22,22 @@ let
 
     "--ozone-platform-hint=auto" # automatic wayland
   ];
+  darkMode = true;
+  posysCursors = (pkgs.stdenv.mkDerivation rec {
+    pname = "posy-improved-cursor-linux";
+    version = "1.6";
+    src = pkgs.fetchFromGitHub {
+      owner = "simtrami";
+      repo = pname;
+      rev = version;
+      hash = "sha256-i0N/QB5uzqHapMCDl6h6PWPJ4GOAyB1ds9qlqmZacLY=";
+    };
+    buildPhase = "";
+    installPhase = ''
+      mkdir -p $out/share/icons
+      cp -r Posy* $out/share/icons/
+    '';
+  });
 in
 {
   home = {
@@ -23,38 +46,68 @@ in
       pulsemixer
       maple-mono-NF
       ranger
-      cinnamon.nemo-with-extensions
-      firefox
-	  bitwarden
-      (vivaldi.override {
-        proprietaryCodecs = true;
-        vivaldi-ffmpeg-codecs = vivaldi-ffmpeg-codecs;
-        enableWidevine = true;
-        widevine-cdm = widevine-cdm;
-        commandLineArgs = chromiumFlags;
+
+      (discord.override {
+        # remove any overrides that you don't want
+        withOpenASAR = true;
+        withVencord = true;
       })
+
+      #cinnamon.nemo-with-extensions
+
+      libsForQt5.dolphin
+      libsForQt5.dolphin-plugins
+      libsForQt5.kio
+      libsForQt5.kio-admin
+      libsForQt5.kio-extras
+      libsForQt5.kimageformats
+      #libsForQt5.qtstyleplugins
+      #qgnomeplatform
+      #qgnomeplatform-qt6
+
+      bitwarden
+      #(vivaldi.override {
+      #  proprietaryCodecs = true;
+      #  vivaldi-ffmpeg-codecs = vivaldi-ffmpeg-codecs;
+      #  enableWidevine = true;
+      #  widevine-cdm = widevine-cdm;
+      #  commandLineArgs = chromiumFlags;
+      #})
       prismlauncher
       openjdk17-bootstrap
-	  parsec-bin
+      parsec-bin
 
-	  luakit
+      luakit
+
+      nextcloud-client
+      qownnotes
 
       rnix-lsp
       nixpkgs-fmt
-		
+
       # sway
       swaysome
       swww
       sov
-	  clipman
+      clipman
       wl-clipboard
       playerctl
       brightnessctl
       pamixer
-      wofi
       waybar
 
-      nvtop
+      onagre
+      wofi
+
+      #nvtop
+
+      (xfce.thunar.override {
+        thunarPlugins = with pkgs.xfce; [
+          thunar-volman
+          thunar-archive-plugin
+        ];
+      })
+
 
       networkmanagerapplet
       networkmanager-l2tp
@@ -63,12 +116,20 @@ in
       picom
       pantheon.pantheon-agent-polkit
       numlockx
-      udiskie
-      xfce.xfce4-power-manager
-      remmina
 
-	  osu-lazer-bin
-	  srb2kart
+      #udiskie
+      #xfce.xfce4-power-manager
+      #remmina
+
+      osu-lazer-bin
+      srb2kart
+
+      # flamesho and depends
+      flameshot
+      grim
+
+      # testing out
+      mate.engrampa
     ];
     keyboard = {
       layout = "us,cz(qwerty)";
@@ -76,16 +137,55 @@ in
     };
   };
 
-  fonts.fontconfig.enable = true;
+  #fonts.fontconfig.enable = true;
+
+  programs.firefox = {
+    enable = true;
+    profiles = {
+      main = {
+        isDefault = true;
+        extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+          # essentials
+          bitwarden
+          ublock-origin
+          darkreader
+          sponsorblock
+          stylus
+
+          # Steam
+          steam-database
+
+          # YouTube
+          youtube-shorts-block
+          return-youtube-dislikes
+
+          # RSS
+          boring-rss
+
+          # Minecraft
+          modrinthify
+
+          # GitHub
+          notifier-for-github
+
+          # Reddit
+          old-reddit-redirect
+          reddit-enhancement-suite
+
+          # LG TV agenda
+          pronoundb
+        ];
+      };
+    };
+  };
 
   programs.chromium = {
-    enable = false;
+    enable = true;
     package = (pkgs.chromium.override {
       ungoogled = true;
       channel = "ungoogled-chromium";
     });
     commandLineArgs = chromiumFlags ++ [
-      "--enable-features=WebUIDarkMode"
       "--disable-features=ClearDataOnExit"
       "--remove-tabsearch-button"
       "--show-avatar-button=never"
@@ -98,6 +198,17 @@ in
       { id = "mnjggcdmjocbbbhaepdhchncahnbgone"; } # SponsorBlock
     ];
   };
+
+  #programs.thunar = {
+  #  enable = true;
+  #  plugins = with pkgs.xfce; [
+  #    thunar-volman
+  #    thunar-archive-plugin
+  #  ];
+  #};
+
+  #services.gvfs.enable = true;
+  #services.tumbler.enable = true;
 
   programs.vscode = {
     enable = true;
@@ -224,13 +335,28 @@ in
 
   programs.btop.enable = true;
 
-  dconf.settings = {
-    "org/gnome/desktop/interface" = {
-      "color-scheme" = "prefer-dark";
+  dconf.settings =
+    let
+      color-scheme = if darkMode then "prefer-dark" else "prefer-light";
+    in
+    {
+      "org/gnome/desktop/interface" = {
+        "color-scheme" = color-scheme;
+      };
+      "org/freedesktop/interface" = {
+        "color-scheme" = color-scheme;
+      };
     };
-    "org/freedesktop/interface" = {
-      "color-scheme" = "prefer-dark";
-    };
+
+  programs.neovim = {
+    enable = true;
+    viAlias = true;
+    vimAlias = true;
+  };
+
+  home.sessionVariables = {
+    EDITOR = "nvim";
+    _JAVA_AWT_WM_NONREPARENTING = 1;
   };
 
   xdg = {
@@ -290,6 +416,31 @@ in
       "kitty/themes/sonokai-shusia.conf".source = ./sonokai-shusia.conf;
     };
   };
+
+  gtk.enable = true;
+  gtk.gtk3.extraConfig = {
+    gtk-application-prefer-dark-theme = darkMode;
+  };
+  gtk.gtk4.extraConfig = {
+    gtk-application-prefer-dark-theme = darkMode;
+  };
+
+  gtk.iconTheme.name = if darkMode then "Colloid-pink-default-dark" else "Colloid-pink-default-light";
+  gtk.iconTheme.package =
+    (pkgs.colloid-icon-theme.override {
+      schemeVariants = [ "default" ];
+      colorVariants = [ "pink" ];
+    });
+
+  gtk.cursorTheme.name = "Posy_Cursor_Black";
+  gtk.cursorTheme.package = posysCursors;
+
+  #qt.enable = true;
+  ##qt.platformTheme = "gnome";
+  #qt.platformTheme = "qtct";
+  #qt.style.name = "kvantum";
+  ##qt.style.package = pkgs.adwaita-qt;
+  ##qt.style.name = if darkMode then "adwaita-dark" else "adwaita";
 
   imports = [
     ./desktop_environments/sway
