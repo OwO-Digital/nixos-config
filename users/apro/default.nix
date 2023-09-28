@@ -107,7 +107,7 @@ in {
 
 		./programs/utils/bat.nix
 		./programs/utils/direnv.nix
-		./programs/utils/exa.nix
+		./programs/utils/eza.nix
 		./programs/utils/git.nix
 
 		./programs/apps/discocss.nix
