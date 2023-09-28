@@ -3,10 +3,10 @@
 	modules = {
 		desktop = {
 			gaming = {
-				steam.enable         = true;
-				itch.enable          = true;
-				olympus.enable       = true;
-				prismlauncher.enable = true;
+				steam.enable 		= true;
+				itch.enable 		= true;
+				olympus.enable 		= true;
+				minecraft.enable 	= true;
 			};
 			awesome = {
 				enable = true;
