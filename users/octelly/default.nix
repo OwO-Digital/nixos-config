@@ -73,8 +73,6 @@ in
       #  widevine-cdm = widevine-cdm;
       #  commandLineArgs = chromiumFlags;
       #})
-      prismlauncher
-      openjdk17-bootstrap
       parsec-bin
 
       luakit
@@ -95,6 +93,7 @@ in
       brightnessctl
       pamixer
       waybar
+      swaynotificationcenter
 
       onagre
       wofi
@@ -124,17 +123,28 @@ in
       osu-lazer-bin
       srb2kart
 
-      # flamesho and depends
+      # flameshot and dependencies
       flameshot
       grim
 
-      # testing out
       mate.engrampa
+
+      newsflash
+
+      wezterm
     ];
+    pointerCursor = {
+      package = posysCursors;
+      name = "Posy_Cursor_Black";
+    };
     keyboard = {
       layout = "us,cz(qwerty)";
       options = "grp:win_space_toggle";
     };
+    file.".dmrc".text = ''
+      [Desktop]
+      Session=sway
+    '';
   };
 
   #fonts.fontconfig.enable = true;
@@ -143,6 +153,7 @@ in
     enable = true;
     profiles = {
       main = {
+        id = 0;
         isDefault = true;
         extensions = with pkgs.nur.repos.rycee.firefox-addons; [
           # essentials
@@ -391,7 +402,6 @@ in
 
     configFile = {
       "awesome".source = ./desktop_environments/awesome/awesomecfg;
-      "sway".source = ./desktop_environments/sway/config;
       "chromium/policies/managed/extra.json".text = builtins.toJSON {
         "OsColorMode" = "dark";
         "WebAppInstallForceList" = [

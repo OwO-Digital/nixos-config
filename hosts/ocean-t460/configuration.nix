@@ -5,6 +5,7 @@
       gaming = {
         steam.enable = true;
         olympus.enable = false;
+        minecraft.enable = true;
       };
       awesome = {
         enable = true;

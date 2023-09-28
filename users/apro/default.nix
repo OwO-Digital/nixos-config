@@ -2,118 +2,123 @@
 
 let # run = import ../..  /misc/bin/run.nix { inherit pkgs; };
 in {
-	home = {
-		packages = (with pkgs; [
-			(pcmanfm.override { withGtk3 = true; })
-			rofi
-			scrot
-			picom-dccsillag
-			ranger
-			obsidian
-			nicotine-plus # yarr harr
-			obs-studio
-			jrnl
-			feh
-			ncdu
-			duf
-			pamixer
-			pulsemixer
-			dconf
-			btop
-			htop
-			libinput-gestures
-			mpv
-			# etterna
-			# run # credit to alpha for this
-		]) ++ (with pkgs.stable; [
-			#unityhub
-		]);
+  home = {
+    packages = (with pkgs; [
+      (pcmanfm.override { withGtk3 = true; })
+      rofi
+      scrot
+      picom-dccsillag
+      ranger
+      obsidian
+      nicotine-plus # yarr harr
+      obs-studio
+      jrnl
+      feh
+      ncdu
+      duf
+      pamixer
+      pulsemixer
+      dconf
+      btop
+      htop
+      libinput-gestures
+      mpv
+      # etterna
+      # run # credit to alpha for this
+    ]) ++ (with pkgs.stable; [
+      #unityhub
+    ]);
 
-		pointerCursor = {
-			x11.enable = true;
-			gtk.enable = true;
-			name = "phinger-cursors";
-			package = pkgs.phinger-cursors;
-			size = 16;
-		};
-	};
+    pointerCursor = {
+      x11.enable = true;
+      gtk.enable = true;
+      name = "phinger-cursors";
+      package = pkgs.phinger-cursors;
+      size = 16;
+    };
 
-	gtk = {
-		enable = true;
-		theme = {
-			name = "phocus";
-			package = pkgs.everblush.phocus;
-		};
+    file.".dmrc".text = ''
+      [Desktop]
+      Session=none+awesome
+    '';
+  };
 
-		iconTheme = {
-			name = "Papirus-Dark";
-			package = pkgs.papirus-icon-theme;
-		};
+  gtk = {
+    enable = true;
+    theme = {
+      name = "phocus";
+      package = pkgs.everblush.phocus;
+    };
 
-		font = {
-			name = "Roboto Condensed";
-			size = 12;
-		};
+    iconTheme = {
+      name = "Papirus-Dark";
+      package = pkgs.papirus-icon-theme;
+    };
 
-		gtk3.extraConfig = {
-			gtk-xft-antialias = 1;
-			gtk-xft-hinting = 1;
-			gtk-xft-hintstyle = "hintslight";
-			gtk-xft-rgba = "rgb";
-			gtk-decoration-layout = "menu:";
-		};
-	};
+    font = {
+      name = "Roboto Condensed";
+      size = 12;
+    };
 
-	xresources.extraConfig = import ./etc/xresources.nix;
+    gtk3.extraConfig = {
+      gtk-xft-antialias = 1;
+      gtk-xft-hinting = 1;
+      gtk-xft-hintstyle = "hintslight";
+      gtk-xft-rgba = "rgb";
+      gtk-decoration-layout = "menu:";
+    };
+  };
 
-	xdg = {
-		enable = true;
+  xresources.extraConfig = import ./etc/xresources.nix;
 
-		mime.enable = true;
-		mimeApps = {
-			enable = true;
-			defaultApplications = {
-				"inode/directory" = [ "pcmanfm.desktop" ];
-				"video" = [ "mpv.desktop" ];
-				"image" = [ "sxiv.desktop" ];
-			};
-		};
+  xdg = {
+    enable = true;
 
-		userDirs = {
-			enable = true;
-			createDirectories = true;
+    mime.enable = true;
+    mimeApps = {
+      enable = true;
+      defaultApplications = {
+        "inode/directory" = [ "pcmanfm.desktop" ];
+        "video" = [ "mpv.desktop" ];
+        "image" = [ "sxiv.desktop" ];
+      };
+    };
 
-			desktop = null;
-			documents = null;
-			publicShare = null;
-			templates = null;
+    userDirs = {
+      enable = true;
+      createDirectories = true;
 
-			download = "${config.home.homeDirectory}/Downloads";
-			music = "${config.home.homeDirectory}/Music";
-			pictures = "${config.home.homeDirectory}/Pictures";
-			videos = "${config.home.homeDirectory}/Videos";
-		};
+      desktop = null;
+      documents = null;
+      publicShare = null;
+      templates = null;
 
-		configFile = {
-			# awesome.source = ./config/awesome;
-			picom.source = ./config/picom;
-			rofi.source = ./config/rofi;
-			"libinput-gestures.conf".source = ./config/libinput-gestures.conf;
-		};
-	};
+      download = "${config.home.homeDirectory}/Downloads";
+      music = "${config.home.homeDirectory}/Music";
+      pictures = "${config.home.homeDirectory}/Pictures";
+      videos = "${config.home.homeDirectory}/Videos";
+    };
 
-	imports = [
-		./programs/shell
+    configFile = {
+      # awesome.source = ./config/awesome;
+      picom.source = ./config/picom;
+      rofi.source = ./config/rofi;
+      "libinput-gestures.conf".source = ./config/libinput-gestures.conf;
+    };
+  };
 
-		./programs/utils/bat.nix
-		./programs/utils/direnv.nix
-		./programs/utils/eza.nix
-		./programs/utils/git.nix
+  imports = [
+    ./programs/shell
 
-		./programs/apps/discocss.nix
-		./programs/apps/firefox.nix
-		./programs/apps/mpd.nix
-		./programs/apps/vscodium.nix
-		./programs/apps/wezterm.nix
-	];
+    ./programs/utils/bat.nix
+    ./programs/utils/direnv.nix
+    ./programs/utils/eza.nix
+    ./programs/utils/git.nix
+
+    ./programs/apps/discocss.nix
+    ./programs/apps/firefox.nix
+    ./programs/apps/mpd.nix
+    ./programs/apps/vscodium.nix
+    ./programs/apps/wezterm.nix
+  ];
 }
