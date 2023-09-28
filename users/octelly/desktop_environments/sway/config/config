@@ -15,8 +15,6 @@ set $term kitty
 #set $menu "rofi -no-default-config -config ~/.config/awesome/rofi/config.rasi -switchers combi,drun,calc -show combi"
 set $menu "wofi --show drun"
 
-wmname LG3D
-
 ### Appearance
 # window corner radius in px
 corner_radius 10
@@ -26,7 +24,7 @@ corner_radius 10
 # dim_inactive_colors.unfocused #000000FF
 # dim_inactive_colors.urgent #900000FF
 
-font Maple Mono NF 10
+font Noto Sans 10
 
 gaps inner 5
 gaps outer 10
@@ -244,6 +242,8 @@ bindsym XF86Search exec $menu
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
+
+bindsym $mod+a exec "swaync-client -t -sw"
 #
 # Resizing containers:
 #
@@ -278,6 +278,10 @@ exec blueberry-tray
 exec wl-paste --watch clipman store --no-persist
 
 exec "swaysome init 1"
+
+exec swaync
+
+for_window [app_id="swaync"] fullscreen enable
 
 #exec "/usr/lib/policykit-1-pantheon/io.elementary.desktop.agent-polkit"
 
