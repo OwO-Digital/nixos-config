@@ -9,6 +9,6 @@ in {
 	};
 
 	config = mkIf cfg.enable {
-		environment.systemPackages = with pkgs; [ prismlauncher badlion jdk8 jdk17 ];
+		environment.systemPackages = with pkgs; [ prismlauncher jdk8 jdk17 ];
 	};
 }
