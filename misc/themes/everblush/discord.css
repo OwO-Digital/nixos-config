@@ -1,7 +1,8 @@
 
 @import url("https://mwittrien.github.io/BetterDiscordAddons/Themes/BlurpleRecolor/BlurpleRecolor.css");
+@import url("https://discord-extensions.github.io/modern-indicators/src/source.css");
+@import url("https://raw.githubusercontent.com/maenDisease/BetterDiscordStuff/main/Themes/Float/zFloat.theme.css")
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+HK&family=Noto+Sans+JP&family=Noto+Sans+KR&family=Noto+Sans+SC&family=Noto+Sans+TC&family=Roboto+Condensed&display=swap');
-@import url("https://zzzmario.github.io/modern-indicators/src/source.css");
 
 ::-webkit-input-placeholder, body, button, input, select, textarea {
 	font-family: sans-serif;
@@ -78,6 +79,21 @@ body {
   	--background-secondary-alt: #141b1e;
   	--background-tertiary: #141b1e;
 	--channeltextarea-background: #232a2d;
+}
+
+.childWrapper-1j_1ub path {
+    fill: transparent;
+}
+
+.childWrapper-1j_1ub {
+    background: url('https://raw.githubusercontent.com/NixOS/nixos-artwork/ac04f06feb980e048b4ab2a7ca32997984b8b5ae/logo/nix-snowflake.svg')
+                    center/80% no-repeat;
+    min-width: 60px;
+    min-height: 60px;
+}
+
+.selected-1Drb7Z .childWrapper-1j_1ub,.wrapper-3kah-n:hover .childWrapper-1j_1ub {
+    background-color: #c47fd5
 }
 
 .tabBody-2dgbAs {
