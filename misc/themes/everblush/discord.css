@@ -80,11 +80,11 @@ body {
 	--channeltextarea-background: #232a2d;
 }
 
-.childWrapper-1j_1ub path {
+[data-list-item-id="guildsnav___home"] .childWrapper-1j_1ub path {
     fill: transparent;
 }
 
-.childWrapper-1j_1ub {
+[data-list-item-id="guildsnav___home"] .childWrapper-1j_1ub {
     background: url('https://raw.githubusercontent.com/NixOS/nixos-artwork/ac04f06feb980e048b4ab2a7ca32997984b8b5ae/logo/nix-snowflake.svg')
                     center/70% no-repeat;
     min-width: 60px;
