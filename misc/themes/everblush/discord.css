@@ -36,8 +36,8 @@
 	--font:      sans-serif;
 	--font-code: monospace;
 
-	--accentcolor: #c47fd5;		/* blurple - default: 114,137,218 */
-	--linkcolor:   #67b0e8;		/* link - default: 0,176,244 */
+	--accentcolor: 196,127,213;		/* blurple - default: 114,137,218 */
+	--linkcolor:   103,176,232;		/* link - default: 0,176,244 */
 
 	--server-icon-size: 40px; /* Size of the server icons | DEFAULT: 35px */
   	--server-icon-spacing: 8px; /* Spacing between server icons. Negative values are allowed | DEFAULT: 8px */
