@@ -82,10 +82,10 @@ body {
   	--background-secondary-alt: #141b1e;
   	--background-tertiary: #141b1e;
 	--channeltextarea-background: #232a2d;
-	--indicator-unread: 193, 7%, 27%;
-    --indicator-unread-mention: 0, 68%, 68%;
-    --indicator-selected: 288, 51%, 67%;
-    --indicator-connected: 110, 46%, 65%;
+	--indicator-unread: 193 7% 27%;
+    --indicator-unread-mention: 0 68% 68%;
+    --indicator-selected: 288 51% 67%;
+    --indicator-connected: 110 46% 65%;
 }
 
 [data-list-item-id="guildsnav___home"] .childWrapper-1j_1ub path {
