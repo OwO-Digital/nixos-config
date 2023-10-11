@@ -93,10 +93,7 @@ body {
 }
 
 [data-list-item-id="guildsnav___home"] .childWrapper-1j_1ub {
-    background: url('htt    --indicator-unread: var(--primary-130-hsl);
-    --indicator-unread-mention: var(--red-400-hsl);
-    --indicator-selected: var(--brand-500-hsl);
-    --indicator-connected: var(--green-230-hsl);ps://raw.githubusercontent.com/NixOS/nixos-artwork/master/logo/white.svg')
+    background: url('https://raw.githubusercontent.com/NixOS/nixos-artwork/master/logo/white.svg')
                     center/70% no-repeat;
     min-width: 60px;
     min-height: 60px;
