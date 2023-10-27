@@ -18,6 +18,11 @@ theming.taglist_fg_occupied = cols.taglist
 theming.taglist_fg_empty    = cols.dfg
 theming.taglist_fg_focus    = cols.bg
 
+theming.titlebar_bg        = '#00000000'
+theming.titlebar_bg_normal = '#00000000'
+theming.titlebar_bg_focus  = '#00000000'
+theming.titlebar_bg_urgent = '#00000000'
+
 theming.tasklist_plain_task_name = true
 
 theming.bg_systray = cols.dbg

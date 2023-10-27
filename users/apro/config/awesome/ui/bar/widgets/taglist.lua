@@ -98,6 +98,10 @@ return function(s)
 						old_wibox = nil
 					end
 				end)
+
+				awesome.connect_signal("optimize::toggle", function(optimized)
+					taganim.duration = (optimized and 0.01 or 0.2)
+				end)
 			end
 		}
 	}

@@ -1,6 +1,6 @@
 local awful = require("awful")
 
-local autostart = {
+autostart = {
 }
 local desktop_autostart = {
 	"picom -b --animations --no-vsync",
@@ -22,5 +22,6 @@ else
 end
 
 for _, app in ipairs(autostart) do
-	awful.spawn.once(app)
+awful.spawn.once(app)
 end
+

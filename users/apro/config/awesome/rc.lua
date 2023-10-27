@@ -23,6 +23,6 @@ bar_outline  = true
 bar_size     = 36
 
 require("conf")      -- Import configuration
-require("ui")        -- Import widgets
 require("signals")   -- Import signals
+require("ui")        -- Import widgets
 

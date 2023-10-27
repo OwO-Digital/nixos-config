@@ -118,6 +118,10 @@ helpers.embox = function(w, plfix, padding, hover_effects, have_margin)
 				old_wibox = nil
 			end
 		end)
+
+		awesome.connect_signal("optimize::toggle", function(optimized)
+			boxanim.duration = (optimized and 0.01 or 0.2)
+		end)
 	end
 
 	return boxed

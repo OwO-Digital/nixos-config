@@ -197,6 +197,11 @@ return function(s)
 		update_icon()
 	end)
 
+	awesome.connect_signal("optimize::toggle", function(optimized)
+		btnanim.duration      = (optimized and 0.01 or 0.2)
+		volume_slide.duration = (optimized and 0.01 or 0.5)
+	end)
+
 	update_icon()
 	update_mute()
 	return helpers.embox(volbar, false, 0, false, false)

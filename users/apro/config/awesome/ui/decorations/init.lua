@@ -24,7 +24,6 @@ client.connect_signal("request::titlebars", function(c)
 		position = "top",
 		size = 24,
 		font = helpers.join({beautiful.uifontsp, "Medium", beautiful.fontsize}),
-		bg = "#00000000"
 	})
 	:setup({
 		{
@@ -247,6 +246,20 @@ client.connect_signal("request::titlebars", function(c)
 				awful.titlebar(c, { position = "bottom", size = bs }).widget.shape          = helpers.prrect(beautiful.border_radius, false, false, true, true)
 				awful.titlebar(c, { position = "bottom", size = bs }).widget.lol.lmao.shape = helpers.prrect(beautiful.border_radius, false, false, true, true)
 			end
+		end
+	end)
+
+	awesome.connect_signal("optimize::toggle", function(optimized)
+		if optimized then
+			awful.titlebar(c, { position = "top",    size = 24 }).widget.shape          = gears.shape.rectangle
+			awful.titlebar(c, { position = "top",    size = 24 }).widget.lol.lmao.shape = gears.shape.rectangle
+			awful.titlebar(c, { position = "bottom", size = bs }).widget.shape          = gears.shape.rectangle
+			awful.titlebar(c, { position = "bottom", size = bs }).widget.lol.lmao.shape = gears.shape.rectangle
+		else
+			awful.titlebar(c, { position = "top",    size = 24 }).widget.shape          = helpers.prrect(beautiful.border_radius, true, true, false, false)
+			awful.titlebar(c, { position = "top",    size = 24 }).widget.lol.lmao.shape = helpers.prrect(beautiful.border_radius, true, true, false, false)
+			awful.titlebar(c, { position = "bottom", size = bs }).widget.shape          = helpers.prrect(beautiful.border_radius, false, false, true, true)
+			awful.titlebar(c, { position = "bottom", size = bs }).widget.lol.lmao.shape = helpers.prrect(beautiful.border_radius, false, false, true, true)
 		end
 	end)
 end)
