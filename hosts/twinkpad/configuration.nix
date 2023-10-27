@@ -13,6 +13,7 @@
 				package = pkgs.awesome-git;
 			};
 			sway.enable = true;
+			river.enable = true;
 		};
 		hardware.laptop.enable = true;
 		system = {

@@ -10,8 +10,6 @@ in {
 	};
 
 	config = mkIf cfg.enable {
-		environment.systemPackages = with pkgs; [ luajit ];
-
 		services.xserver.windowManager.awesome = {
 			enable = true;
 			package = cfg.package;

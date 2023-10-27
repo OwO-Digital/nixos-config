@@ -5,7 +5,7 @@ in {
   home = {
     packages = (with pkgs; [
       (pcmanfm.override { withGtk3 = true; })
-      rofi
+      rofi-wayland
       scrot
       picom-dccsillag
       ranger
@@ -104,6 +104,8 @@ in {
       picom.source = ./config/picom;
       rofi.source = ./config/rofi;
       "libinput-gestures.conf".source = ./config/libinput-gestures.conf;
+
+	  "mimeapps.list".force = true;
     };
   };
 
