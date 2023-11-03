@@ -23,6 +23,7 @@ in {
       htop
       libinput-gestures
       mpv
+	  (giph.override { ffmpeg = (ffmpeg_6.override { ffmpegVariant = "full"; }); })
       # etterna
       # run # credit to alpha for this
     ]) ++ (with pkgs.stable; [
