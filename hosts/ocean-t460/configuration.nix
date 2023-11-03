@@ -12,6 +12,7 @@
         package = pkgs.awesome-git;
       };
       sway.enable = true;
+      qtile.enable = true;
     };
     hardware.laptop.enable = true;
     system = {
