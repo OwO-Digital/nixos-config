@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }: {
+{ config, pkgs, inputs, lib, ... }: {
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -71,6 +71,8 @@
     };
     zsh.enable = true;
   };
+
+  security.pam.services.gtklock.text = lib.readFile "${pkgs.gtklock}/etc/pam.d/gtklock";
 
   services = {
     dbus.enable = true;
