@@ -4,9 +4,10 @@
 	inputs = {
 		home.url   = "github:nix-community/home-manager";
 		nixHW.url = "github:nixos/nixos-hardware/master";
-		f2k.url    = "github:fortuneteller2k/nixpkgs-f2k";
+		f2k.url    = "github:moni-dz/nixpkgs-f2k";
 		nur.url    = "github:nix-community/NUR";
 		vscode-ext.url = "github:nix-community/nix-vscode-extensions";
+    	flatpaks.url = "github:GermanBread/declarative-flatpak/stable";
 
 		unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 		stable.url   = "github:nixos/nixpkgs/nixos-23.05";

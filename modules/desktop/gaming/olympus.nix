@@ -9,6 +9,12 @@ in {
 	};
 
 	config = mkIf cfg.enable {
-		environment.systemPackages = with pkgs; [ olympus ];
+		services.flatpak = {
+			enable = true;
+			packages = [ "flathub:app/io.github.everestapi.Olympus//stable" ];
+			remotes = {
+				"flathub" = "https://dl.flathub.org/repo/flathub.flatpakrepo";
+			};
+		};
 	};
 }
