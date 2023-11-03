@@ -116,7 +116,7 @@ client.connect_signal("request::titlebars", function(c)
 				},
 				widget = wibox.container.background,
 				bg = beautiful.bg,
-				shape = helpers.prrect(beautiful.border_radius - beautiful.border_size, true, true, false, false),
+				shape = optimized and gears.shape.rectangle or helpers.prrect(beautiful.border_radius - beautiful.border_size, true, true, false, false),
 				id = "lmao"
 			},
 			widget = wibox.container.margin,
@@ -127,7 +127,7 @@ client.connect_signal("request::titlebars", function(c)
 			id = "lol"
 		},
 		widget = wibox.container.background,
-		shape = helpers.prrect(beautiful.border_radius, true, true, false, false),
+		shape = optimized and gears.shape.rectangle or helpers.prrect(beautiful.border_radius, true, true, false, false),
 		bg = beautiful.border_normal,
 	})
 	awful.titlebar(c, {
@@ -168,7 +168,7 @@ client.connect_signal("request::titlebars", function(c)
 				}),
 				widget = wibox.container.background,
 				bg = beautiful.bg,
-				shape = helpers.prrect(beautiful.border_radius - beautiful.border_size, false, false, true, true),
+				shape = optimized and gears.shape.rectangle or helpers.prrect(beautiful.border_radius - beautiful.border_size, false, false, true, true),
 				id = "lmao"
 			},
 			widget = wibox.container.margin,
@@ -179,7 +179,7 @@ client.connect_signal("request::titlebars", function(c)
 			id = "lol"
 		},
 		widget = wibox.container.background,
-		shape = helpers.prrect(beautiful.border_radius, false, false, true, true),
+		shape = optimized and gears.shape.rectangle or helpers.prrect(beautiful.border_radius, false, false, true, true),
 		bg = beautiful.border_normal,
 	})
 
@@ -235,7 +235,7 @@ client.connect_signal("request::titlebars", function(c)
 	client.connect_signal("request::geometry", function(c)
 		local bs = tabcheck(c)
 		if c.requests_no_titlebar ~= true then
-			if c.maximized then
+			if c.maximized or optimized then
 				awful.titlebar(c, { position = "top",    size = 24 }).widget.shape          = gears.shape.rectangle
 				awful.titlebar(c, { position = "top",    size = 24 }).widget.lol.lmao.shape = gears.shape.rectangle
 				awful.titlebar(c, { position = "bottom", size = bs }).widget.shape          = gears.shape.rectangle

@@ -42,6 +42,18 @@ local icons = {
 
 	-- notif icons
 	notif      = dir .. "notifs/default.svg",
+
+	-- power icons
+	power	= dir .. "power/power.svg",
+	restart	= dir .. "power/restart.svg",
+	sleep	= dir .. "power/sleep.svg",
+	log_out	= dir .. "power/log-out.svg",
+
+	-- system icons
+	wifi		= dir .. "system/wifi.svg",
+	bluetooth	= dir .. "system/bluetooth.svg",
+	eye_candy	= dir .. "system/eye-candy.svg",
+	night_light	= dir .. "system/night-light.svg",
 }
 
 if gfs.file_readable(os.getenv("HOME") .. "/.face") then

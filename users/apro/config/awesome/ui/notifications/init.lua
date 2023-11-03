@@ -244,14 +244,14 @@ naughty.connect_signal("request::display", function(n)
 						bg = beautiful.dbg,
 					},
 					widget = wibox.container.background,
-					shape = helpers.rrect(beautiful.border_radius - beautiful.border_size)
+					shape = optimized and gears.shape.rectangle or helpers.rrect(beautiful.border_radius - beautiful.border_size)
 				},
 				widget = wibox.container.margin,
 				margins = beautiful.border_size
 			},
 			widget = wibox.container.background,
 			bg = beautiful.notifs,
-			shape = helpers.rrect(beautiful.border_radius)
+			shape = optimized and gears.shape.rectangle or helpers.rrect(beautiful.border_radius)
 		}
 	}
 

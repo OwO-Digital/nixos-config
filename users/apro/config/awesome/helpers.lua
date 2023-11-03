@@ -73,17 +73,17 @@ helpers.embox = function(w, plfix, padding, hover_effects, have_margin)
 		{
 			{
 				{
-						 w,
-			 widget  = wibox.container.margin,
-			 margins = padding
+					w,
+			 		widget  = wibox.container.margin,
+					margins = padding
+				},
+				widget = wibox.container.background,
+				bg     = beautiful.dbg,
+				id     = "bgcol"
 			},
 			widget = wibox.container.background,
-			bg     = beautiful.dbg,
-			id     = "bgcol"
-		},
-		widget = wibox.container.background,
-		shape  = helpers.rrect(4),
-		id     = "shape"
+			shape  = helpers.rrect(4),
+			id     = "shape"
 		},
 		widget  = wibox.container.margin,
 		margins = margin
@@ -123,6 +123,71 @@ helpers.embox = function(w, plfix, padding, hover_effects, have_margin)
 			boxanim.duration = (optimized and 0.01 or 0.2)
 		end)
 	end
+
+	return boxed
+end
+
+helpers.prembox = function(w, padding, have_margin, tl, tr, br, bl, dbg, lbg)
+	local dbg = color.color { hex = dbg or beautiful.dbg }
+	local lbg = color.color { hex = lbg or beautiful.lbg }
+	local padding = padding or 2
+
+	local margin
+
+	if have_margin ~= false then
+		margin = 4
+	end
+
+	local boxed = wibox.widget
+	{
+		{
+			{
+				{
+					w,
+			 		widget  = wibox.container.margin,
+			 		margins = padding
+				},
+				widget = wibox.container.background,
+				bg     = beautiful.dbg,
+				id     = "bgcol"
+			},
+			widget = wibox.container.background,
+			shape  = helpers.prrect(4, tl, tr, br, bl),
+			id     = "shape"
+		},
+		widget  = wibox.container.margin,
+		margins = margin
+	}
+
+	local boxtrans = color.transition(dbg, lbg)
+	local boxanim = rubato.timed {
+		duration   = 0.2,
+		intro      = 0.1,
+		subscribed = function(pos)
+			boxed.shape.bgcol.bg = boxtrans(pos).hex
+		end
+	}
+
+	boxed.shape:connect_signal("mouse::enter", function()
+		boxanim.target = 1
+		w = mouse.current_wibox
+		if w then
+			old_cursor, old_wibox = w.cursor, w
+			w.cursor = "hand1"
+		end
+	end)
+
+	boxed.shape:connect_signal("mouse::leave", function()
+		boxanim.target = 0
+		if old_wibox then
+			old_wibox.cursor = old_cursor
+			old_wibox = nil
+		end
+	end)
+
+	awesome.connect_signal("optimize::toggle", function(optimized)
+		boxanim.duration = (optimized and 0.01 or 0.2)
+	end)
 
 	return boxed
 end
