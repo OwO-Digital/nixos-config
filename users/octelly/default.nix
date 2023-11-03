@@ -38,10 +38,31 @@ let
       cp -r Posy* $out/share/icons/
     '';
   });
+  #warble = (pkgs.stdenv.mkDerivation rec {
+  #  pname = "warble";
+  #  version = "2.0.1";
+  #  src = pkgs.fetchFromGitHub {
+  #    owner = "avojak";
+  #    repo = pname;
+  #    rev = version;
+  #    hash = "sha256-kRFwcH/rPUw8GwMDwNvtuqPyZ4+GgPeoBcxUhO9PrMs=";
+  #  };
+  #  buildInputs = with pkgs; [
+  #    flatpak
+  #    flatpak-builder
+  #    which
+  #  ];
+  #  preBuild = ''
+  #    make flatpak-init
+  #  '';
+  #});
+  firefoxMainProfileName = "main";
 in
 {
   home = {
     packages = with pkgs; [
+      #warble
+
       pavucontrol
       pulsemixer
       maple-mono-NF
@@ -52,6 +73,7 @@ in
         withOpenASAR = true;
         withVencord = true;
       })
+	  telegram-desktop
 
       #cinnamon.nemo-with-extensions
 
@@ -97,6 +119,9 @@ in
 
       onagre
       wofi
+
+      gtklock
+      gtklock-userinfo-module
 
       #nvtop
 
@@ -145,6 +170,16 @@ in
       [Desktop]
       Session=sway
     '';
+
+    file."lepton" = {
+      target = ".mozilla/firefox/${firefoxMainProfileName}/chrome/lepton";
+      source = (pkgs.fetchFromGitHub {
+        owner = "black7375";
+        repo = "Firefox-UI-Fix";
+        rev = "v8.0.0";
+        hash = "sha256-Bw5e1/ZXal4AZUn17or2hh2VLNZu7rtfRakXZtxm/pI=";
+      });
+    };
   };
 
   #fonts.fontconfig.enable = true;
@@ -152,7 +187,7 @@ in
   programs.firefox = {
     enable = true;
     profiles = {
-      main = {
+      ${firefoxMainProfileName} = {
         id = 0;
         isDefault = true;
         extensions = with pkgs.nur.repos.rycee.firefox-addons; [
@@ -186,6 +221,119 @@ in
           # LG TV agenda
           pronoundb
         ];
+        settings = {
+          "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
+
+          # Lepton theme
+          # https://github.com/black7375/Firefox-UI-Fix
+          "browser.proton.enabled" = true;
+          "svg.context-properties.content.enabled" = true;
+          "layout.css.color-mix.enabled" = true;
+          "layout.css.backdrop-filter.enabled" = true;
+          "browser.compactmode.show" = true;
+          "browser.newtabpage.activity-stream.improvesearch.handoffToAwesomebar" = false;
+          "layout.css.has-selector.enabled" = true;
+
+          "userChrome.tab.connect_to_window" = true;
+          "userChrome.tab.color_like_toolbar" = true;
+
+          "userChrome.tab.lepton_like_padding" = true;
+          "userChrome.tab.photon_like_padding" = false;
+
+          "userChrome.tab.dynamic_separator" = true;
+          "userChrome.tab.static_separator" = false;
+          "userChrome.tab.static_separator.selected_accent" = false;
+          "userChrome.tab.bar_separator" = false;
+
+          "userChrome.tab.newtab_button_like_tab" = true;
+          "userChrome.tab.newtab_button_smaller" = false;
+          "userChrome.tab.newtab_button_proton" = false;
+
+          "userChrome.icon.panel_full" = true;
+          "userChrome.icon.panel_photon" = false;
+
+          "userChrome.tab.box_shadow" = true;
+          "userChrome.tab.bottom_rounded_corner" = true;
+
+          "userChrome.tab.photon_like_contextline" = false;
+          "userChrome.rounding.square_tab" = false;
+
+          "userChrome.compatibility.theme" = true;
+          "userChrome.compatibility.os" = true;
+
+          "userChrome.theme.built_in_contrast" = true;
+          "userChrome.theme.system_default" = true;
+          "userChrome.theme.proton_color" = true;
+          "userChrome.theme.proton_chrome" = true;
+          "userChrome.theme.fully_color" = true;
+          "userChrome.theme.fully_dark" = true;
+
+          "userChrome.decoration.cursor" = true;
+          "userChrome.decoration.field_border" = true;
+          "userChrome.decoration.download_panel" = true;
+          "userChrome.decoration.animate" = true;
+
+          "userChrome.padding.tabbar_width" = true;
+          "userChrome.padding.tabbar_height" = true;
+          "userChrome.padding.toolbar_button" = true;
+          "userChrome.padding.navbar_width" = true;
+          "userChrome.padding.urlbar" = true;
+          "userChrome.padding.bookmarkbar" = true;
+          "userChrome.padding.infobar" = true;
+          "userChrome.padding.menu" = true;
+          "userChrome.padding.bookmark_menu" = true;
+          "userChrome.padding.global_menubar" = true;
+          "userChrome.padding.panel" = true;
+          "userChrome.padding.popup_panel" = true;
+
+          "userChrome.tab.multi_selected" = true;
+          "userChrome.tab.unloaded" = true;
+          "userChrome.tab.letters_cleary" = true;
+          "userChrome.tab.close_button_at_hover" = true;
+          "userChrome.tab.sound_hide_label" = true;
+          "userChrome.tab.sound_with_favicons" = true;
+          "userChrome.tab.pip" = true;
+          "userChrome.tab.container" = true;
+          "userChrome.tab.crashed" = true;
+
+          "userChrome.fullscreen.overlap" = true;
+          "userChrome.fullscreen.show_bookmarkbar" = true;
+
+          "userChrome.icon.library" = true;
+          "userChrome.icon.panel" = true;
+          "userChrome.icon.menu" = true;
+          "userChrome.icon.context_menu" = true;
+          "userChrome.icon.global_menu" = true;
+          "userChrome.icon.global_menubar" = true;
+
+          "userContent.player.ui" = true;
+          "userContent.player.icon" = true;
+          "userContent.player.noaudio" = true;
+          "userContent.player.size" = true;
+          "userContent.player.click_to_play" = true;
+          "userContent.player.animate" = true;
+
+          "userContent.newTab.full_icon" = true;
+          "userContent.newTab.animate" = true;
+          "userContent.newTab.pocket_to_last" = true;
+          "userContent.newTab.searchbar" = true;
+
+          "userContent.page.field_border" = true;
+          "userContent.page.illustration" = true;
+          "userContent.page.proton_color" = true;
+          "userContent.page.dark_mode" = true;
+          "userContent.page.proton" = true;
+
+          "browser.urlbar.suggest.calculator" = true;
+        };
+        userChrome = ''
+          // Lepton theme
+          @import "lepton/userChrome.css";
+        '';
+        userContent = ''
+          // Lepton theme
+          @import "lepton/userContent.css";
+        '';
       };
     };
   };
@@ -424,6 +572,7 @@ in
         "ShowHomeButton" = false;
       };
       "kitty/themes/sonokai-shusia.conf".source = ./sonokai-shusia.conf;
+      "qtile".source = ./desktop_environments/qtile;
     };
   };
 
