@@ -24,6 +24,7 @@ in {
 			libinput-gestures
 			mpv
 			telegram-desktop
+			st-emi
 			(giph.override { ffmpeg = (ffmpeg_6.override { ffmpegVariant = "full"; }); })
 			# etterna
 			# run # credit to alpha for this
@@ -37,6 +38,11 @@ in {
 			name = "phinger-cursors";
 			package = pkgs.phinger-cursors;
 			size = 16;
+		};
+
+		sessionVariables = {
+			"TERMINAL" = "wezterm";
+			"EDITOR"   = "nvim";
 		};
 
 		file.".dmrc".text = ''
