@@ -82,11 +82,11 @@ in
         modules = [ ];
         fc = {
           # `fonts` takes a list of packages
-          fonts = with pkgs; [ maple-mono roboto twemoji-color-font noto-fonts noto-fonts-cjk-sans noto-fonts-cjk-serif noto-fonts-emoji-blob-bin material-design-icons ];
+          fonts = with pkgs; [ maple-mono roboto cozette twemoji-color-font noto-fonts noto-fonts-cjk-sans noto-fonts-cjk-serif noto-fonts-emoji-blob-bin material-design-icons ];
           # `nerd-fonts.override` takes a list of strings
           nerd-fonts = [ "Iosevka" "JetBrainsMono" ];
           defaultFonts = {
-            monospace = [ "Iosevka Nerd Font" ];
+            monospace = [ "Iosevka Nerd Font" "Cozette" ];
             sansSerif =
               [ "Roboto Condensed" ]
               ++ map (v: "Noto Sans CJK ${v}") [ "SC" "TC" "HK" "JP" "KR" ];
