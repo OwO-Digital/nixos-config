@@ -147,6 +147,8 @@ in
 
       osu-lazer-bin
       srb2kart
+	  gamescope
+	  mangohud
 
       # flameshot and dependencies
       flameshot
