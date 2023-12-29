@@ -5,6 +5,7 @@ in {
 	home = {
 		packages = (with pkgs; [
 			(pcmanfm.override { withGtk3 = true; })
+			tor-browser-bundle-bin
 			rofi-wayland
 			scrot
 			picom-dccsillag

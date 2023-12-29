@@ -23,7 +23,7 @@ st.color15: #A6ADC8
 */
 
 // Everblush
-
+/*
 st.background: #141b1e
 st.foreground: #dadada
 st.cursorcolor: #dadada
@@ -43,7 +43,29 @@ st.color12: #71baf2
 st.color13: #ce89df
 st.color14: #67cbe7 
 st.color15: #bdc3c2
+*/
 
-st.font: Iosevka Nerd Font Mono:pixelsize=15:antialias=true:autohint=true
+// Mountain
+st.background: #0f0f0f
+st.foreground: #f0f0f0
+st.color0: #262626
+st.color1: #ac8a8c
+st.color2: #8aac8b
+st.color3: #aca98a
+st.color4: #8f8aac
+st.color5: #ac8aac
+st.color6: #8aabac
+st.color7: #e7e7e7
+st.color8: #4c4c4c
+st.color9: #c49ea0
+st.color10: #9ec49f
+st.color11: #c4c19e
+st.color12: #a39ec4
+st.color13: #c49ec4
+st.color14: #9ec3c4
+st.color15: #f5f5f5
+
+// st.font: Iosevka Nerd Font:pixelsize=15:antialias=true:autohint=true
+st.font: Cozette:pixelsize=16:antialias=true:autohint=true
 st.tabspaces: 4
 ''
