@@ -10,10 +10,11 @@ in {
 
   config = mkIf cfg.enable {
     programs.sway.enable = true;
-    programs.sway.package = pkgs.sway.override {
-      sway-unwrapped = pkgs.sway-unwrapped.overrideAttrs (old: {
-        inherit (pkgs.swayfx) src pname version meta patches;
-      });
-    };
+    #programs.sway.package = pkgs.sway.override {
+    #  sway-unwrapped = pkgs.sway-unwrapped.overrideAttrs (old: {
+    #    inherit (pkgs.swayfx) src pname version meta patches;
+    #  });
+    #};
+    programs.sway.package = pkgs.swayfx;
   };
 }
