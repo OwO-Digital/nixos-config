@@ -8,7 +8,7 @@ in {
 			tor-browser-bundle-bin
 			rofi-wayland
 			scrot
-			picom-dccsillag
+			#picom-dccsillag
 			ranger
 			obsidian
 			nicotine-plus # yarr harr
