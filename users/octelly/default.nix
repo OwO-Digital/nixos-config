@@ -69,11 +69,10 @@ in
       ranger
 
       (discord.override {
-        # remove any overrides that you don't want
         withOpenASAR = true;
         withVencord = true;
       })
-	  telegram-desktop
+      telegram-desktop
 
       #cinnamon.nemo-with-extensions
 
@@ -147,8 +146,9 @@ in
 
       osu-lazer-bin
       srb2kart
-	  gamescope
-	  mangohud
+      gamescope
+      mangohud
+      #tmuf
 
       # flameshot and dependencies
       flameshot
@@ -371,6 +371,10 @@ in
   #services.gvfs.enable = true;
   #services.tumbler.enable = true;
 
+  services.swayosd = {
+    enable = true;
+  };
+
   programs.vscode = {
     enable = true;
     extensions = (with pkgs.open-vsx; [
@@ -515,6 +519,30 @@ in
     vimAlias = true;
   };
 
+  programs.anyrun = {
+    enable = true;
+    config =
+      let
+        fraction = x: { fraction = x; };
+      in
+      {
+        x = fraction 0.5;
+        y = fraction 0.4;
+        width = fraction 0.35;
+        ignoreExclusiveZones = true;
+        plugins = with inputs.anyrun.packages.${system}; [
+          # desktop entries
+          applications
+          # unicode symbols
+          symbols
+          # shell commands
+          shell
+          # calculator
+          rink
+        ];
+      };
+  };
+
   home.sessionVariables = {
     EDITOR = "nvim";
     _JAVA_AWT_WM_NONREPARENTING = 1;
@@ -575,6 +603,35 @@ in
       };
       "kitty/themes/sonokai-shusia.conf".source = ./sonokai-shusia.conf;
       "qtile".source = ./desktop_environments/qtile;
+
+      "swaync/config.json".text = builtins.toJSON {
+        "control-center-exclusive-zone" = true;
+
+        "positionX" = "center";
+        "positionY" = "top";
+        "control-center-positionX" = "none";
+        "control-center-positionY" = "none";
+        "control-center-margin-top" = 8;
+        "control-center-margin-bottom" = 8;
+        "control-center-margin-right" = 8;
+        "control-center-margin-left" = 8;
+        "control-center-width" = 500;
+        "control-center-height" = 600;
+        "fit-to-screen" = false;
+
+        "layer" = "overlay";
+        "control-center-layer" = "overlay";
+        "cssPriority" = "user";
+
+        "keyboard-shortcuts" = false;
+        "widgets" = [
+          "mpris"
+          "title"
+          "dnd"
+          "notifications"
+        ];
+      };
+      "swaync/style.css".source = ./swaync.css;
     };
   };
 
@@ -602,6 +659,312 @@ in
   #qt.style.name = "kvantum";
   ##qt.style.package = pkgs.adwaita-qt;
   ##qt.style.name = if darkMode then "adwaita-dark" else "adwaita";
+
+  xresources.properties = {
+    # 96 is 1x
+    "Xft.dpi" = 96;
+  };
+
+  wayland.windowManager.hyprland =
+    let
+      strlist = list: (builtins.concatStringsSep "," list);
+      rgba = hex: "rgba(${hex})";
+      rgb = hex: "rgb(${hex})";
+
+      tools =
+        let
+          bin = pkg: bin: "${pkg}/bin/${bin}";
+        in
+        with pkgs;
+        {
+          swaync = {
+            server = bin swaynotificationcenter "swaync";
+            client = bin swaynotificationcenter "swaync-client";
+          };
+          wl-clip-persist = bin wl-clip-persist "wl-clip-persist";
+          swww = bin swww "swww";
+          waybar = bin waybar "waybar";
+        };
+
+      workspaces_per_monitor = 9;
+    in
+    {
+      enable = true;
+      plugins = [
+        # manual tiling
+        inputs.hypr-hy3.packages.${system}.hy3
+        # per monitor workspaces
+        inputs.hypr-smw.packages.${system}.split-monitor-workspaces
+      ];
+      settings = {
+
+        # plugin and daemons setup
+
+        plugin.split-monitor-workspaces.count = workspaces_per_monitor;
+
+        exec-once = with tools; [
+          # notifications
+          swaync.server
+          # volume, caps lock, etc. indicator
+          "swayosd-server"
+          # persistent clpboard
+          (wl-clip-persist + " --clipboard both")
+          # wallpaper
+          (swww + " init")
+          # bar
+          waybar
+        ];
+
+        # monitors
+
+        monitor = [
+          "eDP-1,1920x1080@60,0x0,1"
+        ];
+
+        # input config
+
+        input = {
+          kb_layout = strlist [
+            "us"
+            "cz(qwerty)"
+          ];
+
+          # layout switching with super + space
+          kb_options = "grp:win_space_toggle";
+
+          numlock_by_default = true;
+
+          # 0 - Cursor movement will not change focus
+          # 1 - Cursor movement will always change focus to the window under the cursor
+          # 2 - Cursor focus will be detached from keyboard focus. Clicking on a window will move keyboard focus to that window.
+          # 3 - Cursor focus will be completely separate from keyboard focus. Clicking on a window will not change keyboard focus.
+          follow_mouse = 2;
+
+          accel_profile = "flat";
+          sensitivity = -0.25;
+
+          touchpad.natural_scroll = true;
+        };
+
+        #device = lib.mapAttrs
+        #  (key: value: value // {
+        #    name = key;
+        #  })
+        #  {
+        #    "SynPS/2 Synaptics TouchPad" = {
+        #      sensitivity = 0;
+        #      accel_profile = null;
+        #    };
+        #  };
+
+        ## ThinkPad
+        #"device:SynPS/2 Synaptics TouchPad" = {
+        #  sensitivity = 0;
+        #  accel_profile = null;
+        #};
+
+        ## Logitech G502 mouse
+        ## hw conf:
+        ## - 500 hz
+        ## - 2400 dpi
+        #"device:logitech-gaming-mouse-g502" = {
+        #  sensitivity = -0.834;
+        #};
+
+        ## PS5 (DualSense) controller
+        #"device:sony-interactive-entertainment-dualsense-wireless-controller-touchpad" = {
+        #  enabled = false;
+        #};
+
+        # look and feel
+
+        general = rec {
+          gaps_in = 5;
+          gaps_out = gaps_in * 2;
+
+          border_size = 2;
+
+          "col.active_border" = rgb "f85e84";
+          "col.inactive_border" = rgb "2d2a2e";
+
+          # do not apply sensitivity to raw input
+          # (p sure this is the default anyway)
+          apply_sens_to_raw = false;
+
+          layout = "hy3";
+        };
+
+        layerrule = [
+          "blur, swaync-control-center"
+          "ignorezero, swaync-control-center"
+          "blur, swaync-notification-window"
+          "ignorezero, swaync-notification-window"
+          "blur, swayosd"
+          "ignorezero, swayosd"
+        ];
+
+        windowrulev2 = [
+          # Flameshot fixes
+          ## functional
+          #"nofullscreenrequest,class:flameshot"
+          "float,class:flameshot"
+          "monitor 0,class:flameshot"
+          "move 0 0,class:flameshot"
+          ## visual
+          "noanim,class:flameshot"
+          "noborder,class:flameshot"
+          "rounding 0,class:flameshot"
+
+          "float,class:blueberry.py"
+          "float,class:io.gitlab.news_flash.NewsFlash"
+        ];
+
+        decoration = {
+          rounding = 10;
+          drop_shadow = false;
+
+          blur = {
+            size = 7;
+            passes = 2;
+            popups = true;
+          };
+        };
+
+        animations = {
+          enabled = true;
+          animation = [
+            #NAME,ONOFF,SPEED,CURVE,STYLE
+            #NAME,ONOFF,SPEED,CURVE
+
+            "fade,1,2,default"
+            "windowsIn,0"
+            "windowsOut,0"
+            "border,1,2,default"
+          ];
+        };
+
+        misc = {
+          disable_hyprland_logo = true;
+          disable_splash_rendering = true;
+
+          force_default_wallpaper = 0;
+
+          # renders less frames when possible
+          vfr = true;
+
+          # Variable refresh rate
+          # (Freesync / G-sync)
+          # 0 - off
+          # 1 - on
+          # 2 - fullscreen only
+          vrr = 1;
+
+          # should reduce latency on fullscreen windows
+          # may cause glitches
+          no_direct_scanout = false;
+
+          mouse_move_focuses_monitor = true;
+          background_color = rgb "000000";
+
+          # if there is a fullscreen window,
+          # whether a new tiled window opened
+          # should replace the fullscreen one or stay behind
+          # 0 - don't do anything
+          # 1 - focus new window
+          # 2 - unfullscreen the fullscreen window
+          new_window_takes_over_fullscreen = 1;
+        };
+
+        # binds
+
+        # mouse
+        bindm = [
+          "SUPER,mouse:272,movewindow"
+          "SUPER,mouse:273,resizewindow"
+        ];
+
+        # regular
+        bind = [
+          "SUPER_SHIFT,Q,exit,"
+          # windows
+          ## basic signals
+          "SUPER,Q,killactive,"
+          "SUPER,D,fullscreen,"
+          "SUPER_CONTROL,Space,togglefloating,"
+          ## moving focus
+          "ALT,LEFT,hy3:movefocus,left,visible"
+          "ALT,RIGHT,hy3:movefocus,right,visible"
+          "ALT,UP,hy3:movefocus,up,visible"
+          "ALT,DOWN,hy3:movefocus,down,visible"
+          ## moving windows
+          "CTRL_ALT,LEFT,hy3:movewindow,left"
+          "CTRL_ALT,RIGHT,hy3:movewindow,right"
+          "CTRL_ALT,UP,hy3:movewindow,up"
+          "CTRL_ALT,DOWN,hy3:movewindow,down"
+          ## tabs
+          "SUPER,TAB,hy3:changegroup,toggletab"
+          "ALT,TAB,hy3:focustab,right,wrap"
+          "SHIFT_ALT,TAB,hy3:focustab,left,wrap"
+          # notifications
+          "SUPER,A,exec,${tools.swaync.client} -t"
+          # terminal
+          "SUPER,return,exec,wezterm"
+          "CTRL_SHIFT,Escape,exec,wezterm start --no-auto-connect --always-new-process --class btop -- btop -u 500"
+          # file manager
+          "SUPER,F,exec,nemo"
+          # launcher / search
+          # note: anyrun is enabled in programs.anyrun
+          "SUPER,R,exec,anyrun"
+          ",XF86Search,exec,anyrun"
+          # media
+          ",XF86AudioMute,exec,swayosd-client --output-volume mute-toggle"
+          ",XF86AudioMicMute,exec,swayosd-client --input-volume mute-toggle"
+          # screenshots
+          # note: flameshot is in home.packages
+          "CTRL_SHIFT,INSERT,execr,zsh -c \"XDG_CURRENT_DESKTOP=Sway flameshot gui -c -p '$HOME/Pictures/$(date +%s).png'\""
+          "CTRL,INSERT,execr,zsh -c \"XDG_CURRENT_DESKTOP=Sway flameshot full -c -p '$HOME/Pictures/$(date +%s).png'\""
+        ] ++ (builtins.concatLists
+
+          # workspace switching
+          # -------------------
+          # we return a list in genList,
+          # meaning we end up with a list of lists
+
+          (builtins.genList
+            # generator function
+            (x:
+              let
+                workspace = toString (x + 1);
+              in
+
+              [
+                # change workspace
+                "SUPER,${workspace},split-workspace,${workspace}"
+                # move windows to workspace
+                "SUPER_SHIFT,${workspace},split-movetoworkspace,${workspace}"
+              ])
+            # how long the list should be
+            workspaces_per_monitor
+          )
+        );
+
+        # repeat on hold
+        binde = [
+          # media
+          ",XF86MonBrightnessUp,exec,swayosd-client --brightness +1"
+          ",XF86MonBrightnessDown,exec,swayosd-client --brightness -1"
+          ",XF86AudioRaiseVolume,exec,swayosd-client --output-volume +1"
+          ",XF86AudioLowerVolume,exec,swayosd-client --output-volume -1"
+        ];
+
+        # pass-through binds
+        bindrlni = [
+          ",Caps_Lock,exec,swayosd-client --caps-lock"
+          ",Num_Lock,exec,swayosd-client --num-lock"
+          ",Scroll_Lock,exec,swayosd-client --scroll-lock"
+        ];
+      };
+    };
 
   imports = [
     ./desktop_environments/sway

@@ -99,7 +99,10 @@ in
       };
       octelly = {
         desc = "Eli Štefků";
-        modules = [ ];
+        modules = [
+          inputs.hyprland.homeManagerModules.default
+          inputs.anyrun.homeManagerModules.default
+        ];
         fc = {
           # `fonts` takes a list of packages
           fonts = with pkgs; [
@@ -125,6 +128,7 @@ in
   config.home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
+    extraSpecialArgs = { inherit inputs system; };
     users = homeCfg;
   };
 
