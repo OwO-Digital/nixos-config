@@ -74,14 +74,14 @@ in
       })
       telegram-desktop
 
-      #cinnamon.nemo-with-extensions
+      cinnamon.nemo-with-extensions
 
-      libsForQt5.dolphin
-      libsForQt5.dolphin-plugins
-      libsForQt5.kio
-      libsForQt5.kio-admin
-      libsForQt5.kio-extras
-      libsForQt5.kimageformats
+      #libsForQt5.dolphin
+      #libsForQt5.dolphin-plugins
+      #libsForQt5.kio
+      #libsForQt5.kio-admin
+      #libsForQt5.kio-extras
+      #libsForQt5.kimageformats
       #libsForQt5.qtstyleplugins
       #qgnomeplatform
       #qgnomeplatform-qt6
@@ -94,49 +94,49 @@ in
       #  widevine-cdm = widevine-cdm;
       #  commandLineArgs = chromiumFlags;
       #})
-      parsec-bin
+      #parsec-bin
 
-      luakit
+      #luakit
 
-      nextcloud-client
-      qownnotes
+      #nextcloud-client
+      #qownnotes
 
-      rnix-lsp
+      #rnix-lsp
       nixpkgs-fmt
 
-      # sway
-      swaysome
+      ## sway
+      #swaysome
       swww
-      sov
-      clipman
-      wl-clipboard
-      playerctl
-      brightnessctl
-      pamixer
-      waybar
-      swaynotificationcenter
+      #sov
+      #clipman
+      #wl-clipboard
+      #playerctl
+      #brightnessctl
+      #pamixer
+      #waybar
+      #swaynotificationcenter
 
-      onagre
-      wofi
+      #onagre
+      #wofi
 
       gtklock
       gtklock-userinfo-module
 
-      #nvtop
+      nvtop-intel
 
-      (xfce.thunar.override {
-        thunarPlugins = with pkgs.xfce; [
-          thunar-volman
-          thunar-archive-plugin
-        ];
-      })
+      #(xfce.thunar.override {
+      #  thunarPlugins = with pkgs.xfce; [
+      #    thunar-volman
+      #    thunar-archive-plugin
+      #  ];
+      #})
 
 
       networkmanagerapplet
       networkmanager-l2tp
 
       libgnome-keyring
-      picom
+      #picom
       pantheon.pantheon-agent-polkit
       numlockx
 
@@ -144,8 +144,8 @@ in
       #xfce.xfce4-power-manager
       #remmina
 
-      osu-lazer-bin
-      srb2kart
+      #osu-lazer-bin
+      #srb2kart
       gamescope
       mangohud
       #tmuf
@@ -154,6 +154,7 @@ in
       flameshot
       grim
 
+      # archive manager
       mate.engrampa
 
       newsflash
@@ -391,7 +392,7 @@ in
       ms-python.python
       ms-python.isort
       jnoortheen.nix-ide
-      ms-vscode.makefile-tools
+      #ms-vscode.makefile-tools
       wayou.vscode-todo-highlight
     ]) ++ (with pkgs.vscode-marketplace; [
       # language support
