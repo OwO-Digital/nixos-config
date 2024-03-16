@@ -103,6 +103,7 @@ in
 
       #rnix-lsp
       nixpkgs-fmt
+      manix
 
       ## sway
       #swaysome
@@ -361,6 +362,10 @@ in
     ];
   };
 
+  programs.brave = {
+    enable = true;
+  };
+
   #programs.thunar = {
   #  enable = true;
   #  plugins = with pkgs.xfce; [
@@ -547,6 +552,7 @@ in
   home.sessionVariables = {
     EDITOR = "nvim";
     _JAVA_AWT_WM_NONREPARENTING = 1;
+    NIXOS_OZONE_WL = 1;
   };
 
   xdg = {
