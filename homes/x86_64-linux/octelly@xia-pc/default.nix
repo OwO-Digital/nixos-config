@@ -22,11 +22,4 @@
   config
 , ...
 }:
-with config; {
-  # Your configuration.
-  xdg.configFile."hello.txt".text = "
-    hello world
-    ";
-
-  home.stateVersion = "22.11";
-}
+with config; { }
