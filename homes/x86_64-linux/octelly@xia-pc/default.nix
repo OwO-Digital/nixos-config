@@ -22,4 +22,27 @@
   config
 , ...
 }:
-with config; { }
+with config; {
+  #octelly.shell.cli = {
+  #  enable = true;
+  #  ranger.enable = true;
+  #};
+
+  #octelly.env = {
+  #  enable = true;
+  #  appearance.dark-color-scheme = false;
+  #};
+
+  targets.genericLinux.enable = true;
+
+  themes.gtk.adw-gtk3 = {
+    enable = true;
+    scheme = "dark";
+  };
+
+  home.packages = with pkgs; [
+    snowfallorg.frost
+    nil
+    owo-digital.MarioVsLuigi-bin
+  ];
+}
