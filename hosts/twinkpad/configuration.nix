@@ -22,7 +22,7 @@
 			sound.enable = true;
 			xorg = {
 				enable = true;
-				layout = "fck";
+				#layout = "fck";
 			};
 		};
 	};
