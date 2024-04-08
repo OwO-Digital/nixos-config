@@ -36,7 +36,7 @@ in {
 		pointerCursor = {
 			x11.enable = true;
 			gtk.enable = true;
-			name = "phinger-cursors";
+			name = "phinger-cursors-light";
 			package = pkgs.phinger-cursors;
 			size = 16;
 		};
