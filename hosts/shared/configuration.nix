@@ -1,6 +1,10 @@
 { config, pkgs, inputs, lib, ... }: {
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings = {
+    experimental-features = [ "nix-command" "flakes" ];
+    substituters = [ "https://cosmic.cachix.org/" ];
+    trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
+  };
 
   boot = {
     kernelPackages = pkgs.linuxPackages_zen;
@@ -70,6 +74,10 @@
       vimAlias = true;
     };
     zsh.enable = true;
+    nh = {
+      enable = true;
+      flake = "/etc/nixos";
+    };
   };
 
   security.pam.services.gtklock.text = lib.readFile "${pkgs.gtklock}/etc/pam.d/gtklock";
@@ -94,6 +102,13 @@
       # whether shared printers are advertised
       browsing = true;
     };
+
+    desktopManager.cosmic.enable = true;
+  };
+
+  hardware.logitech.wireless = {
+    enable = true;
+    enableGraphical = true;
   };
 
   system.stateVersion = "22.11";

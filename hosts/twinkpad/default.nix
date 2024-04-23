@@ -2,23 +2,24 @@
 
 let system = "x86_64-linux"; in
 lib.nixosSystem {
-	inherit system;
+  inherit system;
 
-	modules = [
-		{
-			nixpkgs = repoConf;
-			networking.hostName = "twinkpad";
-		}
+  modules = [
+    {
+      nixpkgs = repoConf;
+      networking.hostName = "twinkpad";
+    }
 
-		inputs.home.nixosModules.home-manager
-		inputs.nixHW.nixosModules.lenovo-thinkpad-t460s
-		inputs.flatpaks.nixosModules.default
+    inputs.home.nixosModules.home-manager
+    inputs.nixHW.nixosModules.lenovo-thinkpad-t460s
+    inputs.flatpaks.nixosModules.default
+    inputs.nixos-cosmic.nixosModules.default
 
-		../shared/configuration.nix
-		./configuration.nix
-		./hardware-configuration.nix
-	] ++
-	(lib.mapModulesRec' ../../modules import);
+    ../shared/configuration.nix
+    ./configuration.nix
+    ./hardware-configuration.nix
+  ] ++
+  (lib.mapModulesRec' ../../modules import);
 
-	specialArgs = { inherit inputs system; };
+  specialArgs = { inherit inputs system; };
 }
