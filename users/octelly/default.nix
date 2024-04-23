@@ -120,10 +120,12 @@ in
       #onagre
       #wofi
 
+      mpv
+
       gtklock
       gtklock-userinfo-module
 
-      nvtop-intel
+      nvtopPackages.intel
 
       #(xfce.thunar.override {
       #  thunarPlugins = with pkgs.xfce; [
@@ -487,7 +489,7 @@ in
 
   programs.zsh = {
     enable = true;
-    enableAutosuggestions = true;
+    autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
     enableVteIntegration = true;
     autocd = true;
