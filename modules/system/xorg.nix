@@ -44,7 +44,7 @@ in {
     services.xserver = {
       enable = true;
       dpi = cfg.dpi;
-      layout = cfg.layout;
+      xkb.layout = cfg.layout;
       displayManager = {
         #${cfg.displayManager}.enable = true;
         #defaultSession = cfg.defaultSession;
@@ -66,7 +66,7 @@ in {
               "flat";
         };
       };
-      extraLayouts.fck = {
+      xkb.extraLayouts.fck = {
         description = "Czech Programmer version of Colemak DH";
         languages = [ "en" "cs" ];
         symbolsFile = ../../misc/keymaps/fck;
