@@ -102,8 +102,6 @@
       # whether shared printers are advertised
       browsing = true;
     };
-
-    desktopManager.cosmic.enable = true;
   };
 
   hardware.logitech.wireless = {

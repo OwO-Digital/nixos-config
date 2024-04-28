@@ -6,7 +6,7 @@
 		desktop = {
 			gaming = {
 				steam.enable 		= true;
-				itch.enable 		= true;
+				#itch.enable 		= true;
 				olympus.enable 		= true;
 				minecraft.enable 	= true;
 			};
@@ -14,8 +14,9 @@
 				enable = true;
 				package = pkgs.awesome-git;
 			};
-			sway.enable = true;
-			river.enable = true;
+			hyprland.enable = true;
+			# sway.enable = true;
+			# river.enable = true;
 		};
 		hardware.laptop.enable = true;
 		system = {

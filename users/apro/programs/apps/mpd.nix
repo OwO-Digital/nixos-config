@@ -45,23 +45,23 @@
 		};
 	};
 
-	services.mpd-discord-rpc = {
-		enable = true;
-		settings = {
-			id = 677226551607033903;
-			hosts = ["localhost:6600"];
-
-			format = {
-				details = "$artist - $title [$duration]";
-				state = "$album ($date)";
-				timestamp = "elapsed";
-				large_image = "url";
-				small_image = "";
-				large_text = "";
-				small_text = "";
-			};
-		};
-	};
+#	services.mpd-discord-rpc = {
+#		enable = true;
+#		settings = {
+#			id = 677226551607033903;
+#			hosts = ["localhost:6600"];
+#
+#			format = {
+#				details = "$artist - $title [$duration]";
+#				state = "$album ($date)";
+#				timestamp = "elapsed";
+#				large_image = "url";
+#				small_image = "";
+#				large_text = "";
+#				small_text = "";
+#			};
+#		};
+#	};
 
 	programs.ncmpcpp = {
 		enable = true;
