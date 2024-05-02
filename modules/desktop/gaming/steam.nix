@@ -4,24 +4,29 @@ with builtins;
 with lib;
 let cfg = config.modules.desktop.gaming.steam;
 in {
-	options.modules.desktop.gaming.steam = {
-		enable = mkEnableOption "Steam";
-	};
+  options.modules.desktop.gaming.steam = {
+    enable = mkEnableOption "Steam";
+  };
 
-	config = mkIf cfg.enable {
-		programs.steam = {
-			enable = true;
-			remotePlay.openFirewall = true;
-			dedicatedServer.openFirewall = true;
-		};
+  config = mkIf cfg.enable {
+    programs.steam = {
+      enable = true;
+      remotePlay.openFirewall = true;
+      dedicatedServer.openFirewall = true;
+      gamescopeSession.enable = true;
+    };
 
-		environment = {
-			sessionVariables.STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
+    programs.gamemode = {
+      enable = true;
+      enableRenice = true;
+    };
 
-			systemPackages = with pkgs; [
-				gamemode
-				protonup
-			];
-		};
-	};
+    environment = {
+      sessionVariables.STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
+
+      systemPackages = with pkgs; [
+        protonup
+      ];
+    };
+  };
 }
