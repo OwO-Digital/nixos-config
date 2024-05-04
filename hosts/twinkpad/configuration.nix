@@ -7,7 +7,7 @@
 			gaming = {
 				steam.enable 		= true;
 				#itch.enable 		= true;
-				#olympus.enable 	= true;
+				olympus.enable 		= true;
 				minecraft.enable 	= true;
 			};
 			awesome = {
