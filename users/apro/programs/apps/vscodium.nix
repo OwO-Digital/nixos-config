@@ -41,7 +41,7 @@
 			extensions.autoCheckUpdates = true;
 		};
 
-		extensions = (with pkgs.open-vsx-release; [
+		extensions = (with pkgs.open-vsx; [
 			# vim motions (requirement ‼️)
 			vscodevim.vim
 
@@ -69,21 +69,23 @@
 			bungcip.better-toml
 			svelte.svelte-vscode
 
-			# github
-			github.remotehub
-			github.vscode-pull-request-github
+			# git
 			eamodio.gitlens
+			github.vscode-pull-request-github
 
 			# extra features
 			mkhl.direnv
 			oderwat.indent-rainbow
 			manuel-underscore.figura
 		])
-		++ (with pkgs.vscode-marketplace-release; [
+		++ (with pkgs.vscode-marketplace; [
 
 			# leftover language support
 			vgalaktionov.moonscript
 			tnze.snbt
-		])
+
+			# github
+			github.remotehub
+		]);
 	};
 }
