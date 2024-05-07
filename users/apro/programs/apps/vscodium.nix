@@ -2,11 +2,11 @@
 
 	programs.vscode = {
 		enable = true;
-		package = pkgs.master.vscodium;
+		package = pkgs.vscodium;
 
 		userSettings = {
 			editor = {
-				fontFamily = "'Iosevka Nerd Font'";
+				fontFamily = "'Iosevka NF'";
 				fontLigatures = "'ss14'";
 				cursorBlinking = "smooth";
 				cursorSmoothCaretAnimation = "on";
@@ -15,12 +15,13 @@
 				tabSize = 4;
 				minimap.enabled = false;
 				renderWhitespace = "none";
+				formatOnSave = true;
 			};
 
 			terminal.integrated = {
 				cursorStyle = "underline";
 				cursorWidth = 2;
-				fontFamily = "Iosevka Nerd Font";
+				fontFamily = "Iosevka NF";
 				tabs.defaultIcon = "heart-filled";
 			};
 
@@ -40,23 +41,49 @@
 			extensions.autoCheckUpdates = true;
 		};
 
-		extensions = (with pkgs.vscode-extensions; [
+		extensions = (with pkgs.open-vsx-release; [
+			# vim motions (requirement ‼️)
+			vscodevim.vim
+
+			# themes
+			catppuccin.catppuccin-vsc
+			mangeshrex.everblush
+
+			# icons
 			pkief.material-product-icons
 			file-icons.file-icons
-			mkhl.direnv
-			sumneko.lua
-			vscodevim.vim
-			jnoortheen.nix-ide
-			catppuccin.catppuccin-vsc
+
+			# languages and formatting
 			editorconfig.editorconfig
-			eamodio.gitlens
-			oderwat.indent-rainbow
-		])
-		++ (with pkgs.master.vscode-extensions; [
+			ziglang.vscode-zig
+			rust-lang.rust
+			rust-lang.rust-analyzer
+			llvm-vs-code-extensions.vscode-clangd
+			sumneko.lua
 			ms-python.python
+			ms-pyright.pyright
+			bbenoist.nix
+			arrterian.nix-env-selector
+			pinage404.nix-extension-pack
+			jnoortheen.nix-ide
+			bungcip.better-toml
+			svelte.svelte-vscode
+
+			# github
+			github.remotehub
+			github.vscode-pull-request-github
+			eamodio.gitlens
+
+			# extra features
+			mkhl.direnv
+			oderwat.indent-rainbow
+			manuel-underscore.figura
 		])
-		++ (with pkgs.everblush; [
-			vscode-theme
-		]);
+		++ (with pkgs.vscode-marketplace-release; [
+
+			# leftover language support
+			vgalaktionov.moonscript
+			tnze.snbt
+		])
 	};
 }
