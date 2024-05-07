@@ -41,16 +41,23 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.xserver = {
-      enable = true;
-      dpi = cfg.dpi;
-      xkb.layout = cfg.layout;
-      displayManager = {
-        #${cfg.displayManager}.enable = true;
-        #defaultSession = cfg.defaultSession;
-        lightdm = {
-          enable = true;
-          greeters.slick.enable = true;
+    services = {
+	  xserver = {
+        enable = true;
+        dpi = cfg.dpi;
+        xkb.layout = cfg.layout;
+        displayManager = {
+          #${cfg.displayManager}.enable = true;
+          #defaultSession = cfg.defaultSession;
+          lightdm = {
+            enable = true;
+            greeters.slick.enable = true;
+          };
+        };
+        xkb.extraLayouts.fck = {
+          description = "Czech Programmer version of Colemak DH";
+          languages = [ "en" "cs" ];
+          symbolsFile = ../../misc/keymaps/fck;
         };
       };
       libinput = {
@@ -66,11 +73,6 @@ in {
               "flat";
         };
       };
-      xkb.extraLayouts.fck = {
-        description = "Czech Programmer version of Colemak DH";
-        languages = [ "en" "cs" ];
-        symbolsFile = ../../misc/keymaps/fck;
-      };
-    };
+	};
   };
 }
