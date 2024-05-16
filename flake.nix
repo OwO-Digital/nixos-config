@@ -27,7 +27,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hypr-smw = {
-      url = "github:Duckonaut/split-monitor-workspaces";
+      url = "github:Duckonaut/split-monitor-workspaces/d0012b8b0f764e32dd7b82f7a94b8c30197d7dc8";
       inputs.hyprland.follows = "hyprland";
     };
     hypr-hy3 = {
