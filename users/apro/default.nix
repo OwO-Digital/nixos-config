@@ -27,6 +27,8 @@ in {
 			mpv
 			telegram-desktop
 			st-emi
+			master.pragtical
+			stable.deluge
 			(giph.override { ffmpeg = (ffmpeg_6.override { ffmpegVariant = "full"; }); })
 			# etterna
 			# run # credit to alpha for this
