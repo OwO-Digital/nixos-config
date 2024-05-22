@@ -18,4 +18,5 @@ insert_final_newline = true
 # also use 2 spaces and if you don't like it
 # then cope (safely).
 indent_style = space
+indent_size = 2
 tab_width = 2
