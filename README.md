@@ -26,3 +26,15 @@ Pre-commit automatically runs nixpkgs-fmt on your commits, which is this repo's 
 #### VSCode
 
 This repo includes configuration for the [Nix IDE extension](https://marketplace.visualstudio.com/items?itemName=jnoortheen.nix-ide). Formatting is set to use `nixpkgs-fmt` which you need to install through your package manager. This setup gets you suggestions, mouse hover information and all the other LSP goodness. 
+
+### Manual actions
+
+#### Fushigi
+
+Fushigi may need a manual Nuget dependency lockfile (`packages/games/fushigi/deps.nix`) refresh when its input is updated:
+
+```sh
+nix build .#Fushigi.fetch-deps
+./result packages/games/Fushigi/deps.nix
+```
+
