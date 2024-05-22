@@ -27,7 +27,12 @@
     };
 
     ### PACKAGE SOURCES ###
-    # they would go here :3
+    pkg-fushigi = {
+      type = "github";
+      owner = "shibbo";
+      repo = "Fushigi";
+      flake = false;
+    };
   };
 
   outputs = inputs:
