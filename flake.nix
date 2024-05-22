@@ -20,6 +20,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # HM Vim configuration module
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      # NOTE:
+      # there are different branches for non-unstable nixpkgs
+      # e.g. "github:nix-community/nixvim/nixos-23.05"
+
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Generate documentation for Nix Flakes.
     snowfall-frost = {
       url = "github:snowfallorg/frost";
@@ -62,5 +72,9 @@
           nixos-hardware.nixosModules.lenovo-thinkpad-t460
         ];
       };
+
+      homes.modules = with inputs; [
+        nixvim.homeManagerModules.nixvim
+      ];
     };
 }
