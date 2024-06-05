@@ -66,6 +66,7 @@ with config; {
 
     extraPlugins = with pkgs.vimPlugins; [
       sonokai
+      moonscript-vim
     ];
 
     globals = {
