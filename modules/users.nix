@@ -99,10 +99,7 @@ in
       };
       octelly = {
         desc = "Eli Štefků";
-        modules = [
-          inputs.hyprland.homeManagerModules.default
-          inputs.anyrun.homeManagerModules.default
-        ];
+        modules = [ ];
         fc = {
           # `fonts` takes a list of packages
           fonts = with pkgs; [
@@ -129,6 +126,11 @@ in
     useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = { inherit inputs system; };
+    sharedModules = [
+      inputs.anyrun.homeManagerModules.default
+      inputs.hyprland.homeManagerModules.default
+      inputs.plasma-manager.homeManagerModules.plasma-manager
+    ];
     users = homeCfg;
   };
 

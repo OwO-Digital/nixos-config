@@ -8,6 +8,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    plasma-manager = {
+      url = "github:pjones/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home";
+    };
     nixHW.url = "github:nixos/nixos-hardware/master";
     f2k = {
       url = "github:moni-dz/nixpkgs-f2k";

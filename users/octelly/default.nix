@@ -58,7 +58,7 @@ let
   #});
   firefoxMainProfileName = "main";
 in
-{
+rec {
   home = {
     packages = with pkgs; [
       #warble
@@ -134,6 +134,9 @@ in
       #  ];
       #})
 
+      jellyfin-media-player
+      moonlight-qt
+
 
       networkmanagerapplet
       networkmanager-l2tp
@@ -152,6 +155,8 @@ in
       gamescope
       mangohud
       #tmuf
+
+      krdc
 
       # flameshot and dependencies
       flameshot
@@ -379,9 +384,21 @@ in
   #services.gvfs.enable = true;
   #services.tumbler.enable = true;
 
-  services.swayosd = {
-    enable = true;
+  #services.swayosd = {
+  #  enable = true;
+  #};
+
+  programs.plasma = {
+    #enable = true;
+    workspace = {
+      iconTheme = gtk.iconTheme.name;
+      cursorTheme = gtk.cursorTheme.name;
+
+      clickItemTo = "select";
+    };
   };
+
+  services.kdeconnect.enable = true;
 
   programs.vscode = {
     enable = true;
@@ -421,16 +438,20 @@ in
     ]);
     userSettings = {
       # Vim controls
-      "extensions.experimental.affinity" = {
-        "asvetliakov.vscode-neovim" = 1;
-      };
+      #"extensions.experimental.affinity" = {
+      #  "asvetliakov.vscode-neovim" = 1;
+      #};
 
       # theming
+      "workbench.preferredDarkColorTheme" = "Sonokai Shusia";
       "workbench.colorTheme" = "Sonokai Shusia";
       "workbench.iconTheme" = "material-icon-theme";
       "material-icon-theme.folder.color" = "#e5c463";
 
       "window.menuBarVisibility" = "toggle";
+      "window.autoDetectColorScheme" = true;
+      "window.titleBarStyle" = "custom";
+      "window.customTitleBarVisibility" = "auto";
 
       "editor.fontFamily" = "'Maple Mono NF', 'Cartograph CF', 'FiraCode Nerd Font Mono', 'monospace', monospace";
       "debug.console.fontFamily" = "'Maple Mono NF', 'Cartograph CF', 'FiraCode Nerd Font Mono', 'monospace', monospace";
@@ -652,22 +673,24 @@ in
     gtk-application-prefer-dark-theme = darkMode;
   };
 
-  gtk.iconTheme.name = if darkMode then "Colloid-pink-default-dark" else "Colloid-pink-default-light";
-  gtk.iconTheme.package =
-    (pkgs.colloid-icon-theme.override {
-      schemeVariants = [ "default" ];
-      colorVariants = [ "pink" ];
-    });
+  #gtk.iconTheme.name = if darkMode then "Colloid-pink-default-dark" else "Colloid-pink-default-light";
+  #gtk.iconTheme.package =
+  #  (pkgs.colloid-icon-theme.override {
+  #    schemeVariants = [ "default" ];
+  #    colorVariants = [ "pink" ];
+  #  });
+  gtk.iconTheme.name = if darkMode then "kora" else "kora-light-panel";
+  gtk.iconTheme.package = pkgs.kora-icon-theme;
 
   gtk.cursorTheme.name = "Posy_Cursor_Black";
   gtk.cursorTheme.package = posysCursors;
 
-  #qt.enable = true;
-  ##qt.platformTheme = "gnome";
-  #qt.platformTheme = "qtct";
-  #qt.style.name = "kvantum";
-  ##qt.style.package = pkgs.adwaita-qt;
-  ##qt.style.name = if darkMode then "adwaita-dark" else "adwaita";
+  qt.enable = true;
+  #qt.platformTheme = "gnome";
+  qt.platformTheme.name = "qtct";
+  qt.style.name = "kvantum";
+  #qt.style.package = pkgs.adwaita-qt;
+  #qt.style.name = if darkMode then "adwaita-dark" else "adwaita";
 
   xresources.properties = {
     # 96 is 1x

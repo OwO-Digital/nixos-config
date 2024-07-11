@@ -38,12 +38,15 @@
 
   environment = {
     systemPackages = with pkgs; [
+      aha # Required for "Firmware Security" page of KDE's Info Center
+      clinfo # Required for "OpenCL" page of KDE's Info Center
       cmake
       coreutils
       curl
       fd
       gcc
       git
+      glxinfo # Required for "OpenGL (GLX)" page of KDE's Info Center
       libnotify
       lm_sensors
       man-pages
@@ -51,6 +54,9 @@
       ripgrep
       unrar
       unzip
+      virtualglLib # Required for "OpenGL (EGL)" page of KDE's Info Center
+      vulkan-tools # Required for "Vulkan" page of KDE's Info Center
+      wayland-utils # Required for "Wayland" page of KDE's Info Center
       wget
       xclip
       zip
@@ -84,6 +90,8 @@
 
   services = {
     dbus.enable = true;
+    fwupd.enable = true; # Required for "Firmware Security" page of KDE's Info Center
+
     openssh.enable = true;
     xl2tpd.enable = true;
     strongswan = {
@@ -102,6 +110,8 @@
       # whether shared printers are advertised
       browsing = true;
     };
+
+    desktopManager.plasma6.enable = true;
   };
 
   hardware.logitech.wireless = {

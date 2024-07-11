@@ -24,15 +24,15 @@
     };
   };
   networking.firewall.allowedTCPPorts = [ 25565 ];
-  nix.buildMachines = [{
-    hostName = "192.168.1.137";
-    system = "x86_64-linux";
-  }];
-  nix.distributedBuilds = true;
+  #nix.buildMachines = [{
+  #  hostName = "192.168.1.137";
+  #  system = "x86_64-linux";
+  #}];
+  #nix.distributedBuilds = true;
 
-  nix.extraOptions = ''
-    builders-use-substitutes = true
-  '';
+  #nix.extraOptions = ''
+  #  builders-use-substitutes = true
+  #'';
 
   #services.desktopManager.cosmic.enable = true;
 }
