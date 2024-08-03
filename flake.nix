@@ -26,19 +26,19 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Hyprland stuff
-    hyprland = {
-      url = "github:hyprwm/Hyprland?ref=v0.36.0";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    hypr-smw = {
-      url = "github:Duckonaut/split-monitor-workspaces/d0012b8b0f764e32dd7b82f7a94b8c30197d7dc8";
-      inputs.hyprland.follows = "hyprland";
-    };
-    hypr-hy3 = {
-      url = "github:outfoxxed/hy3?ref=hl0.36.0";
-      inputs.hyprland.follows = "hyprland";
-    };
+    ## Hyprland stuff
+    #hyprland = {
+    #  url = "github:hyprwm/Hyprland?ref=v0.36.0";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
+    #hypr-smw = {
+    #  url = "github:Duckonaut/split-monitor-workspaces/d0012b8b0f764e32dd7b82f7a94b8c30197d7dc8";
+    #  inputs.hyprland.follows = "hyprland";
+    #};
+    #hypr-hy3 = {
+    #  url = "github:outfoxxed/hy3?ref=hl0.36.0";
+    #  inputs.hyprland.follows = "hyprland";
+    #};
 
     # Flake for testing COSMIC on NixOS
     nixos-cosmic = {

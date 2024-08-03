@@ -13,7 +13,7 @@
       };
       sway.enable = true;
       qtile.enable = true;
-      hyprland.enable = true;
+      hyprland.enable = false;
     };
     hardware.laptop.enable = true;
     system = {

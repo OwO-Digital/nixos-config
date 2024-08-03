@@ -128,7 +128,7 @@ in
     extraSpecialArgs = { inherit inputs system; };
     sharedModules = [
       inputs.anyrun.homeManagerModules.default
-      inputs.hyprland.homeManagerModules.default
+      #inputs.hyprland.homeManagerModules.default
       inputs.plasma-manager.homeManagerModules.plasma-manager
     ];
     users = homeCfg;

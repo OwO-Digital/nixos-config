@@ -11,7 +11,11 @@ in {
   config = mkIf cfg.enable {
     services.xserver.windowManager.qtile = {
       enable = true;
-      backend = "wayland";
+
+      # NOTE: no longer has any effect
+      # The qtile package now provides
+      # separate display sessions for both X11 and Wayland.
+      # backend = "wayland";
     };
   };
 }
