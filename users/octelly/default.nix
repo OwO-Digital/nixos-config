@@ -38,6 +38,71 @@ let
       cp -r Posy* $out/share/icons/
     '';
   });
+  klassy = with pkgs; (stdenv.mkDerivation rec {
+    pname = "klassy";
+    version = "6.1.breeze6.0.3";
+
+    src = fetchFromGitHub {
+      owner = "paulmcauley";
+      repo = "klassy";
+      rev = version;
+      hash = "sha256-D8vjc8LT+pn6Qzn9cSRL/TihrLZN4Y+M3YiNLPrrREc=";
+    };
+
+    nativeBuildInputs = with kdePackages; [
+      cmake
+      extra-cmake-modules
+      wrapQtAppsHook
+    ];
+
+    buildInputs = with kdePackages; [
+      qtbase
+      qtdeclarative
+      qttools
+
+      frameworkintegration
+      kcmutils
+      kdecoration
+      kiconthemes
+      kwindowsystem
+
+      qtsvg
+      kcolorscheme
+      kconfig
+      kcoreaddons
+      kdecoration
+      kguiaddons
+      ki18n
+      kirigami
+      kwidgetsaddons
+    ];
+
+    cmakeFlags = [
+      "-DCMAKE_INSTALL_PREFIX=$out"
+      "-DBUILD_TESTING=OFF"
+      "-DKDE_INSTALL_USE_QT_SYS_PATHS=ON"
+      "-DBUILD_QT5=OFF"
+      "-DBUILD_QT6=ON"
+    ];
+
+    meta = {
+      description = "Highly customizable binary Window Decoration, Application Style and Global Theme plugin for recent versions of the KDE Plasma desktop";
+      homepage = "https://github.com/paulmcauley/klassy";
+      platforms = lib.platforms.linux;
+      license = with lib.licenses; [
+        bsd3
+        cc0
+        gpl2Only
+        gpl2Plus
+        gpl3Only
+        gpl3Plus # KDE-Accepted-GPL
+        mit
+      ];
+      maintainers = with lib.maintainers; [ pluiedev ];
+      mainProgram = "klassy-settings";
+    };
+
+  });
   #warble = (pkgs.stdenv.mkDerivation rec {
   #  pname = "warble";
   #  version = "2.0.1";
@@ -76,6 +141,7 @@ rec {
       #})
       vesktop
       telegram-desktop
+      beeper
 
       appimage-run
 
@@ -162,6 +228,9 @@ rec {
       #gamescope
       #mangohud
       #tmuf
+
+      # plasma theme thing
+      klassy
 
       #krdc
 
@@ -567,7 +636,7 @@ rec {
         command = "wezterm";
       };
       launch-file-manager = {
-        key = "Meta+/F";
+        key = "Meta+F";
         command = "dolphin";
       };
     };
@@ -579,8 +648,10 @@ rec {
       };
       #colorScheme = if darkMode then "BreezeDark" else "BreezeLight";
       colorScheme = if darkMode then "Libadw-dark" else "Libadw-light";
-      theme = if darkMode then "breeze-dark" else "breeze-light";
-      iconTheme = if darkMode then "breeze-dark" else "breeze";
+      #theme = if darkMode then "breeze-dark" else "breeze-light";
+      theme = "default";
+      #iconTheme = if darkMode then "breeze-dark" else "breeze";
+      iconTheme = if darkMode then "klassy-dark" else "klassy";
 
       splashScreen = {
         engine = "none";
@@ -588,6 +659,16 @@ rec {
       };
 
       clickItemTo = "select";
+    };
+
+    configFile = {
+      kdeglobals = {
+        KDE.widgetStyle = "Klassy";
+      };
+      kwinrc."org.kde.kdecoration2" = {
+        library = "org.kde.klassy";
+        theme = "Klassy";
+      };
     };
   };
 
