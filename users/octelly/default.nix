@@ -101,7 +101,6 @@ let
       maintainers = with lib.maintainers; [ pluiedev ];
       mainProgram = "klassy-settings";
     };
-
   });
   #warble = (pkgs.stdenv.mkDerivation rec {
   #  pname = "warble";
@@ -122,132 +121,154 @@ let
   #  '';
   #});
   firefoxMainProfileName = "main";
+
+  wallhaven = { id, ext, sha256 }: builtins.fetchurl {
+    inherit sha256;
+    url = "https://w.wallhaven.cc/full/${builtins.substring 0 2 id}/wallhaven-${id}.${ext}";
+  };
+  putTogether = { name, srcs }: pkgs.stdenv.mkDerivation {
+    inherit name srcs;
+
+    dontUnpack = true;
+    dontPatch = true;
+    dontConfigure = true;
+
+    buildPhase = ''
+      mkdir -p $out
+      cp -r $srcs $out
+    '';
+
+    dontInstall = true;
+    dontFixup = true;
+  };
 in
 rec {
   home = {
-    packages = with pkgs; [
-      #warble
+    packages = with pkgs;
+      [
+        #warble
 
-      pavucontrol
-      pulsemixer
-      maple-mono-NF
-      ranger
-      ffmpeg
+        pavucontrol
+        pulsemixer
+        maple-mono-NF
+        ranger
+        ffmpeg
 
-      qalculate-qt
+        qalculate-qt
 
-      #(discord.override {
-      #  withOpenASAR = true;
-      #  withVencord = true;
-      #})
-      vesktop
-      telegram-desktop
-      beeper
+        #(discord.override {
+        #  withOpenASAR = true;
+        #  withVencord = true;
+        #})
+        vesktop
+        telegram-desktop
+        beeper
 
-      appimage-run
+        appimage-run
 
-      #cinnamon.nemo-with-extensions
+        #cinnamon.nemo-with-extensions
 
-      tetrio-desktop
-      xonotic-glx
+        tetrio-desktop
+        xonotic-glx
+        dolphin-emu
 
-      #libsForQt5.dolphin
-      #libsForQt5.dolphin-plugins
-      #libsForQt5.kio
-      #libsForQt5.kio-admin
-      #libsForQt5.kio-extras
-      #libsForQt5.kimageformats
-      #libsForQt5.qtstyleplugins
-      #qgnomeplatform
-      #qgnomeplatform-qt6
+        #libsForQt5.dolphin
+        #libsForQt5.dolphin-plugins
+        #libsForQt5.kio
+        #libsForQt5.kio-admin
+        #libsForQt5.kio-extras
+        #libsForQt5.kimageformats
+        #libsForQt5.qtstyleplugins
+        #qgnomeplatform
+        #qgnomeplatform-qt6
 
-      bitwarden
-      #(vivaldi.override {
-      #  proprietaryCodecs = true;
-      #  vivaldi-ffmpeg-codecs = vivaldi-ffmpeg-codecs;
-      #  enableWidevine = true;
-      #  widevine-cdm = widevine-cdm;
-      #  commandLineArgs = chromiumFlags;
-      #})
-      #parsec-bin
+        bitwarden
+        #(vivaldi.override {
+        #  proprietaryCodecs = true;
+        #  vivaldi-ffmpeg-codecs = vivaldi-ffmpeg-codecs;
+        #  enableWidevine = true;
+        #  widevine-cdm = widevine-cdm;
+        #  commandLineArgs = chromiumFlags;
+        #})
+        #parsec-bin
 
-      #luakit
+        #luakit
 
-      #nextcloud-client
-      #qownnotes
+        #nextcloud-client
+        #qownnotes
 
-      #rnix-lsp
-      nixpkgs-fmt
-      manix
+        #rnix-lsp
+        nixpkgs-fmt
+        manix
 
-      ## sway
-      #swaysome
-      #swww
-      #sov
-      #clipman
-      #wl-clipboard
-      #playerctl
-      #brightnessctl
-      #pamixer
-      #waybar
-      #swaynotificationcenter
+        ## sway
+        #swaysome
+        #swww
+        #sov
+        #clipman
+        #wl-clipboard
+        #playerctl
+        #brightnessctl
+        #pamixer
+        #waybar
+        #swaynotificationcenter
 
-      #onagre
-      #wofi
+        #onagre
+        #wofi
 
-      mpv
+        mpv
 
-      #gtklock
-      #gtklock-userinfo-module
+        #gtklock
+        #gtklock-userinfo-module
 
-      #nvtopPackages.intel
+        #nvtopPackages.intel
 
-      #(xfce.thunar.override {
-      #  thunarPlugins = with pkgs.xfce; [
-      #    thunar-volman
-      #    thunar-archive-plugin
-      #  ];
-      #})
+        #(xfce.thunar.override {
+        #  thunarPlugins = with pkgs.xfce; [
+        #    thunar-volman
+        #    thunar-archive-plugin
+        #  ];
+        #})
 
-      jellyfin-media-player
-      moonlight-qt
+        jellyfin-media-player
+        moonlight-qt
 
 
-      #networkmanagerapplet
-      #networkmanager-l2tp
+        #networkmanagerapplet
+        #networkmanager-l2tp
 
-      #libgnome-keyring
-      #picom
-      #pantheon.pantheon-agent-polkit
-      #numlockx
+        #libgnome-keyring
+        #picom
+        #pantheon.pantheon-agent-polkit
+        #numlockx
 
-      #udiskie
-      #xfce.xfce4-power-manager
-      #remmina
+        #udiskie
+        #xfce.xfce4-power-manager
+        #remmina
 
-      #osu-lazer-bin
-      #srb2kart
-      #gamescope
-      #mangohud
-      #tmuf
+        #osu-lazer-bin
+        #srb2kart
+        #gamescope
+        #mangohud
+        #tmuf
 
-      # plasma theme thing
-      klassy
+        # plasma theme thing
+        klassy
 
-      #krdc
+        #krdc
 
-      # flameshot and dependencies
-      #flameshot
-      #grim
+        # flameshot and dependencies
+        #flameshot
+        #grim
 
-      # archive manager
-      #mate.engrampa
+        # archive manager
+        #mate.engrampa
 
-      planify
-      newsflash
+        planify
+        newsflash
 
-      wezterm
-    ];
+        wezterm
+      ];
     pointerCursor = {
       package = posysCursors;
       name = "Posy_Cursor_Black_125_175";
@@ -671,6 +692,50 @@ rec {
       };
 
       clickItemTo = "select";
+
+      wallpaperSlideShow = {
+        interval = 5 * 60;
+        path = "" + (putTogether {
+          name = "octelly-wallpapers-plasma";
+          srcs = [
+            (wallhaven {
+              id = "exlz5l";
+              ext = "jpg";
+              sha256 = "1kkr525abi0iggzxz6w4vnda3yb3pn3r6j6y7svmlng844xls8ys";
+            })
+            (wallhaven {
+              id = "m3rm11";
+              ext = "png";
+              sha256 = "1ba24clw6r4g5qfci9g44i8lipnz5bsx2ndnhc5g85hxyqhnn1nr";
+            })
+            (wallhaven {
+              id = "yxe85x";
+              ext = "jpg";
+              sha256 = "0lvg9xbifj7bv3fy7qrqcnxq8b957wb59hhqg38mj6ywz2vavxng";
+            })
+            (wallhaven {
+              id = "3l6ll9";
+              ext = "jpg";
+              sha256 = "0r0xk737jqbw4n0hpc3y9ckdsgy19flbd6j5j9wknygkfzsvlfa5";
+            })
+            (wallhaven {
+              id = "8oroqk";
+              ext = "png";
+              sha256 = "0x27xwjkc9rr3x2zxfcapq31z31jgd5cvld8n95s6gpr9c0dy3kw";
+            })
+            (wallhaven {
+              id = "x8kkd3";
+              ext = "jpg";
+              sha256 = "04n49hi15nr11iklvmcn6461a2qa30qhvhqdhzc5kywzbhvyrikl";
+            })
+            (wallhaven {
+              id = "z8o1og";
+              ext = "jpg";
+              sha256 = "0k02j7f1f8sxg3ali8s2hr3r8864ssq1i90jimk0as34ffvsjwn0";
+            })
+          ];
+        });
+      };
     };
 
     configFile = {
