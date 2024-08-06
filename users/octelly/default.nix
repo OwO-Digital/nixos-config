@@ -296,6 +296,10 @@ rec {
     # somewhere else, making this module kind of useless atm
     package = pkgs.floorp;
 
+    nativeMessagingHosts = with pkgs; [
+      kdePackages.plasma-browser-integration
+    ];
+
     #policies = {
     #  ExtensionSettings = {
     #    "*" = {
@@ -680,7 +684,12 @@ rec {
     };
   };
 
-  services.kdeconnect.enable = true;
+  services.kdeconnect = {
+    enable = true;
+    indicator = true;
+
+    package = pkgs.kdePackages.kdeconnect-kde;
+  };
 
   programs.vscode = {
     enable = true;
