@@ -132,6 +132,7 @@ rec {
       pulsemixer
       maple-mono-NF
       ranger
+      ffmpeg
 
       qalculate-qt
 
@@ -148,6 +149,7 @@ rec {
       #cinnamon.nemo-with-extensions
 
       tetrio-desktop
+      xonotic-glx
 
       #libsForQt5.dolphin
       #libsForQt5.dolphin-plugins
@@ -271,14 +273,20 @@ rec {
     #};
   };
 
-  #fonts.fontconfig.enable = true;
-
   programs.thunderbird = {
     enable = true;
 
     profiles.default = {
       isDefault = true;
     };
+  };
+
+  programs.obs-studio = {
+    enable = true;
+    plugins = with pkgs.obs-studio-plugins; [
+      obs-vaapi
+      obs-pipewire-audio-capture
+    ];
   };
 
   programs.firefox = {
