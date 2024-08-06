@@ -104,7 +104,7 @@ in
           # `fonts` takes a list of packages
           fonts = with pkgs; [
             roboto
-            twemoji-color-font
+            twitter-color-emoji
             noto-fonts
             noto-fonts-cjk-sans
             maple-mono-NF
@@ -112,10 +112,10 @@ in
           # `nerd-fonts.override` takes a list of strings
           nerd-fonts = [ ];
           defaultFonts = {
-            monospace = [ "MapleMonoNF" ];
+            monospace = [ "Maple Mono NF" ];
             sansSerif = [ "Noto Sans" ];
             serif = [ "Noto Serif" ];
-            emoji = [ "Twemoji" ];
+            emoji = [ "Twitter Color Emoji" ];
           };
         };
       };
