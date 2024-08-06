@@ -292,6 +292,34 @@ rec {
     #    hash = "sha256-Bw5e1/ZXal4AZUn17or2hh2VLNZu7rtfRakXZtxm/pI=";
     #  });
     #};
+
+    language =
+      let
+        C = "C";
+        austrian_english = "en_AT.UTF-8";
+        british_english = "en_GB.UTF-8";
+        czech = "cs_CZ.UTF-8";
+      in
+      rec {
+        base = british_english;
+
+        address = czech;
+        measurement = czech;
+        monetary = czech;
+        name = czech;
+        numeric = C;
+        paper = czech;
+        telephone = czech;
+        time = austrian_english;
+
+        # sorting
+        collate = C;
+        # byte sequence interpreting
+        ctype = C;
+        # displayed language
+        messages = base;
+
+      };
   };
 
   programs.thunderbird = {
@@ -746,6 +774,25 @@ rec {
         library = "org.kde.klassy";
         theme = "Klassy";
       };
+      plasma-localerc.Formats = with config.home.language; {
+        LC_ALL = base;
+
+        LC_ADDRESS = address;
+        LC_COLLATE = collate;
+        LC_CTYPE = ctype;
+        LC_MEASUREMENT = measurement;
+        LC_MESSAGES = messages;
+        LC_MONETARY = monetary;
+        LC_NAME = name;
+        LC_NUMERIC = numeric;
+        LC_PAPER = paper;
+        LC_TELEPHONE = telephone;
+        LC_TIME = time;
+      };
+      plasma-localerc.Translations.LANGUAGE =
+        (builtins.elemAt
+          (pkgs.lib.strings.splitString "." config.home.language.base))
+          0;
     };
   };
 
@@ -932,6 +979,10 @@ rec {
     EDITOR = "nvim";
     _JAVA_AWT_WM_NONREPARENTING = 1;
     NIXOS_OZONE_WL = 1;
+
+    LANGUAGE = config.home.language.base;
+    LANG = config.home.language.base;
+    LC_ALL = config.home.language.base;
   };
 
   xdg = {
