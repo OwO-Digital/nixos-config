@@ -2,8 +2,16 @@
 
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
-    substituters = [ "https://cosmic.cachix.org/" ];
-    trusted-public-keys = [ "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE=" ];
+    substituters = [
+      "https://cache.nixos.org?priority=10"
+      "https://fortuneteller2k.cachix.org"
+      "https://cosmic.cachix.org/"
+    ];
+    trusted-public-keys = [
+      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "fortuneteller2k.cachix.org-1:kXXNkMV5yheEQwT0I4XYh1MaCSz+qg72k8XAi2PthJI="
+      "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
+    ];
   };
 
   boot = {
