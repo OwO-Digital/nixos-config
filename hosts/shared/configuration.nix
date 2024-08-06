@@ -33,6 +33,14 @@
     enable = true;
     enableStrongSwan = true;
   };
+  networking.firewall = {
+    allowedTCPPortRanges = [
+      { from = 1714; to = 1764; } # KDEConnect
+    ];
+    allowedUDPPortRanges = [
+      { from = 1714; to = 1764; } # KDEConnect
+    ];
+  };
 
   time = {
     timeZone = "Europe/Prague";
