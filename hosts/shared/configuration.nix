@@ -70,6 +70,13 @@
       NIXPKGS_ALLOW_UNFREE = "1";
       MOZ_USE_XINPUT2 = "1";
     };
+
+    plasma6.excludePackages = with pkgs.kdePackages; [
+      elisa
+      kate
+      kmenuedit
+      plasma-systemmonitor
+    ];
   };
 
   programs = {
