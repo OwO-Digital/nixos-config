@@ -6,6 +6,7 @@ in {
 		packages = (with pkgs; [
 			(pcmanfm.override { withGtk3 = true; })
 			tor-browser-bundle-bin
+			wlr-randr
 			rofi-wayland
 			scrot
 			#picom-dccsillag
@@ -14,10 +15,12 @@ in {
 			zed-editor
 			nicotine-plus # yarr harr
 			obs-studio
+			blockbench-electron
 			#jrnl
 			feh
 			ncdu
 			duf
+			playerctl
 			pamixer
 			pulsemixer
 			dconf
@@ -31,9 +34,7 @@ in {
 			stable.deluge
 			(giph.override { ffmpeg = (ffmpeg_6.override { ffmpegVariant = "full"; }); })
 			# etterna
-			# run # credit to alpha for this
-		]) ++ (with pkgs.stable; [
-			#unityhub
+			comma
 		]);
 
 		pointerCursor = {

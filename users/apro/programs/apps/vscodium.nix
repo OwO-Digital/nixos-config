@@ -32,6 +32,8 @@
       };
 
       window = {
+        titleBarStyle = "custom";
+        customMenuBarAltFocus = false;
         menuBarVisibility = "compact";
         zoomLevel = 1;
       };

@@ -78,7 +78,7 @@ in
     type = types.attrs;
     default = {
       apro = {
-        desc = "Emily Shirley";
+        desc = "Emi Pikner";
         modules = [ ];
         fc = {
           # `fonts` takes a list of packages
