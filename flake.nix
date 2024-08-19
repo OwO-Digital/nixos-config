@@ -13,6 +13,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home";
     };
+    kwin-effects-forceblur = {
+      url = "github:taj-ny/kwin-effects-forceblur";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixHW.url = "github:nixos/nixos-hardware/master";
     f2k = {
       url = "github:moni-dz/nixpkgs-f2k";
@@ -76,7 +80,7 @@
           allowUnfree = true;
           allowBroken = true;
           permittedInsecurePackages = [
-            "electron-11.5.0"
+            "freeimage-unstable-2021-11-01" # for EmulationStation DE (desktop edition)
           ];
         };
 

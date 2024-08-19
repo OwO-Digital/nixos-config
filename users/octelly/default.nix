@@ -168,10 +168,6 @@ rec {
 
         #cinnamon.nemo-with-extensions
 
-        tetrio-desktop
-        xonotic-glx
-        dolphin-emu
-
         #libsForQt5.dolphin
         #libsForQt5.dolphin-plugins
         #libsForQt5.kio
@@ -194,7 +190,6 @@ rec {
 
         #luakit
 
-        #nextcloud-client
         #qownnotes
 
         #rnix-lsp
@@ -217,6 +212,7 @@ rec {
         #wofi
 
         mpv
+        jamesdsp
 
         #gtklock
         #gtklock-userinfo-module
@@ -251,9 +247,25 @@ rec {
         #gamescope
         #mangohud
         #tmuf
+        tetrio-desktop
+        xonotic-glx
+        dolphin-emu
+        emulationstation-de
 
         # plasma theme thing
         klassy
+
+        inputs.kwin-effects-forceblur.packages.${pkgs.system}.default
+
+        kdePackages.kclock
+
+        # spelling stuff
+        # is also used by Plasma
+        aspell
+        aspellDicts.cs
+        aspellDicts.en
+        aspellDicts.en-computers
+        aspellDicts.en-science
 
         #krdc
 
@@ -263,6 +275,10 @@ rec {
 
         # archive manager
         #mate.engrampa
+
+        gimp-with-plugins
+        inkscape-with-extensions
+        aseprite
 
         planify
         newsflash
@@ -727,11 +743,6 @@ rec {
           name = "octelly-wallpapers-plasma";
           srcs = [
             (wallhaven {
-              id = "exlz5l";
-              ext = "jpg";
-              sha256 = "1kkr525abi0iggzxz6w4vnda3yb3pn3r6j6y7svmlng844xls8ys";
-            })
-            (wallhaven {
               id = "m3rm11";
               ext = "png";
               sha256 = "1ba24clw6r4g5qfci9g44i8lipnz5bsx2ndnhc5g85hxyqhnn1nr";
@@ -747,11 +758,6 @@ rec {
               sha256 = "0r0xk737jqbw4n0hpc3y9ckdsgy19flbd6j5j9wknygkfzsvlfa5";
             })
             (wallhaven {
-              id = "8oroqk";
-              ext = "png";
-              sha256 = "0x27xwjkc9rr3x2zxfcapq31z31jgd5cvld8n95s6gpr9c0dy3kw";
-            })
-            (wallhaven {
               id = "x8kkd3";
               ext = "jpg";
               sha256 = "04n49hi15nr11iklvmcn6461a2qa30qhvhqdhzc5kywzbhvyrikl";
@@ -760,6 +766,41 @@ rec {
               id = "z8o1og";
               ext = "jpg";
               sha256 = "0k02j7f1f8sxg3ali8s2hr3r8864ssq1i90jimk0as34ffvsjwn0";
+            })
+            (wallhaven {
+              id = "zyv5qj";
+              ext = "jpg";
+              sha256 = "0jy8lhb9a29w55f96rjj5pzbcfhqy7gb9i1i8za9imgyvvn5nirr";
+            })
+            (wallhaven {
+              id = "yxr83d";
+              ext = "jpg";
+              sha256 = "03nk3savqylsc38j5cynb4prjrjbzi7pl06yly51sm0h30i8zjwi";
+            })
+            (wallhaven {
+              id = "1pok23";
+              ext = "jpg";
+              sha256 = "0qiynj9hc4mdcs3a6s19vqr5ajx7yrp01nimkvclshh5l7ss9n8j";
+            })
+            (wallhaven {
+              id = "l8r6oy";
+              ext = "jpg";
+              sha256 = "10zraaxj781wgaz3aa7xvlrg8sjsbllkkgcpl0qksk4q7j349dxs";
+            })
+            (wallhaven {
+              id = "5gj8w9";
+              ext = "png";
+              sha256 = "0v64sb41lpks148acq1s3k0y24vp2qim1wkqxah4rxq5lqzjsk42";
+            })
+            (wallhaven {
+              id = "x6ojqd";
+              ext = "jpg";
+              sha256 = "0qrby4fvicy9hys0jpd0zwvfdz20hmw2ahssm464kqgg1mni6rkm";
+            })
+            (wallhaven {
+              id = "p91pjm";
+              ext = "jpg";
+              sha256 = "0izpvcifawl251j3iprm2g0g4zl8x7rv83q0x9naggf1vbr7h2f0";
             })
           ];
         });
@@ -801,6 +842,11 @@ rec {
     indicator = true;
 
     package = pkgs.kdePackages.kdeconnect-kde;
+  };
+
+  services.nextcloud-client = {
+    enable = true;
+    startInBackground = true;
   };
 
   programs.vscode = {
@@ -1042,11 +1088,24 @@ rec {
 
         "BookmarkBarEnabled" = false;
         "BrowserThemeColor" = "#000000";
-        "NewTabPageLocation" = "https://start.johnystar.moe/";
         "HomepageIsNewTabPage" = true;
         "ShowHomeButton" = false;
       };
       "kitty/themes/sonokai-shusia.conf".source = ./sonokai-shusia.conf;
+      "wezterm".source = pkgs.stdenv.mkDerivation {
+        name = "octelly-wezterm-config";
+        src = ./wezterm-src;
+
+        nativeBuildInputs = with pkgs; [
+          luajitPackages.moonscript
+        ];
+
+        buildPhase = ''
+          mkdir -p $out
+
+          moonc -t $out .
+        '';
+      };
       "qtile".source = ./desktop_environments/qtile;
 
       "swaync/config.json".text = builtins.toJSON {
