@@ -302,13 +302,6 @@ with config; {
         cmp.enable = cmp.enable;
       };
 
-      #lspsaga = {
-      #  enable = true;
-
-      #  # breadcrumbs
-      #  symbolInWinbar.enable = true;
-      #};
-
       # better splits with support for wez, kitty, tmux
       smart-splits = {
         enable = true;
@@ -393,15 +386,7 @@ with config; {
             ];
           }
         ];
-
-        #theme = "dashboard";
       };
-
-      #coq-nvim = {
-      #  enable = true;
-      #  installArtifacts = true;
-      #  settings.auto_start = "shut-up";
-      #};
 
       # completions and integrations
       cmp.enable = true;
@@ -414,12 +399,6 @@ with config; {
 
       # UI framework of sorts that some plugins hook into
       fidget.enable = true;
-
-      #cursorline = {
-      #  enable = true;
-      #  cursorline.enable = false;
-      #  cursorword.enable = true;
-      #};
 
       # bottom statusline
       lualine = {
