@@ -36,6 +36,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # building Poetry Python packages
+    poetry2nix = {
+      url = "github:nix-community/poetry2nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     ### PACKAGE SOURCES ###
     pkg-fushigi = {
       type = "github";
@@ -73,6 +79,7 @@
         ];
       };
 
+      # global Home Manager modules
       homes.modules = with inputs; [
         nixvim.homeManagerModules.nixvim
       ];
