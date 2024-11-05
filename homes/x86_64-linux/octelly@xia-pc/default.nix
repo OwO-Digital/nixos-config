@@ -133,11 +133,12 @@ with config; {
     defaultEditor = true;
 
     extraPlugins = with pkgs.vimPlugins; [
-      sonokai
-      moonscript-vim
+      sonokai # theme
+      moonscript-vim # language support
     ];
 
     globals = {
+      # Sonokai has multiple styles
       sonokai_style = "shusia";
 
       # substitution live preview
@@ -145,7 +146,6 @@ with config; {
 
       # WARNING: blah blah this is experimental
       #          if you encounter issues, disable this
-      # NOTE: seems to not be working atm anyway :)
       cmdheight = 0;
     };
 
@@ -153,9 +153,11 @@ with config; {
     colorscheme = "sonokai";
 
     opts = {
+      # relative line numbers
       number = true;
       relativenumber = true;
 
+      # wrapped lines continue with same indentation on next line
       breakindent = true;
 
       # save undo history
@@ -180,16 +182,15 @@ with config; {
       # mode is shown in lualine
       showmode = false;
 
-      # linebreak so that words aren't split when wrap
+      # linebreak so that words aren't split when wrapped
       linebreak = true;
     };
 
     extraConfigLua = ''
-      --vim.g.sonokai_style = 'shusia'
-      --vim.cmd([[colorscheme sonokai]])
-      
+      -- font to be used in GUIs such as Neovide
       vim.o.guifont = "${builtins.elemAt fonts.fontconfig.defaultFonts.monospace 0}:h12"
       
+      -- check if Neovide options are available
       if vim.g.neovide then
         vim.g.neovide_hide_mouse_when_typing = true
         vim.g.neovide_remember_window_size = true
@@ -198,6 +199,7 @@ with config; {
       end
     '';
 
+    # https://editorconfig.org/
     editorconfig.enable = true;
 
     keymaps =
@@ -205,6 +207,8 @@ with config; {
         mkRaw = x: { __raw = x; };
       in
       [
+        # exit terminal mode with 2x escape
+        # (default keybind is something esoteric and weird)
         {
           key = "<Esc><Esc>";
           action = "<C-\\><C-n>";
@@ -212,6 +216,7 @@ with config; {
         }
 
         # smart-splits
+        # (see plugin explanation later in the config)
         {
           mode = "n";
           key = "<S-Left>";
@@ -288,8 +293,10 @@ with config; {
         };
       };
 
+      # formatting provided by LSPs
       lsp-format.enable = true;
 
+      # pictograms for LSP completions
       lspkind = {
         enable = true;
         cmp.enable = cmp.enable;
@@ -307,11 +314,13 @@ with config; {
         enable = true;
       };
 
+      # pretty diagnostics, references, quickfixes, etc.
       trouble.enable = true;
 
       # detect tab/spaces and width
       sleuth.enable = true;
 
+      # better code understanding - code tree
       treesitter = {
         enable = true;
 
@@ -319,6 +328,7 @@ with config; {
         folding = true;
       };
 
+      # keep definition of nested functions and such pinned on top
       treesitter-context = {
         enable = true;
         settings = rec {
@@ -327,6 +337,7 @@ with config; {
         };
       };
 
+      # smart rename + some extras
       treesitter-refactor = {
         enable = true;
         highlightDefinitions.enable = true;
@@ -335,6 +346,7 @@ with config; {
         smartRename.enable = true;
       };
 
+      # see project directory (cd into project with :cd)
       nvim-tree = {
         enable = true;
         syncRootWithCwd = true;
@@ -391,6 +403,7 @@ with config; {
       #  settings.auto_start = "shut-up";
       #};
 
+      # completions and integrations
       cmp.enable = true;
 
       cmp-path.enable = true;
@@ -399,6 +412,7 @@ with config; {
       cmp-nvim-lsp-signature-help.enable = true;
       cmp-treesitter.enable = true;
 
+      # UI framework of sorts that some plugins hook into
       fidget.enable = true;
 
       #cursorline = {
@@ -407,6 +421,7 @@ with config; {
       #  cursorword.enable = true;
       #};
 
+      # bottom statusline
       lualine = {
         enable = true;
 
