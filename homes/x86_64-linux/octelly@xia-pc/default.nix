@@ -42,13 +42,50 @@ with config; {
 
   home.packages = with pkgs; [
     #snowfallorg.frost
-    nil
+    #nil
     #owo-digital.MarioVsLuigi-bin
     #eartag
+
+    gittyup
+
+    fcast-receiver
   ];
 
   programs.tauon = {
     enable = true;
+  };
+
+  programs.rbw = {
+    enable = true;
+    #settings = {
+    #  #email
+    #  #base_url
+
+    #  lock_timeout = 60 * 10; # seconds
+    #};
+  };
+
+  programs.mpv = {
+    enable = true;
+    config = {
+
+      # replaced by uosc
+      osd-bar = false;
+      border = false;
+
+    };
+
+    scripts = with pkgs.mpvScripts; [
+      uosc # better OSD
+      thumbfast # thumbnails for hover
+      mpris # media controls integration
+      reload # automatic reload for stuck online videos
+      sponsorblock
+    ];
+
+    scriptOpts.thumbfast = {
+      network = true;
+    };
   };
 
   fonts.fontconfig = {
@@ -57,6 +94,37 @@ with config; {
       monospace = [
         "Maple Mono NF"
       ];
+    };
+  };
+
+  xdg.configFile = {
+
+    # https://wiki.archlinux.org/title/bluetooth_headset#Disable_PipeWire_HSP/HFP_profile
+    wireplumberDisableHandsfree = {
+      target = ".config/wireplumber/wireplumber.conf.d/50-bluez.conf";
+      text = ''
+        monitor.bluez.rules = [
+          {
+            matches = [
+              {
+                ## This matches all bluetooth devices.
+                device.name = "~bluez_card.*"
+              }
+            ]
+            actions = {
+              update-props = {
+                bluez5.auto-connect = [ a2dp_sink ]
+                bluez5.hw-volume = [ a2dp_sink ]
+              }
+            }
+          }
+        ]
+              
+        monitor.bluez.properties = {
+          bluez5.roles = [ a2dp_sink ]
+          bluez5.hfphsp-backend = "none"
+        }
+      '';
     };
   };
 
@@ -132,29 +200,90 @@ with config; {
 
     editorconfig.enable = true;
 
-    keymaps = [
-      {
-        key = "<Esc><Esc>";
-        action = "<C-\\><C-n>";
-        mode = "t";
-      }
-    ];
+    keymaps =
+      let
+        mkRaw = x: { __raw = x; };
+      in
+      [
+        {
+          key = "<Esc><Esc>";
+          action = "<C-\\><C-n>";
+          mode = "t";
+        }
 
-    ## use system clipboard
-    #clipboard.register = "unnamedplus";
+        # smart-splits
+        {
+          mode = "n";
+          key = "<S-Left>";
+          action = mkRaw "require('smart-splits').move_cursor_left";
+          options.silent = true;
+        }
+        {
+          mode = "n";
+          key = "<S-Down>";
+          action = mkRaw "require('smart-splits').move_cursor_down";
+          options.silent = true;
+        }
+        {
+          mode = "n";
+          key = "<S-Up>";
+          action = mkRaw "require('smart-splits').move_cursor_up";
+          options.silent = true;
+        }
+        {
+          mode = "n";
+          key = "<S-Right>";
+          action = mkRaw "require('smart-splits').move_cursor_right";
+          options.silent = true;
+        }
+
+        {
+          mode = "n";
+          key = "<A-Left>";
+          action = mkRaw "require('smart-splits').resize_left";
+          options.silent = true;
+        }
+        {
+          mode = "n";
+          key = "<A-Down>";
+          action = mkRaw "require('smart-splits').resize_down";
+          options.silent = true;
+        }
+        {
+          mode = "n";
+          key = "<A-Up>";
+          action = mkRaw "require('smart-splits').resize_up";
+          options.silent = true;
+        }
+        {
+          mode = "n";
+          key = "<A-Right>";
+          action = mkRaw "require('smart-splits').resize_right";
+          options.silent = true;
+        }
+
+      ];
 
     plugins = rec {
 
       lsp = {
         enable = true;
         servers = {
+          # JSON
+          jsonls.enable = true;
+
+          # Nix
           nil_ls = {
             enable = true;
             extraOptions = {
               formatting.command = "${pkgs.nixpkgs-fmt}";
             };
           };
-          lua-ls.enable = true;
+
+          # LUA
+          lua_ls.enable = true;
+
+          # Python
           pyright.enable = true;
         };
       };
@@ -173,12 +302,22 @@ with config; {
       #  symbolInWinbar.enable = true;
       #};
 
+      # better splits with support for wez, kitty, tmux
+      smart-splits = {
+        enable = true;
+      };
+
       trouble.enable = true;
 
       # detect tab/spaces and width
       sleuth.enable = true;
 
-      treesitter.enable = true;
+      treesitter = {
+        enable = true;
+
+        # use tresitter as fold method
+        folding = true;
+      };
 
       treesitter-context = {
         enable = true;
@@ -203,6 +342,9 @@ with config; {
         # colours are enough imo
         renderer.icons.show.git = false;
       };
+
+      # icons provider for nvim-tree, trouble and other plugins
+      web-devicons.enable = true;
 
       # a lua powered greeter like vim-startify / dashboard-nvim
       alpha = {
@@ -267,23 +409,27 @@ with config; {
 
       lualine = {
         enable = true;
-        globalstatus = true;
 
-        sections = {
-          lualine_x = [
-            "searchcount"
-            "filetype"
-          ];
-        };
+        settings = {
+          sections = {
+            lualine_x = [
+              "searchcount"
+              "filetype"
+            ];
+          };
 
-        sectionSeparators = {
-          left = "";
-          right = "";
-        };
+          options = {
+            globalstatus = true;
 
-        componentSeparators = {
-          left = "";
-          right = "";
+            sectionSeparators = {
+              left = "";
+              right = "";
+            };
+            componentSeparators = {
+              left = "";
+              right = "";
+            };
+          };
         };
       };
     };
