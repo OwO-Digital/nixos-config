@@ -3,6 +3,8 @@ wezterm = require 'wezterm'
 {
 	check_for_updates: false
 	front_end: "WebGpu"
+	--front_end: "OpenGL"
+	--front_end: "Software"
 
 	color_scheme: 'sonokai-shusia'
 	font: wezterm.font_with_fallback {
@@ -27,8 +29,8 @@ wezterm = require 'wezterm'
 	cursor_blink_ease_in: "Constant"
 	cursor_blink_ease_out: "Constant"
 
-	--window_background_opacity: 0.9
-	window_background_opacity: 1
+	window_background_opacity: 0.9
+	--window_background_opacity: 1
 	inactive_pane_hsb: {
 		saturation: 1
 		brightness: 0.9

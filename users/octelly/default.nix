@@ -250,7 +250,8 @@ rec {
         tetrio-desktop
         xonotic-glx
         dolphin-emu
-        emulationstation-de
+        #emulationstation-de
+        inputs.aagl.packages.${pkgs.system}.sleepy-launcher
 
         # plasma theme thing
         klassy
@@ -283,7 +284,7 @@ rec {
         planify
         newsflash
 
-        wezterm
+        stable.wezterm
       ];
     pointerCursor = {
       package = posysCursors;

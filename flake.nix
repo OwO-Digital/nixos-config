@@ -50,9 +50,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Hoyoverse games
+    aagl = {
+      url = "github:ezKEa/aagl-gtk-on-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Nixpkgs
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    stable.url = "github:nixos/nixpkgs/nixos-23.05";
+    stable.url = "github:nixos/nixpkgs/nixos-24.05";
     master.url = "github:nixos/nixpkgs/master";
 
     nixpkgs.follows = "unstable";

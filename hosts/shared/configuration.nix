@@ -5,12 +5,14 @@
     substituters = [
       "https://cache.nixos.org?priority=10"
       "https://fortuneteller2k.cachix.org"
-      "https://cosmic.cachix.org/"
+      "https://cosmic.cachix.org/" # Cosmic DE
+      "https://ezkea.cachix.org" # Hoyoverse
     ];
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "fortuneteller2k.cachix.org-1:kXXNkMV5yheEQwT0I4XYh1MaCSz+qg72k8XAi2PthJI="
       "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
+      "ezkea.cachix.org-1:ioBmUbJTZIKsHmWWXPe1FSFbeVe+afhfgqgTSNd34eI="
     ];
   };
 
@@ -40,6 +42,28 @@
     allowedUDPPortRanges = [
       { from = 1714; to = 1764; } # KDEConnect
     ];
+  };
+
+  networking.hosts = {
+  	"0.0.0.0" = [
+	# Genshin logging servers (do not remove!)
+	# Global version
+	"sg-public-data-api.hoyoverse.com"
+	"log-upload-os.hoyoverse.com"
+	
+	# Some old global logging servers
+	"log-upload-os.mihoyo.com"
+	"overseauspider.yuanshen.com"
+	
+	# Chinese version
+	"public-data-api.mihoyo.com"
+	"log-upload.mihoyo.com"
+	
+	"log-upload-os.hoyoverse.com"
+	"overseauspider.yuanshen.com"
+	"apm-log-upload-os.hoyoverse.com"
+	"zzz-log-upload-os.hoyoverse.com"
+	];
   };
 
   time = {
