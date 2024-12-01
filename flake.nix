@@ -58,7 +58,7 @@
 
     # Nixpkgs
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    stable.url = "github:nixos/nixpkgs/nixos-24.05";
+    stable.url = "github:nixos/nixpkgs/nixos-24.11";
     master.url = "github:nixos/nixpkgs/master";
 
     nixpkgs.follows = "unstable";
@@ -87,6 +87,9 @@
           allowBroken = true;
           permittedInsecurePackages = [
             "freeimage-unstable-2021-11-01" # for EmulationStation DE (desktop edition)
+
+            "fluffychat-linux-1.22.1" # isn't really insecure
+            "olm-3.2.16" # this is what marks fluffy and many other matrix things as insecure
           ];
         };
 

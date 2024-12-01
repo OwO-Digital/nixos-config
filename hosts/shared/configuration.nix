@@ -36,6 +36,12 @@
     enableStrongSwan = true;
   };
   networking.firewall = {
+    allowedTCPPorts = [
+      53317 # LocalSend
+    ];
+    allowedUDPPorts = [
+      53317 # LocalSend
+    ];
     allowedTCPPortRanges = [
       { from = 1714; to = 1764; } # KDEConnect
     ];
@@ -45,25 +51,25 @@
   };
 
   networking.hosts = {
-  	"0.0.0.0" = [
-	# Genshin logging servers (do not remove!)
-	# Global version
-	"sg-public-data-api.hoyoverse.com"
-	"log-upload-os.hoyoverse.com"
-	
-	# Some old global logging servers
-	"log-upload-os.mihoyo.com"
-	"overseauspider.yuanshen.com"
-	
-	# Chinese version
-	"public-data-api.mihoyo.com"
-	"log-upload.mihoyo.com"
-	
-	"log-upload-os.hoyoverse.com"
-	"overseauspider.yuanshen.com"
-	"apm-log-upload-os.hoyoverse.com"
-	"zzz-log-upload-os.hoyoverse.com"
-	];
+    "0.0.0.0" = [
+      # Genshin logging servers (do not remove!)
+      # Global version
+      "sg-public-data-api.hoyoverse.com"
+      "log-upload-os.hoyoverse.com"
+
+      # Some old global logging servers
+      "log-upload-os.mihoyo.com"
+      "overseauspider.yuanshen.com"
+
+      # Chinese version
+      "public-data-api.mihoyo.com"
+      "log-upload.mihoyo.com"
+
+      "log-upload-os.hoyoverse.com"
+      "overseauspider.yuanshen.com"
+      "apm-log-upload-os.hoyoverse.com"
+      "zzz-log-upload-os.hoyoverse.com"
+    ];
   };
 
   time = {

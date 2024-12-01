@@ -162,7 +162,11 @@ rec {
         #})
         vesktop
         telegram-desktop
-        beeper
+        #beeper
+        #element-desktop
+        fluffychat
+
+        localsend
 
         appimage-run
 
@@ -284,7 +288,7 @@ rec {
         planify
         newsflash
 
-        stable.wezterm
+        wezterm
       ];
     pointerCursor = {
       package = posysCursors;
