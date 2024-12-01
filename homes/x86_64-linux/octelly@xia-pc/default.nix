@@ -290,6 +290,11 @@ with config; {
 
           # Python
           pyright.enable = true;
+
+          # JS/TS
+          ts_ls = {
+            enable = true;
+          };
         };
       };
 
