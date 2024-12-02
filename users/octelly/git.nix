@@ -9,5 +9,5 @@
 
   # log in to GitHub and other popular hosts
   # without setup
-  #programs.git-credential-oauth.enable = true;
+  programs.git-credential-oauth.enable = true;
 }

@@ -1042,12 +1042,11 @@ rec {
     mimeApps = {
       enable = true;
       defaultApplications = {
-        #"inode/directory" = [ "nemo.desktop" ];
-        #"video" = [ "mpv.desktop" ];
-        #"audio" = [ "mpv.desktop" ];
-        #"text" = [ "neovim.desktop" ];
-        #"x-scheme-handler/http" = [ "vivaldi.desktop " ];
-        #"x-scheme-handler/https" = [ "vivaldi.desktop " ];
+        "video" = [ "mpv.desktop" ];
+        "audio" = [ "mpv.desktop" ];
+        "text" = [ "nvim.desktop" ];
+        "x-scheme-handler/http" = [ "floorp.desktop " ];
+        "x-scheme-handler/https" = [ "floorp.desktop " ];
       };
     };
 
