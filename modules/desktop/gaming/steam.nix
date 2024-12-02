@@ -26,6 +26,7 @@ in {
 
       systemPackages = with pkgs; [
         protonup-qt
+        mangohud
       ];
     };
   };

@@ -25,8 +25,32 @@
       };
       grub = {
         enable = true;
+
+        # install to EFI only
         efiSupport = true;
         device = "nodev";
+
+        # look
+        fontSize = 20;
+
+        # auto populate boot entries
+        useOSProber = true;
+
+        # add netboot.xyz as an entry
+        extraFiles."netboot-xyz.efi" = pkgs.netbootxyz-efi;
+        extraEntries = ''
+          menuentry "netboot.xyz" {
+            chainloader /netboot-xyz.efi
+          }
+        '';
+
+        extraConfig = builtins.concatStringsSep "\n" [
+          ## auto boot last choice
+          # save selection as default
+          "GRUB_SAVEDEFAULT=true"
+          # loade the previously saved selection
+          "GRUB_DEFAULT=saved"
+        ];
       };
     };
   };

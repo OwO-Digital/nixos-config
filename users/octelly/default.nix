@@ -1477,8 +1477,9 @@ rec {
   #    };
   #  };
 
-  #imports = [
-  #  ./desktop_environments/sway
-  #];
+  imports = [
+    #./desktop_environments/sway
+    ./git.nix
+  ];
 }
 
