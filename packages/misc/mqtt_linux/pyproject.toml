@@ -9,8 +9,9 @@ mqtt-linux = 'mqtt_linux:app'
 
 [tool.poetry.dependencies]
 python = "^3.12"
-monitorcontrol = "^3.1.0"
-paho-mqtt = "^2.1.0"
+#paho-mqtt = "^2.1.0"
+#monitorcontrol = "^3.1.0"
+ha-mqtt-discoverable = "^0.16.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.12.0"
