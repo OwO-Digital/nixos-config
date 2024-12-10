@@ -50,11 +50,15 @@ with lib; let
                 				'';
           in
           {
-            home = {
+            home = rec {
               username = n;
               homeDirectory = "/home/${n}";
               stateVersion = "22.11";
               file.".face".source = "${dir}/avatar.png";
+              file.".directory".text = ''
+                [Desktop Entry]
+                Icon=${homeDirectory}/.face
+              '';
             };
             programs.home-manager.enable = true;
             xdg.configFile."fontconfig/conf.d/52-hm-default-fonts.conf".text = mkFontconfigConf ''

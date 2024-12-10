@@ -102,45 +102,6 @@ let
       mainProgram = "klassy-settings";
     };
   });
-  #warble = (pkgs.stdenv.mkDerivation rec {
-  #  pname = "warble";
-  #  version = "2.0.1";
-  #  src = pkgs.fetchFromGitHub {
-  #    owner = "avojak";
-  #    repo = pname;
-  #    rev = version;
-  #    hash = "sha256-kRFwcH/rPUw8GwMDwNvtuqPyZ4+GgPeoBcxUhO9PrMs=";
-  #  };
-  #  buildInputs = with pkgs; [
-  #    flatpak
-  #    flatpak-builder
-  #    which
-  #  ];
-  #  preBuild = ''
-  #    make flatpak-init
-  #  '';
-  #});
-  firefoxMainProfileName = "main";
-
-  wallhaven = { id, ext, sha256 }: builtins.fetchurl {
-    inherit sha256;
-    url = "https://w.wallhaven.cc/full/${builtins.substring 0 2 id}/wallhaven-${id}.${ext}";
-  };
-  putTogether = { name, srcs }: pkgs.stdenv.mkDerivation {
-    inherit name srcs;
-
-    dontUnpack = true;
-    dontPatch = true;
-    dontConfigure = true;
-
-    buildPhase = ''
-      mkdir -p $out
-      cp -r $srcs $out
-    '';
-
-    dontInstall = true;
-    dontFixup = true;
-  };
 in
 rec {
   home = {
@@ -169,6 +130,8 @@ rec {
         localsend
 
         appimage-run
+
+        heroic
 
         #cinnamon.nemo-with-extensions
 
@@ -200,6 +163,10 @@ rec {
         nixpkgs-fmt
         manix
 
+        bottles
+
+        gittyup
+
         ## sway
         #swaysome
         #swww
@@ -215,7 +182,6 @@ rec {
         #onagre
         #wofi
 
-        mpv
         jamesdsp
 
         #gtklock
@@ -292,27 +258,12 @@ rec {
       ];
     pointerCursor = {
       package = posysCursors;
-      name = "Posy_Cursor_Black_125_175";
+      name = "Posy_Cursor_Black";
     };
     keyboard = {
       layout = "us,cz(qwerty)";
       options = "grp:win_space_toggle";
     };
-
-    #file.".dmrc".text = ''
-    #  [Desktop]
-    #  Session=sway
-    #'';
-
-    #file."lepton" = {
-    #  target = ".mozilla/firefox/${firefoxMainProfileName}/chrome/lepton";
-    #  source = (pkgs.fetchFromGitHub {
-    #    owner = "black7375";
-    #    repo = "Firefox-UI-Fix";
-    #    rev = "v8.0.0";
-    #    hash = "sha256-Bw5e1/ZXal4AZUn17or2hh2VLNZu7rtfRakXZtxm/pI=";
-    #  });
-    #};
 
     language =
       let
@@ -359,116 +310,118 @@ rec {
     ];
   };
 
-  programs.firefox = {
+  programs.mpv = {
     enable = true;
+    config = {
 
-    # turns out floorp stores it's config stuff
-    # somewhere else, making this module kind of useless atm
-    package = pkgs.floorp;
+      # replaced by uosc
+      osd-bar = false;
+      border = false;
 
-    nativeMessagingHosts = with pkgs; [
-      kdePackages.plasma-browser-integration
+    };
+
+    scripts = with pkgs.mpvScripts; [
+      uosc # better OSD
+      thumbfast # thumbnails for hover
+      mpris # media controls integration
+      reload # automatic reload for stuck online videos
+      sponsorblock
     ];
 
-    #policies = {
-    #  ExtensionSettings = {
-    #    "*" = {
-    #      blocked_install_message = "Addons must be enabled/installed via Nix";
-    #      installation_mode = "blocked";
-    #    };
-    #    # uBlock
-    #    "uBlock0@raymondhill.net" = {
-    #      installation_mode = "normal_installed";
-    #      install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
-    #    };
-    #    # Bitwarden
-    #    "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
-    #      installation_mode = "normal_installed";
-    #      install_url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi";
-    #    };
-    #    # Tab Session Manager
-    #    "Tab-Session-Manager@sienori" = {
-    #      installation_mode = "normal_installed";
-    #      install_url = "https://addons.mozilla.org/firefox/downloads/latest/tab-session-manager/latest.xpi";
-    #    };
-    #    # Plasma integration
-    #    "plasma-browser-integration@kde.org" = {
-    #      installation_mode = "normal_installed";
-    #      install_url = "https://addons.mozilla.org/firefox/downloads/latest/plasma-integration/latest.xpi";
-    #    };
-    #    # RES (Reddit Enhancement Suite)
-    #    "jid1-xUfzOsOFlzSOXg@jetpack" = {
-    #      installation_mode = "normal_installed";
-    #      install_url = "https://addons.mozilla.org/firefox/downloads/latest/reddit-enhancement-suite/latest.xpi";
-    #    };
-    #    # Old Reddit redirect
-    #    "{9063c2e9-e07c-4c2c-9646-cfe7ca8d0498}" = {
-    #      installation_mode = "normal_installed";
-    #      install_url = "https://addons.mozilla.org/firefox/downloads/latest/old-reddit-redirect/latest.xpi";
-    #    };
-    #    # Return YouTube dislikes
-    #    "{762f9885-5a13-4abd-9c77-433dcd38b8fd}" = {
-    #      installation_mode = "normal_installed";
-    #      install_url = "https://addons.mozilla.org/firefox/downloads/latest/return-youtube-dislikes/latest.xpi";
-    #    };
-    #    # SponsorBlock
-    #    "sponsorBlocker@ajay.app" = {
-    #      installation_mode = "normal_installed";
-    #      install_url = "https://addons.mozilla.org/firefox/downloads/latest/sponsorblock/latest.xpi";
-    #    };
-    #    # Scroll Anywhere (dragging with middle click)
-    #    "juraj.masiar@gmail.com_ScrollAnywhere" = {
-    #      installation_mode = "normal_installed";
-    #      install_url = "https://addons.mozilla.org/firefox/downloads/latest/scroll_anywhere/latest.xpi";
-    #    };
-    #    # Stylus (custom CSS)
-    #    "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}" = {
-    #      installation_mode = "normal_installed";
-    #      install_url = "https://addons.mozilla.org/firefox/downloads/latest/styl-us/latest.xpi";
-    #    };
-    #  };
-    #};
+    scriptOpts.thumbfast = {
+      network = true;
+    };
+  };
+
+  programs.floorp = {
+    enable = true;
+
+    nativeMessagingHosts = lib.optional config.programs.plasma.enable pkgs.kdePackages.plasma-browser-integration;
+
+    policies = {
+      "3rdparty" = {
+        Extensions = {
+          # Bitwarden
+          "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
+            environment.base = "https://vw.owo.digital/";
+          };
+        };
+      };
+
+      DefaultDownloadDirectory = config.xdg.userDirs.download;
+      DontCheckDefaultBrowser = true;
+
+      UserMessaging = {
+        ExtensionRecommendations = false;
+        FeatureRecommendations = false;
+        UrlbarInterventions = true;
+
+        SkipOnboarding = true;
+        Locked = true;
+      };
+      OverrideFirstRunPage = "";
+      OverridePostUpdatePage = "";
+
+      PasswordManagerEnabled = false;
+
+      Preferences =
+        let
+          locked = x: {
+            Status = "locked";
+            Value = x;
+          };
+        in
+        {
+          "widget.use-xdg-desktop-portal.file-picker" = locked 1;
+          "widget.use-xdg-desktop-portal.location" = locked 1;
+          "widget.use-xdg-desktop-portal.mime-handler" = locked 1;
+          "widget.use-xdg-desktop-portal.open-uri" = locked 1;
+          "widget.use-xdg-desktop-portal.settings" = locked 1;
+        };
+    };
 
     profiles = {
-      ${firefoxMainProfileName} = {
+      default = {
+        id = 1;
+        name = "default";
+        path = "gh82rq9s.default";
+      };
+      main = {
         id = 0;
         isDefault = true;
-        #extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-        #  # essentials
-        #  bitwarden
-        #  ublock-origin
-        #  darkreader
-        #  sponsorblock
-        #  stylus
 
-        #  # Steam
-        #  steam-database
+        extensions = (with pkgs.nur.repos.rycee.firefox-addons; [
+          # essentials
+          scroll_anywhere
+          bitwarden
+          kagi-search
+          ublock-origin
 
-        #  # YouTube
-        #  youtube-shorts-block
-        #  return-youtube-dislikes
+          # misc
+          clearurls
 
-        #  # RSS
-        #  boring-rss
+          # useful from time to time
+          tab-session-manager
+          tab-reloader
 
-        #  # Minecraft
-        #  modrinthify
+          # customisation
+          stylus
+          violentmonkey
 
-        #  # GitHub
-        #  notifier-for-github
+          # Steam
+          steam-database
 
-        #  # Reddit
-        #  old-reddit-redirect
-        #  reddit-enhancement-suite
+          # YouTube
+          sponsorblock
+          youtube-shorts-block
+          return-youtube-dislikes
 
-        #  # LG TV agenda
-        #  pronoundb
-        #];
+          # Reddit
+          old-reddit-redirect
+          reddit-enhancement-suite
+        ]) ++ lib.optional config.programs.plasma.enable pkgs.nur.repos.rycee.firefox-addons.plasma-integration;
 
         settings = {
-          # Use XDG portals
-          "widget.use-xdg-desktop-portal.file-picker" = 1;
-          "widget.use-xdg-desktop-portal.mime-handler" = 1;
           # Disable autofill & passwords
           "browser.formfill.enable" = false;
           "extensions.formautofill.addresses.enabled" = false;
@@ -476,132 +429,50 @@ rec {
           "signon.management.page.breach-alerts.enabled" = false;
           "signon.rememberSignons" = false;
           "signon.autofillForms" = false;
+
+          # Sync settings
+          "services.sync.engine.prefs" = false;
+          "services.sync.engine.passwords" = false;
+          "services.sync.engine.addons" = false;
+          #"identity.fxaccounts.account.device.name" 
+
+          # Look and feel
+          "font.default.x-western" = "sans-serif";
+
+          "floorp.tabbar.style" = 2;
+          "floorp.browser.tabbar.settings" = 2;
+          "floorp.browser.tabs.verticaltab" = true;
+          "floorp.verticaltab.hover.enabled" = true;
+
+          "floorp.browser.sidebar.enable" = false;
+          "floorp.browser.ssb.toolbars.disabled" = true;
+
+          "floorp.lepton.interface" = 3;
+          "floorp.disable.fullscreen.notification" = true;
+
+          "floorp.browser.workspaces.enabled" = false;
+
+          "devtools.toolbox.host" = "window";
+
+          "browser.urlbar.suggest.trending" = false;
+          "browser.urlbar.showSearchSuggestionsFirst" = false;
+
+          "browser.toolbars.bookmarks.visibility" = "never";
+
+          "browser.tabs.warnOnClose" = false;
+
+          "browser.startup.homepage" = "https://home.owo.digital/";
+
+          # automatically enable HM extensions
+          "extensions.autoDisableScopes" = 0;
         };
-
-
-        #settings = {
-        #  "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-
-        #  # Lepton theme
-        #  # https://github.com/black7375/Firefox-UI-Fix
-        #  "browser.proton.enabled" = true;
-        #  "svg.context-properties.content.enabled" = true;
-        #  "layout.css.color-mix.enabled" = true;
-        #  "layout.css.backdrop-filter.enabled" = true;
-        #  "browser.compactmode.show" = true;
-        #  "browser.newtabpage.activity-stream.improvesearch.handoffToAwesomebar" = false;
-        #  "layout.css.has-selector.enabled" = true;
-
-        #  "userChrome.tab.connect_to_window" = true;
-        #  "userChrome.tab.color_like_toolbar" = true;
-
-        #  "userChrome.tab.lepton_like_padding" = true;
-        #  "userChrome.tab.photon_like_padding" = false;
-
-        #  "userChrome.tab.dynamic_separator" = true;
-        #  "userChrome.tab.static_separator" = false;
-        #  "userChrome.tab.static_separator.selected_accent" = false;
-        #  "userChrome.tab.bar_separator" = false;
-
-        #  "userChrome.tab.newtab_button_like_tab" = true;
-        #  "userChrome.tab.newtab_button_smaller" = false;
-        #  "userChrome.tab.newtab_button_proton" = false;
-
-        #  "userChrome.icon.panel_full" = true;
-        #  "userChrome.icon.panel_photon" = false;
-
-        #  "userChrome.tab.box_shadow" = true;
-        #  "userChrome.tab.bottom_rounded_corner" = true;
-
-        #  "userChrome.tab.photon_like_contextline" = false;
-        #  "userChrome.rounding.square_tab" = false;
-
-        #  "userChrome.compatibility.theme" = true;
-        #  "userChrome.compatibility.os" = true;
-
-        #  "userChrome.theme.built_in_contrast" = true;
-        #  "userChrome.theme.system_default" = true;
-        #  "userChrome.theme.proton_color" = true;
-        #  "userChrome.theme.proton_chrome" = true;
-        #  "userChrome.theme.fully_color" = true;
-        #  "userChrome.theme.fully_dark" = true;
-
-        #  "userChrome.decoration.cursor" = true;
-        #  "userChrome.decoration.field_border" = true;
-        #  "userChrome.decoration.download_panel" = true;
-        #  "userChrome.decoration.animate" = true;
-
-        #  "userChrome.padding.tabbar_width" = true;
-        #  "userChrome.padding.tabbar_height" = true;
-        #  "userChrome.padding.toolbar_button" = true;
-        #  "userChrome.padding.navbar_width" = true;
-        #  "userChrome.padding.urlbar" = true;
-        #  "userChrome.padding.bookmarkbar" = true;
-        #  "userChrome.padding.infobar" = true;
-        #  "userChrome.padding.menu" = true;
-        #  "userChrome.padding.bookmark_menu" = true;
-        #  "userChrome.padding.global_menubar" = true;
-        #  "userChrome.padding.panel" = true;
-        #  "userChrome.padding.popup_panel" = true;
-
-        #  "userChrome.tab.multi_selected" = true;
-        #  "userChrome.tab.unloaded" = true;
-        #  "userChrome.tab.letters_cleary" = true;
-        #  "userChrome.tab.close_button_at_hover" = true;
-        #  "userChrome.tab.sound_hide_label" = true;
-        #  "userChrome.tab.sound_with_favicons" = true;
-        #  "userChrome.tab.pip" = true;
-        #  "userChrome.tab.container" = true;
-        #  "userChrome.tab.crashed" = true;
-
-        #  "userChrome.fullscreen.overlap" = true;
-        #  "userChrome.fullscreen.show_bookmarkbar" = true;
-
-        #  "userChrome.icon.library" = true;
-        #  "userChrome.icon.panel" = true;
-        #  "userChrome.icon.menu" = true;
-        #  "userChrome.icon.context_menu" = true;
-        #  "userChrome.icon.global_menu" = true;
-        #  "userChrome.icon.global_menubar" = true;
-
-        #  "userContent.player.ui" = true;
-        #  "userContent.player.icon" = true;
-        #  "userContent.player.noaudio" = true;
-        #  "userContent.player.size" = true;
-        #  "userContent.player.click_to_play" = true;
-        #  "userContent.player.animate" = true;
-
-        #  "userContent.newTab.full_icon" = true;
-        #  "userContent.newTab.animate" = true;
-        #  "userContent.newTab.pocket_to_last" = true;
-        #  "userContent.newTab.searchbar" = true;
-
-        #  "userContent.page.field_border" = true;
-        #  "userContent.page.illustration" = true;
-        #  "userContent.page.proton_color" = true;
-        #  "userContent.page.dark_mode" = true;
-        #  "userContent.page.proton" = true;
-
-        #  "browser.urlbar.suggest.calculator" = true;
-        #};
-        #userChrome = ''
-        #  // Lepton theme
-        #  @import "lepton/userChrome.css";
-        #'';
-        #userContent = ''
-        #  // Lepton theme
-        #  @import "lepton/userContent.css";
-        #'';
       };
     };
   };
 
   programs.chromium = {
     enable = true;
-    package = (pkgs.chromium.override {
-      ungoogled = true;
-      channel = "ungoogled-chromium";
-    });
+    package = pkgs.ungoogled-chromium;
     commandLineArgs = chromiumFlags ++ [
       "--disable-features=ClearDataOnExit"
       "--remove-tabsearch-button"
@@ -635,215 +506,9 @@ rec {
   #  enable = true;
   #};
 
-  programs.plasma = {
-    enable = true;
-
-    fonts = rec {
-      general = {
-        family = "Noto Sans";
-        pointSize = 10;
-      };
-      menu = {
-        family = general.family;
-        pointSize = general.pointSize - 2;
-      };
-      small = {
-        family = general.family;
-        pointSize = general.pointSize - 2;
-      };
-      windowTitle = {
-        family = general.family;
-        pointSize = general.pointSize - 1;
-      };
-      fixedWidth = {
-        family = "Maple Mono NF";
-        pointSize = 12;
-      };
-    };
-
-    input = {
-      touchpads = [
-        {
-          name = "SynPS/2 Synaptics TouchPad";
-          productId = "0007";
-          vendorId = "0002";
-
-          naturalScroll = true;
-        }
-      ];
-    };
-
-    kwin = {
-      titlebarButtons = {
-        left = [
-          "more-window-actions"
-        ];
-        right = [
-          "minimize"
-          "keep-above-windows"
-          "maximize"
-          "close"
-        ];
-      };
-    };
-
-    spectacle = {
-      shortcuts = {
-        captureActiveWindow = [
-          "Ctrl+Alt+Print"
-          "Ctrl+Alt+Insert"
-        ];
-        captureCurrentMonitor = [
-          "Ctrl+Print"
-          "Ctrl+Insert"
-        ];
-        captureRectangularRegion = [
-          "Ctrl+Shift+Print"
-          "Ctrl+Shift+Insert"
-        ];
-        launchWithoutCapturing = [
-          "Meta+Print"
-          "Meta+Insert"
-        ];
-      };
-    };
-
-    hotkeys.commands = {
-      launch-krunner = {
-        key = "Meta+R";
-        command = "krunner";
-      };
-      launch-terminal = {
-        key = "Meta+Return";
-        command = "wezterm";
-      };
-      launch-file-manager = {
-        key = "Meta+F";
-        command = "dolphin";
-      };
-    };
-
-    workspace = {
-      cursor = {
-        size = 32;
-        theme = "Posy_Cursor_Black";
-      };
-      #colorScheme = if darkMode then "BreezeDark" else "BreezeLight";
-      colorScheme = if darkMode then "Libadw-dark" else "Libadw-light";
-      #theme = if darkMode then "breeze-dark" else "breeze-light";
-      theme = "default";
-      #iconTheme = if darkMode then "breeze-dark" else "breeze";
-      iconTheme = if darkMode then "klassy-dark" else "klassy";
-
-      splashScreen = {
-        engine = "none";
-        theme = "None";
-      };
-
-      clickItemTo = "select";
-
-      wallpaperSlideShow = {
-        interval = 5 * 60;
-        path = "" + (putTogether {
-          name = "octelly-wallpapers-plasma";
-          srcs = [
-            (wallhaven {
-              id = "m3rm11";
-              ext = "png";
-              sha256 = "1ba24clw6r4g5qfci9g44i8lipnz5bsx2ndnhc5g85hxyqhnn1nr";
-            })
-            (wallhaven {
-              id = "yxe85x";
-              ext = "jpg";
-              sha256 = "0lvg9xbifj7bv3fy7qrqcnxq8b957wb59hhqg38mj6ywz2vavxng";
-            })
-            (wallhaven {
-              id = "3l6ll9";
-              ext = "jpg";
-              sha256 = "0r0xk737jqbw4n0hpc3y9ckdsgy19flbd6j5j9wknygkfzsvlfa5";
-            })
-            (wallhaven {
-              id = "x8kkd3";
-              ext = "jpg";
-              sha256 = "04n49hi15nr11iklvmcn6461a2qa30qhvhqdhzc5kywzbhvyrikl";
-            })
-            (wallhaven {
-              id = "z8o1og";
-              ext = "jpg";
-              sha256 = "0k02j7f1f8sxg3ali8s2hr3r8864ssq1i90jimk0as34ffvsjwn0";
-            })
-            (wallhaven {
-              id = "zyv5qj";
-              ext = "jpg";
-              sha256 = "0jy8lhb9a29w55f96rjj5pzbcfhqy7gb9i1i8za9imgyvvn5nirr";
-            })
-            (wallhaven {
-              id = "yxr83d";
-              ext = "jpg";
-              sha256 = "03nk3savqylsc38j5cynb4prjrjbzi7pl06yly51sm0h30i8zjwi";
-            })
-            (wallhaven {
-              id = "1pok23";
-              ext = "jpg";
-              sha256 = "0qiynj9hc4mdcs3a6s19vqr5ajx7yrp01nimkvclshh5l7ss9n8j";
-            })
-            (wallhaven {
-              id = "l8r6oy";
-              ext = "jpg";
-              sha256 = "10zraaxj781wgaz3aa7xvlrg8sjsbllkkgcpl0qksk4q7j349dxs";
-            })
-            (wallhaven {
-              id = "5gj8w9";
-              ext = "png";
-              sha256 = "0v64sb41lpks148acq1s3k0y24vp2qim1wkqxah4rxq5lqzjsk42";
-            })
-            (wallhaven {
-              id = "x6ojqd";
-              ext = "jpg";
-              sha256 = "0qrby4fvicy9hys0jpd0zwvfdz20hmw2ahssm464kqgg1mni6rkm";
-            })
-            (wallhaven {
-              id = "p91pjm";
-              ext = "jpg";
-              sha256 = "0izpvcifawl251j3iprm2g0g4zl8x7rv83q0x9naggf1vbr7h2f0";
-            })
-          ];
-        });
-      };
-    };
-
-    configFile = {
-      kdeglobals = {
-        KDE.widgetStyle = "Klassy";
-      };
-      kwinrc."org.kde.kdecoration2" = {
-        library = "org.kde.klassy";
-        theme = "Klassy";
-      };
-      plasma-localerc.Formats = with config.home.language; {
-        LC_ALL = base;
-
-        LC_ADDRESS = address;
-        LC_COLLATE = collate;
-        LC_CTYPE = ctype;
-        LC_MEASUREMENT = measurement;
-        LC_MESSAGES = messages;
-        LC_MONETARY = monetary;
-        LC_NAME = name;
-        LC_NUMERIC = numeric;
-        LC_PAPER = paper;
-        LC_TELEPHONE = telephone;
-        LC_TIME = time;
-      };
-      plasma-localerc.Translations.LANGUAGE =
-        (builtins.elemAt
-          (pkgs.lib.strings.splitString "." config.home.language.base))
-          0;
-    };
-  };
 
   services.kdeconnect = {
-    enable = true;
+    enable = config.programs.plasma.enable;
     indicator = true;
 
     package = pkgs.kdePackages.kdeconnect-kde;
@@ -951,7 +616,7 @@ rec {
   };
 
   programs.kitty = {
-    enable = true;
+    enable = false;
     font = {
       name = "Maple Mono NF";
       size = 14;
@@ -1045,8 +710,12 @@ rec {
         "video" = [ "mpv.desktop" ];
         "audio" = [ "mpv.desktop" ];
         "text" = [ "nvim.desktop" ];
+
+        "default-web-browser" = [ "floorp.desktop" ];
+        "text/html" = [ "floorp.desktop" ];
         "x-scheme-handler/http" = [ "floorp.desktop " ];
         "x-scheme-handler/https" = [ "floorp.desktop " ];
+        "x-scheme-handler/unknown" = [ "floorp.desktop " ];
       };
     };
 
@@ -1479,6 +1148,6 @@ rec {
   imports = [
     #./desktop_environments/sway
     ./git.nix
+    ./desktop_environments/plasma
   ];
 }
-
