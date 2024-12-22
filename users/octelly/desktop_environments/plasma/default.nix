@@ -129,6 +129,13 @@ let
   };
 in
 {
+  home.packages = with pkgs.kdePackages; [
+    akonadi # storage
+    akonadiconsole # manager (meant for debugging, only way of logging in without full PIM apps)
+    kdepim-addons # integration with Digital Clock calendar widget
+    kdepim-runtime # runtime
+  ];
+
   programs.plasma = {
     enable = true;
 
@@ -219,7 +226,7 @@ in
       };
       launch-system-monitor = {
         key = "Ctrl+Shift+Escape";
-        command = "btop";
+        command = "kioclient exec ${pkgs.btop}/share/applications/btop.desktop";
       };
     };
 

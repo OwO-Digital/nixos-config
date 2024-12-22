@@ -1,7 +1,4 @@
 { config, pkgs, ... }: {
-
-  virtualisation.docker.enable = true;
-
   modules = {
     desktop = {
       gaming = {

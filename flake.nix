@@ -89,6 +89,8 @@
             "freeimage-unstable-2021-11-01" # for EmulationStation DE (desktop edition)
 
             "fluffychat-linux-1.22.1" # isn't really insecure
+            "cinny-unwrapped-4.2.3"
+            "cinny-4.2.3"
             "olm-3.2.16" # this is what marks fluffy and many other matrix things as insecure
           ];
         };

@@ -11,7 +11,7 @@ lib.nixosSystem {
     }
 
     inputs.home.nixosModules.home-manager
-    inputs.flatpaks.nixosModules.default
+    inputs.flatpaks.nixosModules.declarative-flatpak
     inputs.nixos-cosmic.nixosModules.default
 
     # hardware modules

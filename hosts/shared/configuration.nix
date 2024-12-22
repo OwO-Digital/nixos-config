@@ -14,6 +14,9 @@
       "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
       "ezkea.cachix.org-1:ioBmUbJTZIKsHmWWXPe1FSFbeVe+afhfgqgTSNd34eI="
     ];
+    trusted-users = [
+      "nixremote"
+    ];
   };
 
   boot = {
@@ -25,6 +28,11 @@
       };
       grub = {
         enable = true;
+
+        #theming
+        splashImage = ./boot_logo.png;
+        splashMode = "normal";
+        backgroundColor = "#000000";
 
         # install to EFI only
         efiSupport = true;
@@ -137,7 +145,8 @@
       wireguard-tools
     ];
 
-    shells = with pkgs; [ zsh bash ];
+    # WARN: polkit will error out with shells not listed here
+    shells = with pkgs; [ zsh bash nushell elvish ];
     binsh = "${pkgs.bash}/bin/bash";
 
     variables = {
@@ -148,8 +157,9 @@
     plasma6.excludePackages = with pkgs.kdePackages; [
       elisa
       kate
-      kmenuedit
-      plasma-systemmonitor
+      konsole
+      khelpcenter
+      krdp
     ];
   };
 
@@ -168,6 +178,10 @@
   };
 
   security.pam.services.gtklock.text = lib.readFile "${pkgs.gtklock}/etc/pam.d/gtklock";
+
+  security.polkit = {
+    enable = true;
+  };
 
   services = {
     dbus.enable = true;

@@ -6,12 +6,20 @@ wezterm = require 'wezterm'
 	--front_end: "OpenGL"
 	--front_end: "Software"
 
+	keys: {
+		{
+			key: 'Enter'
+			mods: 'ALT'
+			action: wezterm.action.DisableDefaultAssignment
+		}
+	}
+
 	color_scheme: 'sonokai-shusia'
 	font: wezterm.font_with_fallback {
 		'Maple Mono NF'
 		'Twemoji'
 	}
-	font_size: 12.0
+	font_size: 11.0
 	bold_brightens_ansi_colors: false
 
 	adjust_window_size_when_changing_font_size: false
@@ -36,5 +44,5 @@ wezterm = require 'wezterm'
 		brightness: 0.9
 	}
 
-	animation_fps: 60
+	animation_fps: 15
 }

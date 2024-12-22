@@ -40,13 +40,13 @@ let
   });
   klassy = with pkgs; (stdenv.mkDerivation rec {
     pname = "klassy";
-    version = "6.1.breeze6.0.3";
+    version = "6.2.breeze6.2.1";
 
     src = fetchFromGitHub {
       owner = "paulmcauley";
       repo = "klassy";
       rev = version;
-      hash = "sha256-D8vjc8LT+pn6Qzn9cSRL/TihrLZN4Y+M3YiNLPrrREc=";
+      hash = "sha256-tFqze3xN1XECY74Gj0nScis7DVNOZO4wcfeA7mNZT5M=";
     };
 
     nativeBuildInputs = with kdePackages; [
@@ -102,6 +102,57 @@ let
       mainProgram = "klassy-settings";
     };
   });
+  schildichat-desktop-appimage = with pkgs; let
+    pname = "schildichat-desktop";
+    version = "1.11.86-sc.0.test.0";
+    src = fetchurl {
+      url = "https://github.com/SchildiChat/schildichat-desktop/releases/download/v${version}/SchildiChatAlpha-${version}.AppImage";
+      hash = "sha256-tRPRvMZ1sP2t1KiHVdNwGxfTr4JVC3fSmaHfkM9gKWg=";
+    };
+
+    appimageContents = appimageTools.extractType2 { inherit pname version src; };
+  in
+  appimageTools.wrapType2 rec {
+    inherit pname version src;
+    nativeBuildInputs = [ makeWrapper ];
+
+    #FIXME: still uses xwayland for some reason
+    extraInstallCommands = ''
+      wrapProgram $out/bin/${pname} \
+        --set LD_PRELOAD ${sqlcipher}/lib/libsqlcipher.so \
+        --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}"
+
+      install -Dm444 ${appimageContents}/*.desktop -t $out/share/applications
+      substituteInPlace $out/share/applications/*.desktop \
+        --replace-fail 'Exec=AppRun --no-sandbox %U' 'Exec=${pname}'
+
+      cp -r ${appimageContents}/usr/share/icons $out/share
+    '';
+  };
+  videomass = with pkgs.python3Packages; let
+  in buildPythonPackage rec {
+    pname = "videomass";
+    version = "5.0.21";
+    pyproject = true;
+
+    src = fetchPypi {
+      inherit pname version;
+      hash = "sha256-+l086zSsqO5AtEsLLp6CFOF4iAuor/xAFty0gCwniKg=";
+    };
+
+    build-system = [
+      babel
+      hatchling
+      setuptools # distutils
+    ];
+
+    dependencies = [
+      pkgs.ffmpeg
+      pypubsub
+      wxpython
+      yt-dlp
+    ];
+  };
 in
 rec {
   home = {
@@ -109,11 +160,13 @@ rec {
       [
         #warble
 
-        pavucontrol
+        #pavucontrol
         pulsemixer
         maple-mono-NF
-        ranger
+        #ranger
+
         ffmpeg
+        videomass
 
         qalculate-qt
 
@@ -123,15 +176,47 @@ rec {
         #})
         vesktop
         telegram-desktop
+
+        # Matrix clients
         #beeper
-        #element-desktop
+        # - doesn't count
+        # -- desktop version heavier than any other non-game SW I can think of
+
+        # "SchildiChat stable"
+        # + based on Element and supports most features
+        # - PWA or Electron
+        # - doesn't do authenticated media
+
         fluffychat
+        # + relatively lightweight (Flutter)
+        # - doesn't distinguish sub-spaces well
+        # - Flutter CSD bug
+        # - weirdly picky with some media (e.g. doesn't load Discord bridge media)
+
+        schildichat-desktop-appimage
+        # + based on current Element and works
+        # - forces XWayland (never seen Electron do this)
+        # -- shares some poor UI/UX with Element for now (vanilla Element bad)
+
+        #cinny-desktop
+        # + relatively lightweight (Tauri)
+        # + good defaults
+        # -- doesn't do sub-spaces at all
+
+        #neochat
+        # + native QT
+        # + uses Plasma's UnifiedPush (notifications without background process)
+        # -- extremely poor E2EE (I don't think I've seen a single encrypted message load)
+        # -- doesn't do sub-spaces (seems to at least be aware of them?)
+
+        # conclusion: I hate Matrix clients
 
         localsend
 
         appimage-run
 
         heroic
+        r2modman
 
         #cinnamon.nemo-with-extensions
 
@@ -145,7 +230,7 @@ rec {
         #qgnomeplatform
         #qgnomeplatform-qt6
 
-        bitwarden
+        #bitwarden
         #(vivaldi.override {
         #  proprietaryCodecs = true;
         #  vivaldi-ffmpeg-codecs = vivaldi-ffmpeg-codecs;
@@ -160,12 +245,14 @@ rec {
         #qownnotes
 
         #rnix-lsp
-        nixpkgs-fmt
-        manix
+        #nixpkgs-fmt
+        #manix
 
+        #vmware-workstation
         bottles
 
         gittyup
+        jetbrains.idea-community
 
         ## sway
         #swaysome
@@ -208,6 +295,9 @@ rec {
         #pantheon.pantheon-agent-polkit
         #numlockx
 
+        httpdirfs
+        fooyin
+
         #udiskie
         #xfce.xfce4-power-manager
         #remmina
@@ -225,10 +315,14 @@ rec {
 
         # plasma theme thing
         klassy
-
+        kde-rounded-corners
         inputs.kwin-effects-forceblur.packages.${pkgs.system}.default
 
+        # GTK theme
+        adw-gtk3
+
         kdePackages.kclock
+        kdePackages.ktorrent
 
         # spelling stuff
         # is also used by Plasma
@@ -292,6 +386,7 @@ rec {
         messages = base;
 
       };
+    file.".sdks/jdk17-openjfx".source = (pkgs.jdk17.override { enableJavaFX = true; });
   };
 
   programs.thunderbird = {
@@ -381,10 +476,10 @@ rec {
     };
 
     profiles = {
-      default = {
+      old-default = {
         id = 1;
-        name = "default";
-        path = "gh82rq9s.default";
+        name = "Old default";
+        path = "old-default";
       };
       main = {
         id = 0;
@@ -567,7 +662,7 @@ rec {
       "workbench.iconTheme" = "material-icon-theme";
       "material-icon-theme.folder.color" = "#e5c463";
 
-      "window.menuBarVisibility" = "toggle";
+      "window.menuBarVisibility" = "classic";
       "window.autoDetectColorScheme" = true;
       "window.titleBarStyle" = "custom";
       "window.customTitleBarVisibility" = "auto";
@@ -576,8 +671,8 @@ rec {
       "debug.console.fontFamily" = "'Maple Mono NF', 'Cartograph CF', 'FiraCode Nerd Font Mono', 'monospace', monospace";
       "editor.fontLigatures" = "'cv02', 'cv03', 'cv04'";
       "editor.fontVariations" = true;
-      "editor.fontSize" = 17;
-      "debug.console.fontSize" = 17;
+      "editor.fontSize" = 15;
+      "debug.console.fontSize" = 15;
 
       "todohighlight.defaultStyle" = {
         "backgroundColor" = "#0000";
@@ -592,10 +687,10 @@ rec {
       ];
 
       # terminal
-      "terminal.external.linuxExec" = "kitty";
+      "terminal.external.linuxExec" = "${pkgs.wezterm}/bin/wezterm";
       "terminal.integrated.cursorBlinking" = true;
       "terminal.integrated.cursorStyle" = "line";
-      "terminal.integrated.defaultProfile.linux" = "zsh";
+      #"terminal.integrated.defaultProfile.linux" = "zsh";
       "terminal.integrated.drawBoldTextInBrightColors" = false;
       "terminal.integrated.gpuAcceleration" = "on";
       "terminal.integrated.minimumContrastRatio" = 1;
@@ -612,6 +707,7 @@ rec {
 
       # brhuhe
       "workbench.startupEditor" = "none";
+      "vim.userSystemClipboard" = true;
     };
   };
 
@@ -627,24 +723,19 @@ rec {
       		'';
   };
 
-  programs.zsh = {
-    enable = true;
-    autosuggestion.enable = true;
-    syntaxHighlighting.enable = true;
-    enableVteIntegration = true;
-    autocd = true;
-    historySubstringSearch.enable = true;
-  };
+  #programs.zsh = {
+  #  enable = true;
+  #  autosuggestion.enable = true;
+  #  syntaxHighlighting.enable = true;
+  #  enableVteIntegration = true;
+  #  autocd = true;
+  #  historySubstringSearch.enable = true;
+  #};
 
-  programs.fzf = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-
-  programs.zoxide = {
-    enable = true;
-    enableZshIntegration = true;
-  };
+  #programs.fzf = {
+  #  enable = true;
+  #  enableZshIntegration = true;
+  #};
 
   programs.btop.enable = true;
 
@@ -1149,5 +1240,6 @@ rec {
     #./desktop_environments/sway
     ./git.nix
     ./desktop_environments/plasma
+    ./shell
   ];
 }

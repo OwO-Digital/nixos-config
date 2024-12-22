@@ -11,8 +11,14 @@ in {
   config = mkIf cfg.enable {
     programs.steam = {
       enable = true;
+
       remotePlay.openFirewall = true;
-      dedicatedServer.openFirewall = true;
+      localNetworkGameTransfers.openFirewall = true;
+
+      # wayland thing
+      extest.enable = true;
+
+      protontricks.enable = true;
       gamescopeSession.enable = true;
     };
 
@@ -26,7 +32,12 @@ in {
 
       systemPackages = with pkgs; [
         protonup-qt
+
+        # helpful overlays and such
         mangohud
+        vkbasalt
+        # a configurator for them
+        goverlay
       ];
     };
   };

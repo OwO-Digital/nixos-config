@@ -14,9 +14,12 @@ with lib; let
       (n: v: {
         description = v.desc;
         isNormalUser = true;
-        extraGroups = [ "networkmanager" "wheel" "input" "video" "audio" ];
+        extraGroups = [ "networkmanager" "wheel" "input" "video" "audio" ]
+          # WebDAV mounts for regular users
+          ++ lib.optional config.services.davfs2.enable config.services.davfs2.davGroup;
         homeMode = "755";
         initialPassword = "gay";
+        shell = v.shell or null;
       })
       cfg;
 
@@ -87,8 +90,8 @@ in
         fc = {
           # `fonts` takes a list of packages
           fonts = with pkgs; [ maple-mono roboto cozette twemoji-color-font noto-fonts noto-fonts-cjk-sans noto-fonts-cjk-serif noto-fonts-emoji-blob-bin material-design-icons ];
-          # `nerd-fonts.override` takes a list of strings
-          nerd-fonts = [ "Iosevka" "JetBrainsMono" ];
+          # list of pkgs.nerd-fonts attributes
+          nerd-fonts = [ "iosevka" "jetbrains-mono" ];
           defaultFonts = {
             monospace = [ "Iosevka Nerd Font" "Cozette" ];
             sansSerif =
@@ -113,7 +116,7 @@ in
             noto-fonts-cjk-sans
             maple-mono-NF
           ];
-          # `nerd-fonts.override` takes a list of strings
+          # list of pkgs.nerd-fonts attributes
           nerd-fonts = [ ];
           defaultFonts = {
             monospace = [ "Maple Mono NF" ];
@@ -122,6 +125,7 @@ in
             emoji = [ "Twitter Color Emoji" ];
           };
         };
+        shell = pkgs.nushell;
       };
     };
   };
