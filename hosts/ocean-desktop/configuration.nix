@@ -7,6 +7,10 @@
         olympus.enable = false;
         minecraft.enable = true;
         sunshine.enable = true;
+        emulation = {
+          enable = true;
+          switch = true;
+        };
       };
       awesome = {
         enable = true;
