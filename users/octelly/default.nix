@@ -309,7 +309,6 @@ rec {
         #tmuf
         tetrio-desktop
         xonotic-glx
-        dolphin-emu
         #emulationstation-de
         inputs.aagl.packages.${pkgs.system}.sleepy-launcher
 

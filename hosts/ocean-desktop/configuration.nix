@@ -10,6 +10,7 @@
         emulation = {
           enable = true;
           switch = true;
+          wii = true;
         };
       };
       awesome = {
@@ -59,6 +60,10 @@
   #    #"async" # ??
   #  ];
   #};
-  networking.firewall.allowedTCPPorts = [ 3216 ]; # EA App
-  networking.firewall.allowedUDPPorts = [ 3216 ]; # EA App
+  networking.firewall.allowedTCPPorts = [
+    3216 # EA App
+  ];
+  networking.firewall.allowedUDPPorts = [
+    3216 # EA App
+  ];
 }

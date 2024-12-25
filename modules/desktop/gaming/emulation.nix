@@ -7,6 +7,10 @@ in {
   options.modules.desktop.gaming.emulation = {
     enable = mkEnableOption "enable the emulation module";
     switch = mkEnableOption "Nintendo Switch";
+    gamecube = mkEnableOption "Nintendo GameCube";
+    wii = mkEnableOption "Nintendo Wii";
+
+    primehack = mkEnableOption "Metroid Prime GCN/Wii mouse keyboard hack";
   };
 
   config = mkIf cfg.enable {
@@ -23,6 +27,8 @@ in {
       # a configurator for them
       goverlay
     ]
-      ++ optional cfg.switch pkgs.ryujinx;
+      ++ optional cfg.switch pkgs.ryujinx
+      ++ optional (cfg.gamecube || cfg.wii) pkgs.dolphin-emu
+      ++ optional cfg.primehack pkgs.dolphin-emu-primehack;
   };
 }
