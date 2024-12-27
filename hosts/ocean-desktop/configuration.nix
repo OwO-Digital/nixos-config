@@ -12,6 +12,7 @@
           switch = true;
           wii = true;
         };
+        utils.overlays.vkbasalt = true;
       };
       awesome = {
         enable = true;
@@ -35,6 +36,24 @@
       mks.vk.allowUnsupportedDevices = "TRUE"
     '';
   };
+
+  programs.alvr = {
+    enable = true;
+    openFirewall = true;
+  };
+
+  # required for NixOS SteamVR to work
+  # https://wiki.nixos.org/wiki/VR/en#SteamVR
+  boot.kernelPatches = [
+    {
+      name = "amdgpu-ignore-ctx-privileges";
+      patch = pkgs.fetchpatch {
+        name = "cap_sys_nice_begone.patch";
+        url = "https://github.com/Frogging-Family/community-patches/raw/master/linux61-tkg/cap_sys_nice_begone.mypatch";
+        hash = "sha256-Y3a0+x2xvHsfLax/uwycdJf3xLxvVfkfDVqjkxNaYEo=";
+      };
+    }
+  ];
 
   #services.davfs2 = {
   #  enable = true;
@@ -60,6 +79,16 @@
   #    #"async" # ??
   #  ];
   #};
+
+  fileSystems."/tmp" = {
+    device = "none";
+    fsType = "tmpfs";
+    options = [
+      "defaults"
+      "size=150%"
+    ];
+  };
+
   networking.firewall.allowedTCPPorts = [
     3216 # EA App
   ];

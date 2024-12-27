@@ -5,7 +5,7 @@ with lib;
 let cfg = config.modules.desktop.gaming.emulation;
 in {
   options.modules.desktop.gaming.emulation = {
-    enable = mkEnableOption "enable the emulation module";
+    enable = mkEnableOption "the emulation module";
     switch = mkEnableOption "Nintendo Switch";
     gamecube = mkEnableOption "Nintendo GameCube";
     wii = mkEnableOption "Nintendo Wii";
@@ -15,18 +15,10 @@ in {
 
   config = mkIf cfg.enable {
 
-    programs.gamemode = {
-      enable = true;
-      enableRenice = true;
-    };
+    # some emulators support gamemode natively
+    modules.desktop.gaming.utils.gamemode = mkDefault true;
 
-    environment.systemPackages = with pkgs; [
-      # helpful overlays and such
-      mangohud
-      vkbasalt
-      # a configurator for them
-      goverlay
-    ]
+    environment.systemPackages = []
       ++ optional cfg.switch pkgs.ryujinx
       ++ optional (cfg.gamecube || cfg.wii) pkgs.dolphin-emu
       ++ optional cfg.primehack pkgs.dolphin-emu-primehack;
