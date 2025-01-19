@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ pkgs, ... }: {
 
   modules = {
     desktop = {
@@ -28,6 +28,13 @@
     hardware.bluetooth.enable = true;
   };
 
+  hardware.opengl = {
+    enable = true;
+    extraPackages = with pkgs; [
+      rocmPackages.clr.icd
+    ];
+  };
+
   virtualisation.vmware.host = {
     enable = true;
     extraConfig = ''
@@ -37,6 +44,11 @@
     '';
   };
 
+  # for dev stuff
+  virtualisation.docker.enable = true;
+
+  # broken upstream
+  # https://github.com/NixOS/nixpkgs/issues/359680
   programs.alvr = {
     enable = true;
     openFirewall = true;
@@ -55,30 +67,7 @@
     }
   ];
 
-  #services.davfs2 = {
-  #  enable = true;
-  #  settings.sections = {
-  #    "/home/octelly/nextcloud" = {
-  #      use_locks = false;
-  #      gui_optimize = true;
-  #      cache_size = 1024 * 8;
-  #      table_size = 32768;
-  #    };
-  #  };
-  #};
-
-  #fileSystems."/home/octelly/nextcloud" = {
-  #  device = "https://cloud.owo.digital/remote.php/dav/files/octelly/";
-  #  fsType = "davfs";
-  #  options = [
-  #    #"x-systemd.automount" # mount on access
-  #    "noauto" # do not mount on boot
-  #    "user" # let's ordinary user to unmount
-  #    "uid=octelly"
-  #    "rw" # read write
-  #    #"async" # ??
-  #  ];
-  #};
+  services.flatpak.enable = true;
 
   fileSystems."/tmp" = {
     device = "none";
@@ -89,10 +78,17 @@
     ];
   };
 
+  services.btrfs.autoScrub = {
+    enable = true;
+    interval = "weekly";
+  };
+
   networking.firewall.allowedTCPPorts = [
+    25565 # minecra
     3216 # EA App
   ];
   networking.firewall.allowedUDPPorts = [
+    25565 # minecra
     3216 # EA App
   ];
 }
