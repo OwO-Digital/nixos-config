@@ -16,7 +16,9 @@ with lib; let
         isNormalUser = true;
         extraGroups = [ "networkmanager" "wheel" "input" "video" "audio" ]
           # WebDAV mounts for regular users
-          ++ lib.optional config.services.davfs2.enable config.services.davfs2.davGroup;
+          ++ lib.optional config.services.davfs2.enable config.services.davfs2.davGroup
+          # ADB
+          ++ lib.optional config.programs.adb.enable "adbusers";
         homeMode = "755";
         initialPassword = "gay";
         shell = v.shell or null;
