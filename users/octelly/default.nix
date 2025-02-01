@@ -220,6 +220,9 @@ in
 
         # conclusion: I hate Matrix clients
 
+        nur.repos.deeunderscore.nheko-unstable
+        #nur.repos.deeunderscore.nheko-krunner
+
         localsend
 
         appimage-run
@@ -259,9 +262,11 @@ in
 
         #vmware-workstation
         bottles
+        gpt4all
 
         gittyup
         jetbrains.idea-community
+
 
         ## sway
         #swaysome
@@ -320,6 +325,7 @@ in
         xonotic-glx
         #emulationstation-de
         inputs.aagl.packages.${pkgs.system}.sleepy-launcher
+        nur.repos.bandithedoge.sgdboop-bin
 
         # plasma theme thing
         klassy
@@ -342,6 +348,8 @@ in
         aspellDicts.en-science
 
         #krdc
+
+        inputs.zen-browser.packages."${system}".default
 
         # flameshot and dependencies
         #flameshot
@@ -625,6 +633,28 @@ in
     startInBackground = true;
   };
 
+  programs.zed-editor = {
+    enable = true;
+
+    userSettings = {
+      # meta
+      #telemetry.metrics = false;
+      auto_update = false; # wouldn't work anyway
+
+      # controls
+      vim_mode = true;
+      base_keymap = "VSCode";
+
+      # editor font
+      buffer_font_family = "Maple Mono NF";
+      buffer_font_size = 14;
+
+      # UI font
+      ui_font_family = "Noto Sans";
+      ui_font_size = 14;
+    };
+  };
+
   programs.vscode = {
     enable = true;
     extensions = (with pkgs.open-vsx; [
@@ -786,29 +816,29 @@ in
     vimAlias = true;
   };
 
-  programs.anyrun = {
-    enable = false;
-    config =
-      let
-        fraction = x: { fraction = x; };
-      in
-      {
-        x = fraction 0.5;
-        y = fraction 0.4;
-        width = fraction 0.35;
-        ignoreExclusiveZones = true;
-        plugins = with inputs.anyrun.packages.${system}; [
-          # desktop entries
-          applications
-          # unicode symbols
-          symbols
-          # shell commands
-          shell
-          # calculator
-          rink
-        ];
-      };
-  };
+  #programs.anyrun = {
+  #  enable = false;
+  #  config =
+  #    let
+  #      fraction = x: { fraction = x; };
+  #    in
+  #    {
+  #      x = fraction 0.5;
+  #      y = fraction 0.4;
+  #      width = fraction 0.35;
+  #      ignoreExclusiveZones = true;
+  #      plugins = with inputs.anyrun.packages.${system}; [
+  #        # desktop entries
+  #        applications
+  #        # unicode symbols
+  #        symbols
+  #        # shell commands
+  #        shell
+  #        # calculator
+  #        rink
+  #      ];
+  #    };
+  #};
 
   home.sessionVariables = {
     EDITOR = "nvim";

@@ -31,9 +31,12 @@
   hardware.opengl = {
     enable = true;
     extraPackages = with pkgs; [
-      rocmPackages.clr.icd
+      # p sure this was here only for Davinki
+      #rocmPackages.clr.icd
     ];
   };
+
+  programs.corectrl.enable = true;
 
   virtualisation.vmware.host = {
     enable = true;
@@ -47,12 +50,20 @@
   # for dev stuff
   virtualisation.docker.enable = true;
 
-  # broken upstream
-  # https://github.com/NixOS/nixpkgs/issues/359680
+  # VR
   programs.alvr = {
     enable = true;
     openFirewall = true;
   };
+  programs.adb.enable = true;  # wired ALVR
+  environment.systemPackages = with pkgs; [
+    wlx-overlay-s
+
+    # VRChat creation
+    unityhub
+    alcom
+    vrc-get
+  ];
 
   # required for NixOS SteamVR to work
   # https://wiki.nixos.org/wiki/VR/en#SteamVR
