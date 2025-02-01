@@ -135,7 +135,7 @@ in
     useUserPackages = true;
     extraSpecialArgs = { inherit inputs system; };
     sharedModules = [
-      inputs.anyrun.homeManagerModules.default
+      #inputs.anyrun.homeManagerModules.default
       #inputs.hyprland.homeManagerModules.default
       inputs.plasma-manager.homeManagerModules.plasma-manager
     ];
