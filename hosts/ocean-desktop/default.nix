@@ -12,7 +12,7 @@ lib.nixosSystem {
 
     inputs.home.nixosModules.home-manager
     inputs.flatpaks.nixosModules.declarative-flatpak
-    inputs.nixos-cosmic.nixosModules.default
+    #inputs.nixos-cosmic.nixosModules.default
 
     # hardware modules
     inputs.nixHW.nixosModules.common-cpu-amd

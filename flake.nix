@@ -25,10 +25,10 @@
     nur.url = "github:nix-community/NUR";
     vscode-ext.url = "github:nix-community/nix-vscode-extensions";
     flatpaks.url = "github:GermanBread/declarative-flatpak/stable-v3";
-    anyrun = {
-      url = "github:Kirottu/anyrun";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    #anyrun = {
+    #  url = "github:Kirottu/anyrun";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
 
     ## Hyprland stuff
     #hyprland = {
@@ -45,10 +45,12 @@
     #};
 
     # Flake for testing COSMIC on NixOS
-    nixos-cosmic = {
-      url = "github:lilyinstarlight/nixos-cosmic";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    #nixos-cosmic = {
+    #  url = "github:lilyinstarlight/nixos-cosmic";
+    #  inputs.nixpkgs.follows = "nixpkgs";
+    #};
+
+    zen-browser.url = "github:0xc000022070/zen-browser-flake";
 
     # Hoyoverse games
     aagl = {
@@ -89,6 +91,7 @@
             "freeimage-unstable-2021-11-01" # for EmulationStation DE (desktop edition)
 
             "fluffychat-linux-1.22.1" # isn't really insecure
+            "fluffychat-linux-1.23.0"
             "cinny-unwrapped-4.2.3"
             "cinny-4.2.3"
             "olm-3.2.16" # this is what marks fluffy and many other matrix things as insecure

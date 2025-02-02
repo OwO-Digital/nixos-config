@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, lib, ... }: {
+{ config, pkgs, lib, ... }: {
 
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
@@ -16,6 +16,7 @@
     ];
     trusted-users = [
       "nixremote"
+      "@wheel"
     ];
   };
 
@@ -53,6 +54,7 @@
         '';
 
         extraConfig = builtins.concatStringsSep "\n" [
+          # FIXME: this doesn't work actually, lol
           ## auto boot last choice
           # save selection as default
           "GRUB_SAVEDEFAULT=true"
@@ -143,7 +145,9 @@
       xclip
       zip
       wireguard-tools
-    ];
+    ]
+    # adds PolicyKit rules
+    ++ lib.optional config.services.desktopManager.plasma6.enable pkgs.kdePackages.kpmcore;
 
     # WARN: polkit will error out with shells not listed here
     shells = with pkgs; [ zsh bash nushell elvish ];
@@ -153,6 +157,13 @@
       NIXPKGS_ALLOW_UNFREE = "1";
       MOZ_USE_XINPUT2 = "1";
     };
+
+    # HOME MANAGER DOCS:
+    # Note, if you use the NixOS module and have useUserPackages = true,
+    # make sure to add
+    pathsToLink = [ "/share/xdg-desktop-portal" "/share/applications" ];
+    # to your system configuration so that the portal definitions and DE
+    # provided configurations get linked.
 
     plasma6.excludePackages = with pkgs.kdePackages; [
       elisa
@@ -175,6 +186,10 @@
       enable = true;
       flake = "/etc/nixos";
     };
+
+    # Bitwarden system integration
+    ## needs to be here to set up background services and stuff
+    goldwarden.enable = true;
   };
 
   security.pam.services.gtklock.text = lib.readFile "${pkgs.gtklock}/etc/pam.d/gtklock";

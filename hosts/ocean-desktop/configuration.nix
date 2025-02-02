@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ pkgs, ... }: {
 
   modules = {
     desktop = {
@@ -7,6 +7,12 @@
         olympus.enable = false;
         minecraft.enable = true;
         sunshine.enable = true;
+        emulation = {
+          enable = true;
+          switch = true;
+          wii = true;
+        };
+        utils.overlays.vkbasalt = true;
       };
       awesome = {
         enable = true;
@@ -22,6 +28,16 @@
     hardware.bluetooth.enable = true;
   };
 
+  hardware.opengl = {
+    enable = true;
+    extraPackages = with pkgs; [
+      # p sure this was here only for Davinki
+      #rocmPackages.clr.icd
+    ];
+  };
+
+  programs.corectrl.enable = true;
+
   virtualisation.vmware.host = {
     enable = true;
     extraConfig = ''
@@ -31,30 +47,59 @@
     '';
   };
 
-  #services.davfs2 = {
-  #  enable = true;
-  #  settings.sections = {
-  #    "/home/octelly/nextcloud" = {
-  #      use_locks = false;
-  #      gui_optimize = true;
-  #      cache_size = 1024 * 8;
-  #      table_size = 32768;
-  #    };
-  #  };
-  #};
+  # for dev stuff
+  virtualisation.docker.enable = true;
 
-  #fileSystems."/home/octelly/nextcloud" = {
-  #  device = "https://cloud.owo.digital/remote.php/dav/files/octelly/";
-  #  fsType = "davfs";
-  #  options = [
-  #    #"x-systemd.automount" # mount on access
-  #    "noauto" # do not mount on boot
-  #    "user" # let's ordinary user to unmount
-  #    "uid=octelly"
-  #    "rw" # read write
-  #    #"async" # ??
-  #  ];
-  #};
-  networking.firewall.allowedTCPPorts = [ 3216 ]; # EA App
-  networking.firewall.allowedUDPPorts = [ 3216 ]; # EA App
+  # VR
+  programs.alvr = {
+    enable = true;
+    openFirewall = true;
+  };
+  programs.adb.enable = true;  # wired ALVR
+  environment.systemPackages = with pkgs; [
+    wlx-overlay-s
+
+    # VRChat creation
+    unityhub
+    alcom
+    vrc-get
+  ];
+
+  # required for NixOS SteamVR to work
+  # https://wiki.nixos.org/wiki/VR/en#SteamVR
+  boot.kernelPatches = [
+    {
+      name = "amdgpu-ignore-ctx-privileges";
+      patch = pkgs.fetchpatch {
+        name = "cap_sys_nice_begone.patch";
+        url = "https://github.com/Frogging-Family/community-patches/raw/master/linux61-tkg/cap_sys_nice_begone.mypatch";
+        hash = "sha256-Y3a0+x2xvHsfLax/uwycdJf3xLxvVfkfDVqjkxNaYEo=";
+      };
+    }
+  ];
+
+  services.flatpak.enable = true;
+
+  fileSystems."/tmp" = {
+    device = "none";
+    fsType = "tmpfs";
+    options = [
+      "defaults"
+      "size=150%"
+    ];
+  };
+
+  services.btrfs.autoScrub = {
+    enable = true;
+    interval = "weekly";
+  };
+
+  networking.firewall.allowedTCPPorts = [
+    25565 # minecra
+    3216 # EA App
+  ];
+  networking.firewall.allowedUDPPorts = [
+    25565 # minecra
+    3216 # EA App
+  ];
 }

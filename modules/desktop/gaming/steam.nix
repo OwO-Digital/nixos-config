@@ -12,33 +12,26 @@ in {
     programs.steam = {
       enable = true;
 
-      remotePlay.openFirewall = true;
-      localNetworkGameTransfers.openFirewall = true;
+      remotePlay.openFirewall = mkDefault true;
+      localNetworkGameTransfers.openFirewall = mkDefault true;
 
-      # wayland thing
+      # makes Steam Input and such behave better under Wayland
       extest.enable = true;
 
-      protontricks.enable = true;
-      gamescopeSession.enable = true;
+      protontricks.enable = mkDefault true;
+      gamescopeSession.enable = mkDefault true;
     };
 
-    programs.gamemode = {
-      enable = true;
-      enableRenice = true;
+    modules.desktop.gaming.utils = {
+      protonup = mkDefault true;
+
+      # both gamemode and mangohud will have to be enabled manually per game
+      gamemode = mkDefault true;
+      overlays.mangohud = mkDefault true;
     };
 
-    environment = {
-      sessionVariables.STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
-
-      systemPackages = with pkgs; [
-        protonup-qt
-
-        # helpful overlays and such
-        mangohud
-        vkbasalt
-        # a configurator for them
-        goverlay
-      ];
-    };
+    environment
+      .sessionVariables
+      .STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
   };
 }

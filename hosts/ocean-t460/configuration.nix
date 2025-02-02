@@ -19,6 +19,10 @@
         steam.enable = true;
         olympus.enable = false;
         minecraft.enable = true;
+        emulation = {
+          enable = true;
+          wii = true;
+        };
       };
       awesome = {
         enable = true;

@@ -38,99 +38,108 @@ let
       cp -r Posy* $out/share/icons/
     '';
   });
-  klassy = with pkgs; (stdenv.mkDerivation rec {
-    pname = "klassy";
-    version = "6.2.breeze6.2.1";
+  klassy = pkgs.nur.repos.shadowrz.klassy-qt6;
+  #klassy = with pkgs; (stdenv.mkDerivation rec {
+  #  pname = "klassy";
+  #  #version = "6.2.breeze6.2.1";
 
-    src = fetchFromGitHub {
-      owner = "paulmcauley";
-      repo = "klassy";
-      rev = version;
-      hash = "sha256-tFqze3xN1XECY74Gj0nScis7DVNOZO4wcfeA7mNZT5M=";
+  #  #src = fetchFromGitHub {
+  #  #  owner = "paulmcauley";
+  #  #  repo = "klassy";
+  #  #  rev = version;
+  #  #  hash = "sha256-tFqze3xN1XECY74Gj0nScis7DVNOZO4wcfeA7mNZT5M=";
+  #  #};
+  #  version = "6.3";
+
+  #  src = fetchFromGitHub {
+  #    owner = "ivan-cukic";
+  #    repo = "wip-klassy";
+  #    rev = "01b8a6c29008e1667d0d02a0d3069f70009a9185";
+  #    hash = "sha256-9IZhO8a8URTYPv6/bf7r3incfN1o2jBd2+mLVptNRYo=";
+  #  };
+
+  #  nativeBuildInputs = with kdePackages; [
+  #    cmake
+  #    extra-cmake-modules
+  #    wrapQtAppsHook
+  #  ];
+
+  #  buildInputs = with kdePackages; [
+  #    qtbase
+  #    qtdeclarative
+  #    qttools
+
+  #    frameworkintegration
+  #    kcmutils
+  #    kdecoration
+  #    kiconthemes
+  #    kwindowsystem
+
+  #    qtsvg
+  #    kcolorscheme
+  #    kconfig
+  #    kcoreaddons
+  #    kdecoration
+  #    kguiaddons
+  #    ki18n
+  #    kirigami
+  #    kwidgetsaddons
+  #  ];
+
+  #  cmakeFlags = [
+  #    "-DCMAKE_INSTALL_PREFIX=$out"
+  #    "-DBUILD_TESTING=OFF"
+  #    "-DKDE_INSTALL_USE_QT_SYS_PATHS=ON"
+  #    "-DBUILD_QT5=OFF"
+  #    "-DBUILD_QT6=ON"
+  #  ];
+
+  #  meta = {
+  #    description = "Highly customizable binary Window Decoration, Application Style and Global Theme plugin for recent versions of the KDE Plasma desktop";
+  #    homepage = "https://github.com/paulmcauley/klassy";
+  #    platforms = lib.platforms.linux;
+  #    license = with lib.licenses; [
+  #      bsd3
+  #      cc0
+  #      gpl2Only
+  #      gpl2Plus
+  #      gpl3Only
+  #      gpl3Plus # KDE-Accepted-GPL
+  #      mit
+  #    ];
+  #    maintainers = with lib.maintainers; [ pluiedev ];
+  #    mainProgram = "klassy-settings";
+  #  };
+  #});
+  schildichat-desktop-appimage = with pkgs;
+    let
+      pname = "schildichat-desktop";
+      version = "1.11.86-sc.0.test.0";
+      src = fetchurl {
+        url = "https://github.com/SchildiChat/schildichat-desktop/releases/download/v${version}/SchildiChatAlpha-${version}.AppImage";
+        hash = "sha256-tRPRvMZ1sP2t1KiHVdNwGxfTr4JVC3fSmaHfkM9gKWg=";
+      };
+
+      appimageContents = appimageTools.extractType2 { inherit pname version src; };
+    in
+    appimageTools.wrapType2 rec {
+      inherit pname version src;
+      nativeBuildInputs = [ makeWrapper ];
+
+      #FIXME: still uses xwayland for some reason
+      extraInstallCommands = ''
+        wrapProgram $out/bin/${pname} \
+          --set LD_PRELOAD ${sqlcipher}/lib/libsqlcipher.so \
+          --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}"
+
+        install -Dm444 ${appimageContents}/*.desktop -t $out/share/applications
+        substituteInPlace $out/share/applications/*.desktop \
+          --replace-fail 'Exec=AppRun --no-sandbox %U' 'Exec=${pname}'
+
+        cp -r ${appimageContents}/usr/share/icons $out/share
+      '';
     };
-
-    nativeBuildInputs = with kdePackages; [
-      cmake
-      extra-cmake-modules
-      wrapQtAppsHook
-    ];
-
-    buildInputs = with kdePackages; [
-      qtbase
-      qtdeclarative
-      qttools
-
-      frameworkintegration
-      kcmutils
-      kdecoration
-      kiconthemes
-      kwindowsystem
-
-      qtsvg
-      kcolorscheme
-      kconfig
-      kcoreaddons
-      kdecoration
-      kguiaddons
-      ki18n
-      kirigami
-      kwidgetsaddons
-    ];
-
-    cmakeFlags = [
-      "-DCMAKE_INSTALL_PREFIX=$out"
-      "-DBUILD_TESTING=OFF"
-      "-DKDE_INSTALL_USE_QT_SYS_PATHS=ON"
-      "-DBUILD_QT5=OFF"
-      "-DBUILD_QT6=ON"
-    ];
-
-    meta = {
-      description = "Highly customizable binary Window Decoration, Application Style and Global Theme plugin for recent versions of the KDE Plasma desktop";
-      homepage = "https://github.com/paulmcauley/klassy";
-      platforms = lib.platforms.linux;
-      license = with lib.licenses; [
-        bsd3
-        cc0
-        gpl2Only
-        gpl2Plus
-        gpl3Only
-        gpl3Plus # KDE-Accepted-GPL
-        mit
-      ];
-      maintainers = with lib.maintainers; [ pluiedev ];
-      mainProgram = "klassy-settings";
-    };
-  });
-  schildichat-desktop-appimage = with pkgs; let
-    pname = "schildichat-desktop";
-    version = "1.11.86-sc.0.test.0";
-    src = fetchurl {
-      url = "https://github.com/SchildiChat/schildichat-desktop/releases/download/v${version}/SchildiChatAlpha-${version}.AppImage";
-      hash = "sha256-tRPRvMZ1sP2t1KiHVdNwGxfTr4JVC3fSmaHfkM9gKWg=";
-    };
-
-    appimageContents = appimageTools.extractType2 { inherit pname version src; };
-  in
-  appimageTools.wrapType2 rec {
-    inherit pname version src;
-    nativeBuildInputs = [ makeWrapper ];
-
-    #FIXME: still uses xwayland for some reason
-    extraInstallCommands = ''
-      wrapProgram $out/bin/${pname} \
-        --set LD_PRELOAD ${sqlcipher}/lib/libsqlcipher.so \
-        --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}"
-
-      install -Dm444 ${appimageContents}/*.desktop -t $out/share/applications
-      substituteInPlace $out/share/applications/*.desktop \
-        --replace-fail 'Exec=AppRun --no-sandbox %U' 'Exec=${pname}'
-
-      cp -r ${appimageContents}/usr/share/icons $out/share
-    '';
-  };
-  videomass = with pkgs.python3Packages; let
-  in buildPythonPackage rec {
+  videomass = with pkgs.python3Packages; buildPythonPackage rec {
     pname = "videomass";
     version = "5.0.21";
     pyproject = true;
@@ -147,14 +156,14 @@ let
     ];
 
     dependencies = [
-      pkgs.ffmpeg
+      pkgs.ffmpeg-full
       pypubsub
       wxpython
       yt-dlp
     ];
   };
 in
-rec {
+{
   home = {
     packages = with pkgs;
       [
@@ -165,7 +174,7 @@ rec {
         maple-mono-NF
         #ranger
 
-        ffmpeg
+        ffmpeg-full
         videomass
 
         qalculate-qt
@@ -211,6 +220,9 @@ rec {
 
         # conclusion: I hate Matrix clients
 
+        nur.repos.deeunderscore.nheko-unstable
+        #nur.repos.deeunderscore.nheko-krunner
+
         localsend
 
         appimage-run
@@ -250,9 +262,11 @@ rec {
 
         #vmware-workstation
         bottles
+        gpt4all
 
         gittyup
         jetbrains.idea-community
+
 
         ## sway
         #swaysome
@@ -309,9 +323,9 @@ rec {
         #tmuf
         tetrio-desktop
         xonotic-glx
-        dolphin-emu
         #emulationstation-de
         inputs.aagl.packages.${pkgs.system}.sleepy-launcher
+        nur.repos.bandithedoge.sgdboop-bin
 
         # plasma theme thing
         klassy
@@ -323,6 +337,7 @@ rec {
 
         kdePackages.kclock
         kdePackages.ktorrent
+        kdePackages.partitionmanager
 
         # spelling stuff
         # is also used by Plasma
@@ -333,6 +348,8 @@ rec {
         aspellDicts.en-science
 
         #krdc
+
+        inputs.zen-browser.packages."${system}".default
 
         # flameshot and dependencies
         #flameshot
@@ -347,6 +364,8 @@ rec {
 
         planify
         newsflash
+        eyedropper
+        junction
 
         wezterm
       ];
@@ -614,6 +633,28 @@ rec {
     startInBackground = true;
   };
 
+  programs.zed-editor = {
+    enable = true;
+
+    userSettings = {
+      # meta
+      #telemetry.metrics = false;
+      auto_update = false; # wouldn't work anyway
+
+      # controls
+      vim_mode = true;
+      base_keymap = "VSCode";
+
+      # editor font
+      buffer_font_family = "Maple Mono NF";
+      buffer_font_size = 14;
+
+      # UI font
+      ui_font_family = "Noto Sans";
+      ui_font_size = 14;
+    };
+  };
+
   programs.vscode = {
     enable = true;
     extensions = (with pkgs.open-vsx; [
@@ -625,17 +666,20 @@ rec {
       pkief.material-icon-theme
 
       # language support
-      bungcip.better-toml
+      #bungcip.better-toml
+      tamasfe.even-better-toml
       ms-pyright.pyright
       ms-python.python
       ms-python.isort
       jnoortheen.nix-ide
       #ms-vscode.makefile-tools
       wayou.vscode-todo-highlight
+      spgoding.datapack-language-server
     ]) ++ (with pkgs.vscode-marketplace; [
       # language support
       sumneko.lua
       vgalaktionov.moonscript
+      lijin.yuescript
       tnze.snbt
       mrmlnc.vscode-json5
       # this one broken somehow, bruh:
@@ -655,6 +699,10 @@ rec {
       #"extensions.experimental.affinity" = {
       #  "asvetliakov.vscode-neovim" = 1;
       #};
+
+      "nix.enableLanguageServer" = true;
+      "nix.serverSettings".nil.formatting.command = [ "${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt" ];
+      "nix.serverPath" = "${pkgs.nil}/bin/nil";
 
       # theming
       "workbench.preferredDarkColorTheme" = "Sonokai Shusia";
@@ -686,6 +734,9 @@ rec {
         }
       ];
 
+      "editor.minimap.enabled" = false;
+      "workbench.startupEditor" = "none";
+
       # terminal
       "terminal.external.linuxExec" = "${pkgs.wezterm}/bin/wezterm";
       "terminal.integrated.cursorBlinking" = true;
@@ -705,9 +756,11 @@ rec {
       "editor.formatOnSave" = true;
       "python.formatting.provider" = "black";
 
-      # brhuhe
-      "workbench.startupEditor" = "none";
-      "vim.userSystemClipboard" = true;
+      # Vim
+      "vim.useSystemClipboard" = true;
+      "vim.enableNeovim" = true;
+      "vim.neovimPath" = "${pkgs.neovim}/bin/nvim";
+      "vim.hlsearch" = true;
     };
   };
 
@@ -737,7 +790,12 @@ rec {
   #  enableZshIntegration = true;
   #};
 
-  programs.btop.enable = true;
+  programs.btop = {
+    enable = true;
+    package = pkgs.btop.override {
+      rocmSupport = true;
+    };
+  };
 
   dconf.settings =
     let
@@ -758,29 +816,29 @@ rec {
     vimAlias = true;
   };
 
-  programs.anyrun = {
-    enable = false;
-    config =
-      let
-        fraction = x: { fraction = x; };
-      in
-      {
-        x = fraction 0.5;
-        y = fraction 0.4;
-        width = fraction 0.35;
-        ignoreExclusiveZones = true;
-        plugins = with inputs.anyrun.packages.${system}; [
-          # desktop entries
-          applications
-          # unicode symbols
-          symbols
-          # shell commands
-          shell
-          # calculator
-          rink
-        ];
-      };
-  };
+  #programs.anyrun = {
+  #  enable = false;
+  #  config =
+  #    let
+  #      fraction = x: { fraction = x; };
+  #    in
+  #    {
+  #      x = fraction 0.5;
+  #      y = fraction 0.4;
+  #      width = fraction 0.35;
+  #      ignoreExclusiveZones = true;
+  #      plugins = with inputs.anyrun.packages.${system}; [
+  #        # desktop entries
+  #        applications
+  #        # unicode symbols
+  #        symbols
+  #        # shell commands
+  #        shell
+  #        # calculator
+  #        rink
+  #      ];
+  #    };
+  #};
 
   home.sessionVariables = {
     EDITOR = "nvim";
@@ -795,19 +853,32 @@ rec {
   xdg = {
     enable = true;
     mime.enable = true;
-    mimeApps = {
+    mimeApps = rec {
       enable = true;
       defaultApplications = {
         "video" = [ "mpv.desktop" ];
         "audio" = [ "mpv.desktop" ];
         "text" = [ "nvim.desktop" ];
 
-        "default-web-browser" = [ "floorp.desktop" ];
-        "text/html" = [ "floorp.desktop" ];
-        "x-scheme-handler/http" = [ "floorp.desktop " ];
-        "x-scheme-handler/https" = [ "floorp.desktop " ];
-        "x-scheme-handler/unknown" = [ "floorp.desktop " ];
+        "default-web-browser" = [ "re.sonny.Junction.desktop" ];
+        "text/html" = [ "re.sonny.Junction.desktop" ];
+        "x-scheme-handler/http" = [ "re.sonny.Junction.desktop " ];
+        "x-scheme-handler/https" = [ "re.sonny.Junction.desktop " ];
+        "x-scheme-handler/unknown" = [ "re.sonny.Junction.desktop " ];
       };
+      associations.added = defaultApplications;
+    };
+
+    portal = {
+      enable = true;
+      xdgOpenUsePortal = true;
+
+      config.plasma.default = [ "kde" "*" ];
+
+      # NOTE: "extra" is misleading here
+      # you need to set this if you set xdg.portal.enable to true
+      extraPortals = [ ]
+        ++ lib.optional config.programs.plasma.enable pkgs.xdg-desktop-portal-kde;
     };
 
     userDirs =
