@@ -1,5 +1,18 @@
 { config, pkgs, ... }: {
 
+  nix.buildMachines = [ {
+    hostName = "builder";
+    system = "x86_64-linux";
+    protocol = "ssh-ng";
+    maxJobs = 16;
+    speedFactor = 6;
+    supportedFeatures = [ "nixos-test" "big-parallel" "kvm" ];
+  }];
+  nix.distributedBuilds = true;
+  nix.extraOptions = ''
+    builders-use-substitutes = true
+  '';
+
   modules = {
     desktop = {
       gaming = {
