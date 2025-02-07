@@ -21,6 +21,26 @@
         "type": "github"
       }
     },
+    "darkly": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1738113035,
+        "narHash": "sha256-CdceDCvk8UReS6KJlf8KycSn3VkScW4sAf464YB901I=",
+        "owner": "Bali10050",
+        "repo": "Darkly",
+        "rev": "a4a1f3613beb970a7a81b6a7f3673fdaa019b97e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Bali10050",
+        "repo": "Darkly",
+        "type": "github"
+      }
+    },
     "emacs": {
       "inputs": {
         "nixpkgs": "nixpkgs",
@@ -496,6 +516,7 @@
     "root": {
       "inputs": {
         "aagl": "aagl",
+        "darkly": "darkly",
         "f2k": "f2k",
         "flatpaks": "flatpaks",
         "home": "home",
