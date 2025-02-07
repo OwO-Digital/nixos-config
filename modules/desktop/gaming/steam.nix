@@ -28,10 +28,13 @@ in {
       # both gamemode and mangohud will have to be enabled manually per game
       gamemode = mkDefault true;
       overlays.mangohud = mkDefault true;
+
+      # SteamGridDB helper
+      sgdboop = mkDefault true;
     };
 
     environment
-      .sessionVariables
-      .STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
+    .sessionVariables
+    .STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
   };
 }

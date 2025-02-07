@@ -325,7 +325,6 @@ in
         xonotic-glx
         #emulationstation-de
         inputs.aagl.packages.${pkgs.system}.sleepy-launcher
-        nur.repos.bandithedoge.sgdboop-bin
 
         # plasma theme thing
         klassy
