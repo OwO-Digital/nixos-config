@@ -28,7 +28,7 @@
     hardware.bluetooth.enable = true;
   };
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
       # p sure this was here only for Davinki
@@ -55,7 +55,7 @@
     enable = true;
     openFirewall = true;
   };
-  programs.adb.enable = true;  # wired ALVR
+  programs.adb.enable = true; # wired ALVR
   environment.systemPackages = with pkgs; [
     wlx-overlay-s
 
