@@ -1,7 +1,7 @@
 { config, pkgs, ... }: {
 
   nix.buildMachines = [ {
-    hostName = "builder";
+    hostName = "192.168.1.147";
     system = "x86_64-linux";
     protocol = "ssh-ng";
     maxJobs = 16;
