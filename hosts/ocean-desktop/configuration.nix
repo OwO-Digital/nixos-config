@@ -9,8 +9,13 @@
         sunshine.enable = true;
         emulation = {
           enable = true;
-          switch = true;
+          switch.ryujinx = true;
           wii = true;
+        };
+        ports = {
+          enable = true;
+          zelda.majora = true;
+          zelda.ocarina = true;
         };
         utils.overlays.vkbasalt = true;
       };
