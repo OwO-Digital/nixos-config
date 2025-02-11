@@ -9,8 +9,21 @@
         sunshine.enable = true;
         emulation = {
           enable = true;
-          switch.ryujinx = true;
-          wii = true;
+          nce.pc_engine = true;
+          nintendo = {
+            ds = true;
+            gamecube = true;
+            gb = true;
+            gba = true;
+            nes = true;
+            snes = true;
+            switch.ryujinx = true;
+            wii = true;
+          };
+          sony = {
+            ps2 = true;
+            psp = true;
+          };
         };
         ports = {
           enable = true;
