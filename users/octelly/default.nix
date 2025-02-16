@@ -175,7 +175,7 @@ in
         #ranger
 
         ffmpeg-full
-        videomass
+        #videomass
 
         qalculate-qt
 
@@ -196,13 +196,13 @@ in
         # - PWA or Electron
         # - doesn't do authenticated media
 
-        fluffychat
+        #fluffychat
         # + relatively lightweight (Flutter)
         # - doesn't distinguish sub-spaces well
         # - Flutter CSD bug
         # - weirdly picky with some media (e.g. doesn't load Discord bridge media)
 
-        schildichat-desktop-appimage
+        #schildichat-desktop-appimage
         # + based on current Element and works
         # - forces XWayland (never seen Electron do this)
         # -- shares some poor UI/UX with Element for now (vanilla Element bad)
@@ -262,7 +262,8 @@ in
 
         #vmware-workstation
         bottles
-        gpt4all
+
+        #gpt4all
 
         gittyup
         jetbrains.idea-community
@@ -309,8 +310,8 @@ in
         #pantheon.pantheon-agent-polkit
         #numlockx
 
-        httpdirfs
-        fooyin
+        #httpdirfs
+        #fooyin
 
         #udiskie
         #xfce.xfce4-power-manager
@@ -330,7 +331,6 @@ in
         klassy
         kde-rounded-corners
         inputs.kwin-effects-forceblur.packages.${pkgs.system}.default
-
         inputs.darkly.packages."${system}".darkly-qt6
 
         # GTK theme
@@ -361,7 +361,7 @@ in
 
         gimp-with-plugins
         inkscape-with-extensions
-        aseprite
+        #aseprite
 
         planify
         newsflash
