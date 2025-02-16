@@ -27,6 +27,10 @@
       options = [ "fmask=0022" "dmask=0022" ];
     };
   boot.loader.efi.efiSysMountPoint = lib.mkForce "/boot"; # :(
+  # Since this installation is based on the Calamares installer,
+  # the EFI partition is at /boot for this system. Trying to change
+  # this got me into Systemd's emergency shell.
+  # - Octelly
 
   fileSystems."/home" =
     {
