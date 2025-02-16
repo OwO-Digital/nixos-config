@@ -250,7 +250,6 @@ in
       clickItemTo = "select";
 
       wallpaperSlideShow = wallpapers;
-      # FIXME: broke with a nixpkgs update :3
     };
 
     kscreenlocker.appearance.wallpaperSlideShow = wallpapers;
