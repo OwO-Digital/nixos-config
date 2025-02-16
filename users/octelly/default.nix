@@ -637,6 +637,11 @@ in
   programs.zed-editor = {
     enable = true;
 
+    extensions = [
+      "nix"
+      "zedokai"
+    ];
+
     userSettings = {
       # meta
       #telemetry.metrics = false;
@@ -653,6 +658,12 @@ in
       # UI font
       ui_font_family = "Noto Sans";
       ui_font_size = 14;
+
+      # theming
+      theme = "Zedokai Darker";
+
+      languages.Nix.language_servers = [ "${pkgs.nil}/bin/nil" "!nixd" ];
+      lsp.nil.formatting.command = [ "${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt" ];
     };
   };
 
