@@ -13,10 +13,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home";
     };
-    kwin-effects-forceblur = {
-      url = "github:taj-ny/kwin-effects-forceblur";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nixHW.url = "github:nixos/nixos-hardware/master";
     f2k = {
       url = "github:moni-dz/nixpkgs-f2k";
@@ -52,10 +48,22 @@
 
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
 
-    # QT/KDE theme
+    # QT/KDE theming
     darkly = {
       url = "github:Bali10050/Darkly";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    kwin-effects-forceblur = {
+      url = "github:taj-ny/kwin-effects-forceblur";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    breeze-icons-chameleon = {
+      # doesn't have releases, which would make it
+      # hard to manage outside of a flake input
+      type = "github";
+      owner = "L4ki";
+      repo = "Breeze-Chameleon-Icons";
+      flake = false;
     };
 
     # Hoyoverse games

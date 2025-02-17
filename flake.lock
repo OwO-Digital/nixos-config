@@ -21,6 +21,22 @@
         "type": "github"
       }
     },
+    "breeze-icons-chameleon": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1739458394,
+        "narHash": "sha256-k7vVZY9FzmKkEm9BkO0Jn6xzQXG1m3COcsYpPCA5dNY=",
+        "owner": "L4ki",
+        "repo": "Breeze-Chameleon-Icons",
+        "rev": "421b34ade03d60fadf52921ce201309b5c4ac512",
+        "type": "github"
+      },
+      "original": {
+        "owner": "L4ki",
+        "repo": "Breeze-Chameleon-Icons",
+        "type": "github"
+      }
+    },
     "darkly": {
       "inputs": {
         "nixpkgs": [
@@ -516,6 +532,7 @@
     "root": {
       "inputs": {
         "aagl": "aagl",
+        "breeze-icons-chameleon": "breeze-icons-chameleon",
         "darkly": "darkly",
         "f2k": "f2k",
         "flatpaks": "flatpaks",

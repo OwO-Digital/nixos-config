@@ -332,6 +332,7 @@ in
         kde-rounded-corners
         inputs.kwin-effects-forceblur.packages.${pkgs.system}.default
         inputs.darkly.packages."${system}".darkly-qt6
+        breeze-icons-chameleon
 
         # GTK theme
         adw-gtk3
