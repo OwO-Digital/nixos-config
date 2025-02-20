@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, system, ... }:
+{ config, lib, ... }:
 
 with builtins;
 with lib;
@@ -7,6 +7,9 @@ in {
   options.modules.system.xorg = {
     enable = mkEnableOption "xorg";
 
+    # NOTE: I think some parts of our setup
+    #       rely on LightDM I think
+    #       - Octelly
     displayManager = mkOption {
       type = types.str;
       default = "lightdm";
@@ -42,18 +45,19 @@ in {
 
   config = mkIf cfg.enable {
     services = {
-	  xserver = {
+      xserver = {
+        inherit (cfg) dpi;
         enable = true;
-        dpi = cfg.dpi;
         xkb.layout = cfg.layout;
         displayManager = {
-          #${cfg.displayManager}.enable = true;
-          #defaultSession = cfg.defaultSession;
           lightdm = {
             enable = true;
             greeters.slick.enable = true;
           };
         };
+
+        # FIXME: this shouldn't be reliant on Xorg as it is used by Wayland too
+        #        - Octelly
         xkb.extraLayouts.fck = {
           description = "Czech Programmer version of Colemak DH";
           languages = [ "en" "cs" ];
@@ -64,15 +68,19 @@ in {
         enable = true;
         mouse.accelProfile = "flat";
         touchpad = {
+          inherit (cfg.touchpad) naturalScrolling;
+
+          # FIXME: why opinionated?
+          #        - Octelly
           middleEmulation = false;
           tapping = false;
-          naturalScrolling = cfg.touchpad.naturalScrolling;
+
           accelProfile =
             if cfg.touchpad.acceleration then
               "adaptive" else
               "flat";
         };
       };
-	};
+    };
   };
 }

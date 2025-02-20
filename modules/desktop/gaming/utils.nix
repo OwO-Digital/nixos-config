@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, system, ... }:
+{ config, pkgs, lib, ... }:
 
 with builtins;
 with lib;
@@ -39,8 +39,8 @@ in
       enableRenice = mkDefault true;
     };
 
-    environment.systemPackages = [ ]
-      ++ optional cfg.overlayConfigGUI pkgs.goverlay
+    environment.systemPackages =
+      optional cfg.overlayConfigGUI pkgs.goverlay
       ++ optional cfg.overlays.mangohud pkgs.mangohud
       ++ optional cfg.overlays.vkbasalt pkgs.vkbasalt
       ++ optional cfg.protonup pkgs.protonup-qt

@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, system, ... }:
+{ config, pkgs, lib, ... }:
 
 with builtins;
 with lib;
@@ -51,8 +51,8 @@ in
     # some emulators support gamemode natively
     modules.desktop.gaming.utils.gamemode = mkDefault true;
 
-    modules.desktop.gaming.emulation.retroarch_cores = with pkgs.libretro; [ ]
-      ++ optional cfg.nce.pc_engine beetle-pce
+    modules.desktop.gaming.emulation.retroarch_cores = with pkgs.libretro;
+      optional cfg.nce.pc_engine beetle-pce
       ++ optional cfg.nintendo.ds melonds
       ++ optional cfg.nintendo.gb gambatte
       ++ optional cfg.nintendo.gba mgba
@@ -68,8 +68,8 @@ in
       ]))
       (mkDefault true);
 
-    environment.systemPackages = with pkgs; [ ]
-      ++ optional (cfg.nintendo.gamecube || cfg.nintendo.wii) dolphin-emu
+    environment.systemPackages = with pkgs;
+      optional (cfg.nintendo.gamecube || cfg.nintendo.wii) dolphin-emu
       ++ optional (cfg.retroarch_cores != [ ]) (retroarch.withCores (_: cfg.retroarch_cores))
       ++ optional cfg.dsu_client evdevhook2
       ++ optional cfg.nintendo.primehack dolphin-emu-primehack

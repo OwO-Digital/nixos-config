@@ -150,15 +150,15 @@ in
         pointSize = 10;
       };
       menu = {
-        family = general.family;
+        inherit (general) family;
         pointSize = general.pointSize - 2;
       };
       small = {
-        family = general.family;
+        inherit (general) family;
         pointSize = general.pointSize - 2;
       };
       windowTitle = {
-        family = general.family;
+        inherit (general) family;
         pointSize = general.pointSize - 1;
       };
       fixedWidth = {
