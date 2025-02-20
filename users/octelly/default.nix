@@ -371,6 +371,7 @@ in
 
         wezterm
         waypipe # Xorg SSH forwarding but for Wayland
+        waycheck
       ];
     pointerCursor = {
       package = posysCursors;
