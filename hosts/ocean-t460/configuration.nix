@@ -21,7 +21,7 @@
         minecraft.enable = true;
         emulation = {
           enable = true;
-          wii = true;
+          nintendo.wii = true;
         };
       };
       awesome = {
