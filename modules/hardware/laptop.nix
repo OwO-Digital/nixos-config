@@ -9,9 +9,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    warnings = ''
-      modules.hardware.laptop: This module is deprecated. All laptops are different, please configure manually with the help of NixOS/nixos-hardware modules.
-    '';
+    warnings = [ "modules.hardware.laptop: This module is deprecated. All laptops are different, please configure manually with the help of NixOS/nixos-hardware modules." ];
 
     modules.hardware = {
       acpi.enable = true;
