@@ -510,7 +510,7 @@ in
         id = 0;
         isDefault = true;
 
-        extensions = (with pkgs.nur.repos.rycee.firefox-addons; [
+        extensions.packages = (with pkgs.nur.repos.rycee.firefox-addons; [
           # essentials
           scroll_anywhere
           bitwarden
