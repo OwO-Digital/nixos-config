@@ -56,7 +56,6 @@
       file-icons.file-icons
 
       # languages and formatting
-      editorconfig.editorconfig
       ziglang.vscode-zig
       rust-lang.rust
       rust-lang.rust-analyzer
@@ -81,6 +80,8 @@
       manuel-underscore.figura
     ])
     ++ (with pkgs.vscode-marketplace; [
+      # not on open-vsx anymore
+      editorconfig.editorconfig
 
       # leftover language support
       vgalaktionov.moonscript
