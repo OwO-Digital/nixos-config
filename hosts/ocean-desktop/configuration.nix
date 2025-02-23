@@ -48,10 +48,10 @@
 
   hardware.graphics = {
     enable = true;
-    extraPackages = with pkgs; [
-      # p sure this was here only for Davinki
-      #rocmPackages.clr.icd
-    ];
+    #extraPackages = with pkgs; [
+    #  # p sure this was here only for Davinki
+    #  #rocmPackages.clr.icd
+    #];
   };
 
   programs.corectrl.enable = true;

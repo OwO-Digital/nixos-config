@@ -16,8 +16,8 @@ in {
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ ]
-      ++ optional cfg.zelda.majora pkgs._2ship2harkinian
+    environment.systemPackages =
+      optional cfg.zelda.majora pkgs._2ship2harkinian
       ++ optional cfg.zelda.ocarina pkgs.shipwright
       ++ optional cfg.mario.sixtyfour pkgs.sm64ex-coop;
   };

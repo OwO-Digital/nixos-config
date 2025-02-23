@@ -1,7 +1,10 @@
 { config, inputs, lib, pkgs, system, ... }:
 
-let # run = import ../../misc/bin/run.nix { inherit pkgs; };
-in {
+# note: Unused let in expression
+#       - Octelly
+#let # run = import ../../misc/bin/run.nix { inherit pkgs; };
+#in
+{
 	home = {
 		packages = (with pkgs; [
 			(pcmanfm.override { withGtk3 = true; })
@@ -41,13 +44,13 @@ in {
 			comma
 		]);
 
-		pointerCursor = {
-			x11.enable = true;
-			gtk.enable = true;
-			name = "phinger-cursors-light";
-			package = pkgs.phinger-cursors;
-			size = 16;
-		};
+    pointerCursor = {
+      x11.enable = true;
+      gtk.enable = true;
+      name = "phinger-cursors-light";
+      package = pkgs.phinger-cursors;
+      size = 16;
+    };
 
 		sessionVariables = {
 			"TERMINAL" = "wezterm";
@@ -61,77 +64,77 @@ in {
 		'';
 	};
 
-	gtk = {
+  gtk = {
+    enable = true;
+    theme = {
+      name = "phocus";
+      package = pkgs.everblush.phocus;
+    };
+
+    iconTheme = {
+      name = "Papirus-Dark";
+      package = pkgs.papirus-icon-theme;
+    };
+
+    font = {
+      name = "Roboto Condensed";
+      size = 12;
+    };
+
+    gtk3.extraConfig = {
+      gtk-xft-antialias = 1;
+      gtk-xft-hinting = 1;
+      gtk-xft-hintstyle = "hintslight";
+      gtk-xft-rgba = "rgb";
+      gtk-decoration-layout = "menu:";
+    };
+  };
+
+  xresources.extraConfig = import ./etc/xresources.nix;
+
+  xdg = {
+    enable = true;
+
+	mime.enable = true;
+	mimeApps = {
 		enable = true;
-		theme = {
-			name = "phocus";
-			package = pkgs.everblush.phocus;
-		};
-
-		iconTheme = {
-			name = "Papirus-Dark";
-			package = pkgs.papirus-icon-theme;
-		};
-
-		font = {
-			name = "Roboto Condensed";
-			size = 12;
-		};
-
-		gtk3.extraConfig = {
-			gtk-xft-antialias = 1;
-			gtk-xft-hinting = 1;
-			gtk-xft-hintstyle = "hintslight";
-			gtk-xft-rgba = "rgb";
-			gtk-decoration-layout = "menu:";
+		defaultApplications = {
+			"inode/directory" = [ "pcmanfm.desktop" ];
+			"video" = [ "mpv.desktop" ];
+			"image" = [ "sxiv.desktop" ];
+			"default-web-browser"      = [ "zen-beta.desktop" ];
+			"text/html"                = [ "zen-beta.desktop" ];
+			"x-scheme-handler/http"    = [ "zen-beta.desktop" ];
+			"x-scheme-handler/https"   = [ "zen-beta.desktop" ];
+			"x-scheme-handler/about"   = [ "zen-beta.desktop" ];
+			"x-scheme-handler/unknown" = [ "zen-beta.desktop" ];
 		};
 	};
 
-	xresources.extraConfig = import ./etc/xresources.nix;
+    userDirs = {
+      enable = true;
+      createDirectories = true;
 
-	xdg = {
-		enable = true;
+      desktop = null;
+      documents = null;
+      publicShare = null;
+      templates = null;
 
-		mime.enable = true;
-		mimeApps = {
-			enable = true;
-			defaultApplications = {
-				"inode/directory" = [ "pcmanfm.desktop" ];
-				"video" = [ "mpv.desktop" ];
-				"image" = [ "sxiv.desktop" ];
-				"default-web-browser"      = [ "zen-beta.desktop" ];
-				"text/html"                = [ "zen-beta.desktop" ];
-				"x-scheme-handler/http"    = [ "zen-beta.desktop" ];
-				"x-scheme-handler/https"   = [ "zen-beta.desktop" ];
-				"x-scheme-handler/about"   = [ "zen-beta.desktop" ];
-				"x-scheme-handler/unknown" = [ "zen-beta.desktop" ];
-			};
-		};
+      download = "${config.home.homeDirectory}/Downloads";
+      music = "${config.home.homeDirectory}/Music";
+      pictures = "${config.home.homeDirectory}/Pictures";
+      videos = "${config.home.homeDirectory}/Videos";
+    };
 
-		userDirs = {
-			enable = true;
-			createDirectories = true;
+    configFile = {
+      # awesome.source = ./config/awesome;
+      picom.source = ./config/picom;
+      rofi.source = ./config/rofi;
+      "libinput-gestures.conf".source = ./config/libinput-gestures.conf;
 
-			desktop = null;
-			documents = null;
-			publicShare = null;
-			templates = null;
-
-			download = "${config.home.homeDirectory}/Downloads";
-			music = "${config.home.homeDirectory}/Music";
-			pictures = "${config.home.homeDirectory}/Pictures";
-			videos = "${config.home.homeDirectory}/Videos";
-		};
-
-		configFile = {
-			# awesome.source = ./config/awesome;
-			picom.source = ./config/picom;
-			rofi.source = ./config/rofi;
-			"libinput-gestures.conf".source = ./config/libinput-gestures.conf;
-
-			"mimeapps.list".force = true;
-		};
-	};
+      "mimeapps.list".force = true;
+    };
+  };
 
 	services = {
 		gnome-keyring.enable = true;
@@ -140,10 +143,10 @@ in {
 	imports = [
 		./programs/shell
 
-		./programs/utils/bat.nix
-		./programs/utils/direnv.nix
-		./programs/utils/eza.nix
-		./programs/utils/git.nix
+    	./programs/utils/bat.nix
+    	./programs/utils/direnv.nix
+    	./programs/utils/eza.nix
+    	./programs/utils/git.nix
 
 		# ./programs/apps/discocss.nix
 		./programs/apps/firefox.nix

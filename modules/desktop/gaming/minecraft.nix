@@ -1,14 +1,14 @@
-{ config, pkgs, lib, inputs, system, ... }:
+{ config, pkgs, lib, ... }:
 
 with builtins;
 with lib;
 let cfg = config.modules.desktop.gaming.minecraft;
 in {
-	options.modules.desktop.gaming.minecraft = {
-		enable = mkEnableOption "Minecraft";
-	};
+  options.modules.desktop.gaming.minecraft = {
+    enable = mkEnableOption "Minecraft";
+  };
 
-	config = mkIf cfg.enable {
-		environment.systemPackages = with pkgs; [ prismlauncher jdk8 jdk17 ];
-	};
+  config = mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [ prismlauncher jdk8 jdk17 ];
+  };
 }

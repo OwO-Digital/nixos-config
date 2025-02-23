@@ -23,7 +23,7 @@ let
     "--ozone-platform-hint=auto" # automatic wayland
   ];
   darkMode = true;
-  posysCursors = (pkgs.stdenv.mkDerivation rec {
+  posysCursors = pkgs.stdenv.mkDerivation rec {
     pname = "posy-improved-cursor-linux";
     version = "1.6";
     src = pkgs.fetchFromGitHub {
@@ -37,7 +37,7 @@ let
       mkdir -p $out/share/icons
       cp -r Posy* $out/share/icons/
     '';
-  });
+  };
   klassy = pkgs.nur.repos.shadowrz.klassy-qt6;
   #klassy = with pkgs; (stdenv.mkDerivation rec {
   #  pname = "klassy";
@@ -370,6 +370,8 @@ in
         junction
 
         wezterm
+        waypipe # Xorg SSH forwarding but for Wayland
+        waycheck
       ];
     pointerCursor = {
       package = posysCursors;
@@ -407,7 +409,9 @@ in
         messages = base;
 
       };
-    file.".sdks/jdk17-openjfx".source = (pkgs.jdk17.override { enableJavaFX = true; });
+
+    # was here for intellij and could probably be done better with a fhs env dev shell
+    #file.".sdks/jdk17-openjfx".source = (pkgs.jdk17.override { enableJavaFX = true; });
   };
 
   programs.thunderbird = {
@@ -624,7 +628,7 @@ in
 
 
   services.kdeconnect = {
-    enable = config.programs.plasma.enable;
+    inherit (config.programs.plasma) enable;
     indicator = true;
 
     package = pkgs.kdePackages.kdeconnect-kde;
@@ -890,8 +894,7 @@ in
 
       # NOTE: "extra" is misleading here
       # you need to set this if you set xdg.portal.enable to true
-      extraPortals = [ ]
-        ++ lib.optional config.programs.plasma.enable pkgs.xdg-desktop-portal-kde;
+      extraPortals = lib.optional config.programs.plasma.enable pkgs.xdg-desktop-portal-kde;
     };
 
     userDirs =

@@ -124,6 +124,11 @@ let
           ext = "jpg";
           sha256 = "0izpvcifawl251j3iprm2g0g4zl8x7rv83q0x9naggf1vbr7h2f0";
         })
+        (wallhaven {
+          id = "jxrkmm";
+          ext = "jpg";
+          sha256 = "1la4prcisir2b9gfj5x173mkc3c0z3zm0755vglp7x7svl3kllsb";
+        })
       ];
     });
   };
@@ -145,15 +150,15 @@ in
         pointSize = 10;
       };
       menu = {
-        family = general.family;
+        inherit (general) family;
         pointSize = general.pointSize - 2;
       };
       small = {
-        family = general.family;
+        inherit (general) family;
         pointSize = general.pointSize - 2;
       };
       windowTitle = {
-        family = general.family;
+        inherit (general) family;
         pointSize = general.pointSize - 1;
       };
       fixedWidth = {
