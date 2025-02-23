@@ -1,15 +1,16 @@
-{ config, inputs, lib, pkgs, system, ... }: {
+{ inputs, system, ... }: {
 
-	wayland.windowManager.hyprland = {
-		enable = true;
-	};
+  wayland.windowManager.hyprland = {
+    enable = true;
+    package = inputs.hyprland.packages.${system}.hyprland;
+  };
 
-	imports = [
-		./settings.nix
-		./binds.nix
-		./anims.nix
-		./plugins.nix
-	];
+  imports = [
+    ./settings.nix
+    ./binds.nix
+    ./anims.nix
+    ./plugins.nix
+  ];
 
-	home.sessionVariables.NIXOS_OZONE_WL = "1";
+  home.sessionVariables.NIXOS_OZONE_WL = "1";
 }
