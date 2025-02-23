@@ -20,7 +20,10 @@
         enable = true;
         package = pkgs.awesome-git;
       };
-      hyprland.enable = true;
+      hyprland = {
+	  	enable = true;
+		debug = false;
+	  };
     };
     system = {
       sound.enable = true;

@@ -27,12 +27,15 @@
     #};
 
     ## Hyprland stuff
-    hyprland.url = "github:hyprwm/Hyprland/v0.47.1";
+    hyprland.url = "github:hyprwm/Hyprland/v0.47.2-b";
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";
     };
-
+    hyprsplit = {
+      url = "github:shezdy/hyprsplit";
+      inputs.hyprland.follows = "hyprland";
+    };
     hypr-dynamic-cursors = {
       url = "github:VirtCode/hypr-dynamic-cursors";
       inputs.hyprland.follows = "hyprland";

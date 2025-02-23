@@ -4,10 +4,10 @@
 		plugins = (with inputs.hyprland-plugins.packages.${system}; [
 			# hyprbars #crashes with hyprtrails but hyprbars suck anyways
 			hyprtrails #crashes with hyprbars
-			hyprexpo #dc
+			hyprexpo
 		]) ++ [
-			pkgs.hyprlandPlugins.hyprsplit #done
-			inputs.hypr-dynamic-cursors.packages.${system}.hypr-dynamic-cursors #done
+			inputs.hyprsplit.packages.${system}.hyprsplit
+			inputs.hypr-dynamic-cursors.packages.${system}.hypr-dynamic-cursors
 		];
 
 		settings = {
@@ -16,7 +16,7 @@
 
 				dynamic-cursors = {
 					enabled = "true";
-					mode = "rotate";
+					mode = "tilt";
 
 					rotate = {
 						length = "24";
