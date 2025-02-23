@@ -32,6 +32,10 @@ in {
 			st-emi
 			master.pragtical
 			stable.deluge
+			inputs.zen-browser.packages.${system}.default
+			vesktop
+			nheko
+
 			(giph.override { ffmpeg = (ffmpeg_6.override { ffmpegVariant = "full"; }); })
 			# etterna
 			comma
@@ -48,11 +52,12 @@ in {
 		sessionVariables = {
 			"TERMINAL" = "wezterm";
 			"EDITOR" = "nvim";
+			"BROWSER" = "zen";
 		};
 
 		file.".dmrc".text = ''
 			[Desktop]
-			Session=none+awesome
+			Session=Hyprland
 		'';
 	};
 
@@ -94,6 +99,12 @@ in {
 				"inode/directory" = [ "pcmanfm.desktop" ];
 				"video" = [ "mpv.desktop" ];
 				"image" = [ "sxiv.desktop" ];
+				"default-web-browser"      = [ "zen-beta.desktop" ];
+				"text/html"                = [ "zen-beta.desktop" ];
+				"x-scheme-handler/http"    = [ "zen-beta.desktop" ];
+				"x-scheme-handler/https"   = [ "zen-beta.desktop" ];
+				"x-scheme-handler/about"   = [ "zen-beta.desktop" ];
+				"x-scheme-handler/unknown" = [ "zen-beta.desktop" ];
 			};
 		};
 
@@ -122,6 +133,10 @@ in {
 		};
 	};
 
+	services = {
+		gnome-keyring.enable = true;
+	};
+
 	imports = [
 		./programs/shell
 
@@ -130,10 +145,13 @@ in {
 		./programs/utils/eza.nix
 		./programs/utils/git.nix
 
-		./programs/apps/discocss.nix
+		# ./programs/apps/discocss.nix
 		./programs/apps/firefox.nix
+		./programs/apps/foot.nix
 		./programs/apps/mpd.nix
 		./programs/apps/vscodium.nix
 		./programs/apps/wezterm.nix
+
+		./programs/wms/hyprland
 	];
 }

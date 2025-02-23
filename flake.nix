@@ -27,10 +27,19 @@
     #};
 
     ## Hyprland stuff
-    #hyprland = {
-    #  url = "github:hyprwm/Hyprland?ref=v0.36.0";
-    #  inputs.nixpkgs.follows = "nixpkgs";
-    #};
+    hyprland = {
+      url = "github:hyprwm/Hyprland/v0.47.2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+	hyprland-plugins = {
+		url = "github:hyprwm/hyprland-plugins";
+		inputs.hyprland.follows = "hyprland";
+    };
+
+	hypr-dynamic-cursors = {
+        url = "github:VirtCode/hypr-dynamic-cursors";
+        inputs.hyprland.follows = "hyprland";
+    };
     #hypr-smw = {
     #  url = "github:Duckonaut/split-monitor-workspaces/d0012b8b0f764e32dd7b82f7a94b8c30197d7dc8";
     #  inputs.hyprland.follows = "hyprland";
