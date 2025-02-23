@@ -5,40 +5,44 @@
 #let # run = import ../../misc/bin/run.nix { inherit pkgs; };
 #in
 {
-  home = {
-    packages = with pkgs; [
-      (pcmanfm.override { withGtk3 = true; })
-      tor-browser-bundle-bin
-      wlr-randr
-      rofi-wayland
-      scrot
-      #picom-dccsillag
-      ranger
-      obsidian
-      zed-editor
-      nicotine-plus # yarr harr
-      obs-studio
-      blockbench-electron
-      #jrnl
-      feh
-      ncdu
-      duf
-      playerctl
-      pamixer
-      pulsemixer
-      dconf
-      btop
-      htop
-      libinput-gestures
-      mpv
-      telegram-desktop
-      st-emi
-      master.pragtical
-      stable.deluge
-      (giph.override { ffmpeg = ffmpeg_6.override { ffmpegVariant = "full"; }; })
-      # etterna
-      comma
-    ];
+	home = {
+		packages = (with pkgs; [
+			(pcmanfm.override { withGtk3 = true; })
+			tor-browser-bundle-bin
+			wlr-randr
+			rofi-wayland
+			scrot
+			#picom-dccsillag
+			ranger
+			obsidian
+			zed-editor
+			nicotine-plus # yarr harr
+			obs-studio
+			blockbench-electron
+			#jrnl
+			feh
+			ncdu
+			duf
+			playerctl
+			pamixer
+			pulsemixer
+			dconf
+			btop
+			htop
+			libinput-gestures
+			mpv
+			telegram-desktop
+			st-emi
+			master.pragtical
+			stable.deluge
+			inputs.zen-browser.packages.${system}.default
+			vesktop
+			nheko
+
+			(giph.override { ffmpeg = (ffmpeg_6.override { ffmpegVariant = "full"; }); })
+			# etterna
+			comma
+		]);
 
     pointerCursor = {
       x11.enable = true;
@@ -48,16 +52,17 @@
       size = 16;
     };
 
-    sessionVariables = {
-      "TERMINAL" = "wezterm";
-      "EDITOR" = "nvim";
-    };
+		sessionVariables = {
+			"TERMINAL" = "wezterm";
+			"EDITOR" = "nvim";
+			"BROWSER" = "zen";
+		};
 
-    file.".dmrc".text = ''
-      			[Desktop]
-      			Session=none+awesome
-      		'';
-  };
+		file.".dmrc".text = ''
+			[Desktop]
+			Session=Hyprland
+		'';
+	};
 
   gtk = {
     enable = true;
@@ -90,15 +95,21 @@
   xdg = {
     enable = true;
 
-    mime.enable = true;
-    mimeApps = {
-      enable = true;
-      defaultApplications = {
-        "inode/directory" = [ "pcmanfm.desktop" ];
-        "video" = [ "mpv.desktop" ];
-        "image" = [ "sxiv.desktop" ];
-      };
-    };
+	mime.enable = true;
+	mimeApps = {
+		enable = true;
+		defaultApplications = {
+			"inode/directory" = [ "pcmanfm.desktop" ];
+			"video" = [ "mpv.desktop" ];
+			"image" = [ "sxiv.desktop" ];
+			"default-web-browser"      = [ "zen-beta.desktop" ];
+			"text/html"                = [ "zen-beta.desktop" ];
+			"x-scheme-handler/http"    = [ "zen-beta.desktop" ];
+			"x-scheme-handler/https"   = [ "zen-beta.desktop" ];
+			"x-scheme-handler/about"   = [ "zen-beta.desktop" ];
+			"x-scheme-handler/unknown" = [ "zen-beta.desktop" ];
+		};
+	};
 
     userDirs = {
       enable = true;
@@ -125,18 +136,25 @@
     };
   };
 
-  imports = [
-    ./programs/shell
+	services = {
+		gnome-keyring.enable = true;
+	};
 
-    ./programs/utils/bat.nix
-    ./programs/utils/direnv.nix
-    ./programs/utils/eza.nix
-    ./programs/utils/git.nix
+	imports = [
+		./programs/shell
 
-    ./programs/apps/discocss.nix
-    ./programs/apps/firefox.nix
-    ./programs/apps/mpd.nix
-    ./programs/apps/vscodium.nix
-    ./programs/apps/wezterm.nix
-  ];
+    	./programs/utils/bat.nix
+    	./programs/utils/direnv.nix
+    	./programs/utils/eza.nix
+    	./programs/utils/git.nix
+
+		# ./programs/apps/discocss.nix
+		./programs/apps/firefox.nix
+		./programs/apps/foot.nix
+		./programs/apps/mpd.nix
+		./programs/apps/vscodium.nix
+		./programs/apps/wezterm.nix
+
+		./programs/wms/hyprland
+	];
 }

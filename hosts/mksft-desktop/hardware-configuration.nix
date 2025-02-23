@@ -47,6 +47,13 @@
       ];
     };
 
+	fileSystems."/arch/home" =
+      { device = "/dev/disk/by-uuid/f2a52f3d-591b-454b-a767-c37295d166d3";
+      	fsType = "ext4";
+        options = [ "nosuid" ];
+      };
+
+
   fileSystems."/tmp" =
     {
       device = "none";

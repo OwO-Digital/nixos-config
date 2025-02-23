@@ -1,0 +1,53 @@
+{ config, inputs, lib, pkgs, system, ... }: {
+
+	wayland.windowManager.hyprland = {
+		plugins = (with inputs.hyprland-plugins.packages.${system}; [
+			# hyprbars #crashes with hyprtrails but hyprbars suck anyways
+			hyprtrails #crashes with hyprbars
+			hyprexpo #dc
+		]) ++ [
+			pkgs.hyprlandPlugins.hyprsplit #done
+			inputs.hypr-dynamic-cursors.packages.${system}.hypr-dynamic-cursors #done
+		];
+
+		settings = {
+			plugin = {
+				hyprsplit.num_workspaces = "6";
+
+				dynamic-cursors = {
+					enabled = "true";
+					mode = "rotate";
+
+					rotate = {
+						length = "24";
+						offset = "0.0";
+					};
+
+					shake.enabled = "true";
+				};
+
+				hyprbars = {
+					bar_height = "24";
+					bar_color  = "rgb(141b1e)";
+					"col.text" = "rgb(dadada)";
+					bar_text_size = "12";
+					bar_text_font = "Roboto Condensed";
+					hyprbars-button = [
+						"rgb(e57474), 12, x, hyprctl dispatch killactive"
+						"rgb(e5c76b), 12, o, hyprctl dispatch fullscreen 1"
+						"rgb(8ccf7e), 12, m, hyprctl dispatch swapwithmaster"
+					];
+				};
+
+				hyprtrails.color = "rgba(67b0e880)";
+
+				hyprexpo = {
+					columns = "3";
+					gap_size = "32";
+					bg_col = "rgb(141b1e)";
+					workspace_method = "first 1";
+				};
+			};
+		};
+	};
+}
