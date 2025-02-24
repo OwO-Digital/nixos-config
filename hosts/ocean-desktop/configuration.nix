@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, lib, ... }: {
 
   modules = {
     desktop = {
@@ -72,6 +72,28 @@
   programs.alvr = {
     enable = true;
     openFirewall = true;
+
+    # FIXME: tried to pin the previous version, but couldn't get it to work
+    # https://github.com/NixOS/nixpkgs/issues/359680#issuecomment-2679625425
+
+    #package = pkgs.alvr.overrideAttrs (final: prev: rec {
+    #  pname = "alvr";
+    #  version = "20.12.0";
+    #
+    #  src = pkgs.fetchFromGitHub {
+    #    owner = "alvr-org";
+    #    repo = "ALVR";
+    #    tag = "v${version}";
+    #    fetchSubmodules = true;
+    #    hash = "sha256-4tilgZCUY5PehR0SQDOBahLaPVH4n5cgE7Ghw+SCgQk=";
+    #  };
+    #
+    #  cargoDeps = prev.cargoDeps.overrideAttrs (lib.const {
+    #    name = "${pname}-vendor.tar.gz";
+    #    inherit (final) src;
+    #    outputHash = "sha256-ocwNVdozZeF0hYDhYMshSbRHKfBFawIcO7UbTwk10xc=";
+    #  });
+    #});
   };
   programs.adb.enable = true; # wired ALVR
   environment.systemPackages = with pkgs; [
