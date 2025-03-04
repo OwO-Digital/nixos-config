@@ -1,5 +1,9 @@
-{ _ }:
+{ ... }:
 {
+  imports = [
+    ../../swaync
+  ];
+
   xdg.configFile = {
     sway.source = ./config;
     waybar.source = ./waybar;
