@@ -266,7 +266,7 @@ in
         #gpt4all
 
         gittyup
-        jetbrains.idea-community
+        #jetbrains.idea-community
 
 
         ## sway
@@ -328,15 +328,16 @@ in
         inputs.aagl.packages.${pkgs.system}.sleepy-launcher
 
         # plasma theme thing
-        klassy
-        kde-rounded-corners
-        inputs.kwin-effects-forceblur.packages.${pkgs.system}.default
-        inputs.darkly.packages."${system}".darkly-qt6
         breeze-icons-chameleon
+        inputs.darkly.packages."${system}".darkly-qt6
+        inputs.kwin-effects-forceblur.packages.${pkgs.system}.default
+        kde-rounded-corners
+        klassy
 
         # GTK theme
         adw-gtk3
 
+        kdePackages.isoimagewriter
         kdePackages.kclock
         kdePackages.ktorrent
         kdePackages.partitionmanager
@@ -368,10 +369,13 @@ in
         newsflash
         eyedropper
         junction
+        qpwgraph
 
         wezterm
         waypipe # Xorg SSH forwarding but for Wayland
         waycheck
+
+        inputRedirectionClient-qt
       ];
     pointerCursor = {
       package = posysCursors;
@@ -788,9 +792,9 @@ in
       size = 14;
     };
     extraConfig = ''
-      			include ./themes/sonokai-shusia.conf
-      			background_opacity 0.9
-      		'';
+      include ./themes/sonokai-shusia.conf
+      background_opacity 0.9
+    '';
   };
 
   #programs.zsh = {
@@ -894,7 +898,7 @@ in
 
       # NOTE: "extra" is misleading here
       # you need to set this if you set xdg.portal.enable to true
-      extraPortals = lib.optional config.programs.plasma.enable pkgs.xdg-desktop-portal-kde;
+      extraPortals = lib.optional config.programs.plasma.enable pkgs.kdePackages.xdg-desktop-portal-kde;
     };
 
     userDirs =
