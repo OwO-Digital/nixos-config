@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   imports = [
     ../../swaync
@@ -20,7 +20,14 @@
     };
   };
 
-  wayland.windowManager.sway = {
-    #systemd.enable = false;
-  };
+  home.packages = with pkgs; [
+    swww
+    networkmanagerapplet
+    wl-clipboard
+    swaysome
+    swaynotificationcenter
+    sov
+  ];
+
+  #wayland.windowManager.sway.systemd.enable = false;
 }

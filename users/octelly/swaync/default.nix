@@ -1,8 +1,6 @@
 { ... }:
 {
   xdg.configFile = {
-    "qtile".source = ./desktop_environments/qtile;
-
     "swaync/config.json".text = builtins.toJSON {
       "control-center-exclusive-zone" = true;
 
