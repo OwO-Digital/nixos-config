@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }: {
+{ pkgs, ... }: {
 
   modules = {
     desktop = {
@@ -25,11 +25,11 @@
             psp = true;
           };
         };
-        ports = {
-          enable = true;
-          zelda.majora = true;
-          zelda.ocarina = true;
-        };
+        #ports = {
+        #  enable = true;
+        #  zelda.majora = true;
+        #  zelda.ocarina = true;
+        #};
         utils.overlays.vkbasalt = true;
       };
       awesome = {
