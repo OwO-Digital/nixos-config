@@ -31,6 +31,8 @@ in
     gamemode = mkEnableDefault "gamemode for extra performance during games" false;
 
     sgdboop = mkEnableDefault "SGDBoop - SteamGridDB URL handler for setting custom Steam library art" false;
+
+    joycond = mkEnableDefault "joycond - daemon for Nintendo Switch controllers" false;
   };
 
   config = {
@@ -38,6 +40,8 @@ in
       enable = true;
       enableRenice = mkDefault true;
     };
+
+    services.joycond.enable = mkDefault cfg.joycond;
 
     environment.systemPackages =
       optional cfg.overlayConfigGUI pkgs.goverlay

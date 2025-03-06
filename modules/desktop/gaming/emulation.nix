@@ -51,6 +51,8 @@ in
     # some emulators support gamemode natively
     modules.desktop.gaming.utils.gamemode = mkDefault true;
 
+    modules.desktop.gaming.utils.joycond = mkDefault cfg.nintendo.switch.ryujinx;
+
     modules.desktop.gaming.emulation.retroarch_cores = with pkgs.libretro;
       optional cfg.nce.pc_engine beetle-pce
       ++ optional cfg.nintendo.ds melonds
