@@ -20,6 +20,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    plasma-manager = {
+      url = "github:pjones/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+
     # HM Vim configuration module
     nixvim = {
       url = "github:nix-community/nixvim";
@@ -48,6 +54,15 @@
       owner = "shibbo";
       repo = "Fushigi";
       flake = false;
+    };
+
+    pkg-wheelwizard = {
+      type = "github";
+      owner = "TeamWheelWizard";
+      repo = "WheelWizard";
+      flake = false;
+
+      ref = "2.0.1";
     };
   };
 
@@ -82,6 +97,7 @@
       # global Home Manager modules
       homes.modules = with inputs; [
         nixvim.homeManagerModules.nixvim
+        plasma-manager.homeManagerModules.plasma-manager
       ];
     };
 }

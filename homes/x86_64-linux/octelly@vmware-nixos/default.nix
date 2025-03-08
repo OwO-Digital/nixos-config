@@ -31,11 +31,7 @@
     };
   };
 
-  owo = {
-    non-nixos = true;
-    audio.wireplumber.disableHandsFree = true;
-  };
-
+  owo.audio.wireplumber.disableHandsFree = true;
   octelly.programs = {
     mpv.enable = true;
     neovim.enable = true;

@@ -31,10 +31,18 @@ This repo includes configuration for the [Nix IDE extension](https://marketplace
 
 #### Fushigi
 
-Fushigi may need a manual Nuget dependency lockfile (`packages/games/fushigi/deps.nix`) refresh when its input is updated:
+Fushigi may need a manual Nuget dependency lockfile (`packages/games/Fushigi/deps.nix`) refresh when its input is updated:
 
 ```sh
 nix build .#Fushigi.fetch-deps
 ./result packages/games/Fushigi/deps.nix
 ```
 
+#### WheelWizard
+
+WheelWizard may need a manual Nuget dependency lockfile (`packages/games/WheelWizard/deps.nix`) refresh when its input is updated:
+
+```sh
+nix build .#WheelWizard.fetch-deps
+./result packages/games/WheelWizard/deps.nix
+```

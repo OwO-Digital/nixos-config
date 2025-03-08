@@ -22,13 +22,28 @@
   config
 , ...
 }:
+with lib;
+let
+  cfg = config.owo;
+in
 {
-  # same baseline for all home configs
+  options.owo = {
+    baseline = mkEnableOption "OwO.digital baseline Home Manager configuration";
+    non-nixos = mkEnableOption "this home configuration on non-NixOS systems";
+  };
 
-  # this is particularly useful for preventing a lockout
-  # on non-NixOS systems when a user would forget to add
-  # home-manager into their environment
-  config.programs.home-manager.enable = true;
+  config = {
+    # same baseline for all home configs
 
-  config.home.stateVersion = "22.11";
+    # this is particularly useful for preventing a lockout
+    # on non-NixOS systems when a user would forget to add
+    # home-manager into their environment
+    owo.baseline = mkDefault true;
+
+    programs.home-manager.enable = mkIf cfg.baseline true;
+    home.stateVersion = mkIf cfg.baseline "22.11";
+
+
+    targets.genericLinux.enable = mkIf cfg.non-nixos true;
+  };
 }

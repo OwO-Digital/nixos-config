@@ -1,9 +1,9 @@
 { pkgs, lib, config, ... }:
 let
-  cfg = config.themes.gtk.adw-gtk3;
+  cfg = config.owo.theming.gtk.adw-gtk3;
 in
 with lib; {
-  options.themes.gtk.adw-gtk3 =
+  options.owo.theming.gtk.adw-gtk3 =
     {
       enable = mkEnableOption "Use adw-gtk3 theme";
       scheme = mkOption {
@@ -13,6 +13,9 @@ with lib; {
     };
 
   config = mkIf cfg.enable {
+    owo.theming.gtk.adw-gtk3.scheme =
+      mkDefault config.owo.theming.prefered-scheme;
+
     home.packages = with pkgs; [
       adw-gtk3
     ];
@@ -22,12 +25,6 @@ with lib; {
       theme.name =
         if cfg.scheme == "dark"
         then "adw-gtk3-dark" else "adw-gtk3-light";
-    };
-
-    dconf.settings."org/gnome/desktop/interface" = {
-      "color-scheme" = mkDefault
-        (if cfg.scheme == "dark"
-        then "prefer-dark" else "prefer-light");
     };
   };
 }
