@@ -1,4 +1,7 @@
 {inputs, pkgs, ...}:
+
+# FIXME: Currently only works in a FHS env (e.g. steam-run)
+
 pkgs.buildDotnetModule rec {
   pname = "WheelWizard";
   version = "2.0.1";
@@ -14,6 +17,7 @@ pkgs.buildDotnetModule rec {
   ];
 
   nativeBuildInputs = with pkgs; [ copyDesktopItems ];
+
   desktopItems = [ (pkgs.makeDesktopItem {
     name = "com.github.TeamWheelWizard.WheelWizard";
     exec = pname;
