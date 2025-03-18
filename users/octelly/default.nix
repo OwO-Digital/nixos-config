@@ -352,6 +352,8 @@ in
 
         #krdc
 
+        rustup
+
         inputs.zen-browser.packages."${system}".default
 
         # flameshot and dependencies
@@ -558,7 +560,7 @@ in
           "services.sync.engine.prefs" = false;
           "services.sync.engine.passwords" = false;
           "services.sync.engine.addons" = false;
-          #"identity.fxaccounts.account.device.name" 
+          #"identity.fxaccounts.account.device.name"
 
           # Look and feel
           "font.default.x-western" = "sans-serif";
@@ -643,38 +645,45 @@ in
     startInBackground = true;
   };
 
-  programs.zed-editor = {
-    enable = true;
+  programs.zed-editor =
+    let
+      nix_use_nil = true;
+    in
+    {
+      enable = true;
 
-    extensions = [
-      "nix"
-      "zedokai"
-    ];
+      extensions = [
+        "lua"
+        "nix"
+        "zedokai"
+      ];
 
-    userSettings = {
-      # meta
-      #telemetry.metrics = false;
-      auto_update = false; # wouldn't work anyway
+      extraPackages = lib.optional nix_use_nil pkgs.nil;
 
-      # controls
-      vim_mode = true;
-      base_keymap = "VSCode";
+      userSettings = {
+        # meta
+        #telemetry.metrics = false;
+        auto_update = false; # wouldn't work anyway
 
-      # editor font
-      buffer_font_family = "Maple Mono NF";
-      buffer_font_size = 14;
+        # controls
+        vim_mode = true;
+        base_keymap = "VSCode";
 
-      # UI font
-      ui_font_family = "Noto Sans";
-      ui_font_size = 14;
+        # editor font
+        buffer_font_family = "Maple Mono NF";
+        buffer_font_size = 14;
 
-      # theming
-      theme = "Zedokai Darker";
+        # UI font
+        ui_font_family = "Noto Sans";
+        ui_font_size = 14;
 
-      languages.Nix.language_servers = [ "${pkgs.nil}/bin/nil" "!nixd" ];
-      lsp.nil.formatting.command = [ "${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt" ];
+        # theming
+        theme = "Zedokai Darker";
+
+        languages.Nix.language_servers = lib.mkIf nix_use_nil [ "nil" ];
+        lsp.nil.initialization_options.formatting.command = [ "${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt" ];
+      };
     };
-  };
 
   programs.vscode = {
     enable = true;
@@ -693,6 +702,7 @@ in
       ms-python.python
       ms-python.isort
       jnoortheen.nix-ide
+      rust-lang.rust-analyzer
       #ms-vscode.makefile-tools
       wayou.vscode-todo-highlight
       spgoding.datapack-language-server
@@ -703,6 +713,7 @@ in
       lijin.yuescript
       tnze.snbt
       mrmlnc.vscode-json5
+      geequlim.godot-tools
       # this one broken somehow, bruh:
       #rust-lang.rust-analyzer
 
@@ -1304,5 +1315,6 @@ in
     ./git.nix
     ./desktop_environments/plasma
     ./shell
+    ./lutris.nix
   ];
 }
