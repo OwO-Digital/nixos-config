@@ -189,7 +189,7 @@
 
     # Bitwarden system integration
     ## needs to be here to set up background services and stuff
-    goldwarden.enable = true;
+    #goldwarden.enable = true;
   };
 
   security.pam.services.gtklock.text = lib.readFile "${pkgs.gtklock}/etc/pam.d/gtklock";
