@@ -203,6 +203,12 @@ in
       };
     };
 
+    krunner = {
+      position = "center";
+      activateWhenTypingOnDesktop = false;
+      shortcuts.launch = "Meta+R";
+    };
+
     spectacle = {
       shortcuts = {
         captureActiveWindow = [
@@ -302,9 +308,9 @@ in
             "Ctrl+Shift+Del"
           ];
         };
-        "[services][org.kde.krunner.desktop]" = {
-          _launch = lib.concatStringsSep "\t" [ "Search" "Meta+R" ];
-        };
+        #"[services][org.kde.krunner.desktop]" = {
+        #  _launch = lib.concatStringsSep "\t" [ "Search" "Meta+R" ];
+        #};
         "[services][org.kde.dolphin.desktop]" = {
           _launch = "Meta+F";
         };
