@@ -144,4 +144,21 @@
     25565 # minecra
     3216 # EA App
   ];
+
+  # WARN: experimental gaming settings
+  #       https://github.com/ryuheechul/dotfiles/blob/b31301b146b8efd33170ffede8861379cb87c62f/nix/nixos/recipes/perf-tweaks.nix#L45
+  boot.kernel.sysctl."vm.swappiness" = 1;
+  boot.kernel.sysctl."vm.compaction_proactiveness" = 0;
+  boot.kernel.sysctl."vm.page_lock_unfairness" = 1;
+  systemd.tmpfiles.settings."10-gaming-hugepages.conf" = {
+    "/sys/kernel/mm/transparent_hugepage/enabled".w = {
+      argument = "always";
+    };
+    "/sys/kernel/mm/transparent_hugepage/khugepaged/defrag".w = {
+      argument = "0";
+    };
+    "/sys/kernel/mm/transparent_hugepage/shmem_enabled".w = {
+      argument = "advise";
+    };
+  };
 }
