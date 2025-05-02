@@ -17,7 +17,7 @@
             gba = true;
             nes = true;
             snes = true;
-            switch.ryujinx = true;
+            switch = true;
             wii = true;
           };
           sony = {

@@ -11,7 +11,7 @@
         emulation = {
           enable = true;
           nintendo = {
-            switch.ryujinx = true;
+            switch = true;
             wii = true;
           };
         };

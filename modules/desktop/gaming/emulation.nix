@@ -21,9 +21,7 @@ in
       gba = mkEnableOption "GameBoy Advance";
       nes = mkEnableOption "Nintendo Entertainment System / Famicom";
       snes = mkEnableOption "Super Nintendo Entertainment System / Super Famicom";
-      switch = {
-        ryujinx = mkEnableOption "Nintendo Switch (Ryujinx)";
-      };
+      switch = mkEnableOption "Nintendo Switch";
       wii = mkEnableOption "Nintendo Wii";
 
       primehack = mkEnableOption "Metroid Prime GCN/Wii mouse keyboard hack";
@@ -51,7 +49,7 @@ in
     # some emulators support gamemode natively
     modules.desktop.gaming.utils.gamemode = mkDefault true;
 
-    modules.desktop.gaming.utils.joycond = mkDefault cfg.nintendo.switch.ryujinx;
+    modules.desktop.gaming.utils.joycond = mkDefault cfg.nintendo.switch;
 
     modules.desktop.gaming.emulation.retroarch_cores = with pkgs.libretro;
       optional cfg.nce.pc_engine beetle-pce
@@ -65,7 +63,7 @@ in
     # enable DSU client by default for emulators with support
     modules.desktop.gaming.emulation.dsu_client = mkIf
       (anyTrue (with cfg; [
-        nintendo.switch.ryujinx
+        nintendo.switch
         nintendo.wii
       ]))
       (mkDefault true);
@@ -75,7 +73,7 @@ in
       ++ optional (cfg.retroarch_cores != [ ]) (retroarch.withCores (_: cfg.retroarch_cores))
       ++ optional cfg.dsu_client evdevhook2
       ++ optional cfg.nintendo.primehack dolphin-emu-primehack
-      ++ optional cfg.nintendo.switch.ryujinx ryujinx
+      ++ optional cfg.nintendo.switch ryubing # maintained Ryujinx fork
       ++ optional cfg.sony.ps2 pcsx2 # libretro core doesn't support RetroAchievements
     ;
   };
