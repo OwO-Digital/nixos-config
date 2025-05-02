@@ -9,6 +9,16 @@ in {
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ prismlauncher jdk8 jdk17 ];
+    environment.systemPackages = with pkgs; [
+      (prismlauncher.override {
+        jdks = [
+          jdk8
+          jdk17
+          jdk21
+          #graalvmPackages.graalvm-oracle
+          temurin-bin-21 # formerly adoptopenjdk (this is adoptium)
+        ];
+      })
+    ];
   };
 }
