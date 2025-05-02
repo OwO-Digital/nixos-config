@@ -126,11 +126,14 @@
       clinfo # Required for "OpenCL" page of KDE's Info Center
       cmake
       coreutils
+      cpu-x # needs a system daemon to work; CPU/GPU/HW info tool (very detailed)
       curl
       fd
       gcc
       git
       glxinfo # Required for "OpenGL (GLX)" page of KDE's Info Center
+      kdePackages.kdesu # required by ksystemlog
+      kdePackages.ksystemlog # handy system log viewer, needs to be system package for policykit config
       libnotify
       lm_sensors
       man-pages
@@ -142,9 +145,9 @@
       vulkan-tools # Required for "Vulkan" page of KDE's Info Center
       wayland-utils # Required for "Wayland" page of KDE's Info Center
       wget
+      wireguard-tools
       xclip
       zip
-      wireguard-tools
     ]
     # adds PolicyKit rules
     ++ lib.optional config.services.desktopManager.plasma6.enable pkgs.kdePackages.kpmcore;

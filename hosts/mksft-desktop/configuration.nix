@@ -21,9 +21,9 @@
         package = pkgs.awesome-git;
       };
       hyprland = {
-	  	enable = true;
-		debug = false;
-	  };
+        enable = true;
+        debug = false;
+      };
     };
     system = {
       sound.enable = true;

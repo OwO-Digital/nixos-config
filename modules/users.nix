@@ -18,7 +18,9 @@ with lib; let
           # WebDAV mounts for regular users
           ++ lib.optional config.services.davfs2.enable config.services.davfs2.davGroup
           # ADB
-          ++ lib.optional config.programs.adb.enable "adbusers";
+          ++ lib.optional config.programs.adb.enable "adbusers"
+          # Docker
+          ++ lib.optional config.virtualisation.docker.enable "docker";
         homeMode = "755";
         initialPassword = "gay";
         shell = v.shell or null;
@@ -91,7 +93,7 @@ in
         modules = [ ];
         fc = {
           # `fonts` takes a list of packages
-          fonts = with pkgs; [ maple-mono roboto cozette twemoji-color-font noto-fonts noto-fonts-cjk-sans noto-fonts-cjk-serif noto-fonts-emoji-blob-bin material-design-icons ];
+          fonts = with pkgs; [ maple-mono.NF roboto cozette twemoji-color-font noto-fonts noto-fonts-cjk-sans noto-fonts-cjk-serif noto-fonts-emoji-blob-bin material-design-icons ];
           # list of pkgs.nerd-fonts attributes
           nerd-fonts = [ "iosevka" "jetbrains-mono" ];
           defaultFonts = {
@@ -116,7 +118,7 @@ in
             twitter-color-emoji
             noto-fonts
             noto-fonts-cjk-sans
-            maple-mono-NF
+            maple-mono.NF
           ];
           # list of pkgs.nerd-fonts attributes
           nerd-fonts = [ ];
@@ -140,6 +142,7 @@ in
       #inputs.anyrun.homeManagerModules.default
       #inputs.hyprland.homeManagerModules.default
       inputs.plasma-manager.homeManagerModules.plasma-manager
+      inputs.nixvim.homeManagerModules.nixvim
     ];
     users = homeCfg;
   };

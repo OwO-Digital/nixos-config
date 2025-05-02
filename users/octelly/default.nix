@@ -171,7 +171,7 @@ in
 
         #pavucontrol
         pulsemixer
-        maple-mono-NF
+        maple-mono.NF
         #ranger
 
         ffmpeg-full
@@ -341,6 +341,7 @@ in
         kdePackages.kclock
         kdePackages.ktorrent
         kdePackages.partitionmanager
+        qdiskinfo
 
         # spelling stuff
         # is also used by Plasma
@@ -717,6 +718,7 @@ in
       tnze.snbt
       mrmlnc.vscode-json5
       geequlim.godot-tools
+      yesterday17.zenscript
       # this one broken somehow, bruh:
       #rust-lang.rust-analyzer
 
@@ -908,11 +910,12 @@ in
       enable = true;
       xdgOpenUsePortal = true;
 
-      config.plasma.default = [ "kde" "*" ];
+      config.plasma.default = [ "kde" "gtk" ];
 
       # NOTE: "extra" is misleading here
       # you need to set this if you set xdg.portal.enable to true
-      extraPortals = lib.optional config.programs.plasma.enable pkgs.kdePackages.xdg-desktop-portal-kde;
+      extraPortals = [ pkgs.xdg-desktop-portal-gtk ]
+        ++ lib.optional config.programs.plasma.enable pkgs.kdePackages.xdg-desktop-portal-kde;
     };
 
     userDirs =
@@ -1319,5 +1322,6 @@ in
     ./desktop_environments/plasma
     ./shell
     ./lutris.nix
+    ./nvim.nix
   ];
 }
