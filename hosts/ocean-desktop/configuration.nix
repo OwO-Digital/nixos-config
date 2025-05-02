@@ -103,6 +103,8 @@
     unityhub
     alcom
     vrc-get
+
+    ydotool
   ];
 
   # required for NixOS SteamVR to work
