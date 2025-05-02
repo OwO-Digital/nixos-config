@@ -369,7 +369,9 @@ in
 
         thunderbird
         planify
-        newsflash
+        #newsflash
+        #fluent-reader # replacing Newsflash
+        rssguard # replacing Fluent Reader
         eyedropper
         junction
         qpwgraph
