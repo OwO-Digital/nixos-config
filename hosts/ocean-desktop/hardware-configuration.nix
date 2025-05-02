@@ -42,6 +42,11 @@
       fsType = "btrfs";
     };
 
+  fileSystems."/archHome" = {
+    device = "/dev/disk/by-uuid/0d196eaf-8a57-410a-a702-2fd0508e387e";
+    fsType = "ext4";
+  };
+
   swapDevices =
     [{ device = "/dev/disk/by-uuid/37c98e08-e2a7-4875-a126-899e6e124e4b"; }];
 
