@@ -367,6 +367,7 @@ in
         inkscape-with-extensions
         #aseprite
 
+        thunderbird
         planify
         newsflash
         eyedropper
@@ -421,7 +422,7 @@ in
   };
 
   programs.thunderbird = {
-    enable = true;
+    enable = false;
 
     profiles.default = {
       isDefault = true;
