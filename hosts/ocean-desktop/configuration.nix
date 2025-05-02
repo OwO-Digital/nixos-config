@@ -105,10 +105,82 @@
     vrc-get
 
     ydotool
+
+    looking-glass-client # good VM video
+    scream # good VM audio
+  ];
+
   #boot.extraModulePackages = with config.boot.kernelPackages; [
   #  apfs
   #];
+
+  boot.kernelModules = [
+    "kvm-amd"
+    "vfio"
+    "vfio-pci"
+    "vfio_iommu_type1"
   ];
+  boot.kernelParams = [
+    "iommu=pt"
+
+    # WARN:
+    # https://www.reddit.com/r/VFIO/comments/63hr88/why_is_pcie_acs_overridedownstreammultifunction/dfv4n4u/
+    "pcie_acs_override=downstream,multifunction"
+
+    "vfio-pci.ids=1002:67ef,1002:aae0"
+    "pci=noats" # AMD-Vi times out without this
+  ];
+
+  # this prevents the amdgpu module from loading during boot
+  # (and thus prevent amdgpu from snatching out VM guest GPU)
+  # the module still loads later and binds to the host GPU
+  boot.blacklistedKernelModules = [ "amdgpu" ];
+  boot.initrd.kernelModules = [ "vfio_pci" ];
+  boot.initrd.preDeviceCommands = ''
+    echo "vfio-pci" > /sys/bus/pci/devices/0000:07:00.0/driver_override
+    echo "vfio-pci" > /sys/bus/pci/devices/0000:07:00.1/driver_override
+    echo 0000:07:00.0 > /sys/bus/pci/drivers_probe
+    echo 0000:07:00.1 > /sys/bus/pci/drivers_probe
+  '';
+
+  virtualisation.libvirtd = {
+    enable = true;
+    qemuOvmf = true;
+    qemuRunAsRoot = false;
+    onBoot = "ignore";
+    onShutdown = "shutdown";
+  };
+  programs.virt-manager.enable = true;
+  systemd.tmpfiles.rules = [
+    "f /dev/shm/looking-glass 0660 octelly qemu-libvirtd -"
+    "f /dev/shm/scream 0660 octelly qemu-libvirtd -"
+  ];
+  systemd.user.services.scream-ivshmem = {
+    enable = true;
+    description = "Scream IVSHMEM";
+    serviceConfig = {
+      ExecStart = "${pkgs.scream}/bin/scream -m /dev/shm/scream -o pulse -v";
+      Restart = "always";
+    };
+    wantedBy = [ "multi-user.target" ];
+    requires = [ "pulseaudio.service" ];
+  };
+
+  #boot.extraModprobeConfig = ''
+  #  softdep drm pre: vfio-pci
+  #  options vfio-pci ids=1002:67ef,1002:aae0
+  #'';
+
+  #boot.initrd.availableKernelModules = [ "amdgpu" "vfio-pci" ];
+  #boot.initrd.preDeviceCommands = ''
+  #  DEVS="0000:07:00.0 0000:07:00.1"
+  #  for DEV in $DEVS; do
+  #    echo "vfio-pci" > /sys/bus/pci/devices/$DEV/driver_override
+  #  done
+  #  modprobe -i vfio-pci
+  #'';
+
+
 
   # required for NixOS SteamVR to work
   # https://wiki.nixos.org/wiki/VR/en#SteamVR
