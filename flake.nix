@@ -13,6 +13,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home";
     };
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixHW.url = "github:nixos/nixos-hardware/master";
     f2k = {
       url = "github:moni-dz/nixpkgs-f2k";
@@ -85,9 +89,9 @@
     };
 
     # Nixpkgs
+    unstable-small.url = "github:nixos/nixpkgs/nixos-unstable-small";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     stable.url = "github:nixos/nixpkgs/nixos-24.11";
-    master.url = "github:nixos/nixpkgs/master";
 
     nixpkgs.follows = "unstable";
 
