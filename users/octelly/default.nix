@@ -261,7 +261,7 @@ in
         #manix
 
         #vmware-workstation
-        bottles
+        #bottles
 
         #gpt4all
 
