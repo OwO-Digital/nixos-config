@@ -284,7 +284,7 @@ in
         #onagre
         #wofi
 
-        jamesdsp
+        unstable-small.jamesdsp
 
         #gtklock
         #gtklock-userinfo-module
