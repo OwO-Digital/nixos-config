@@ -105,6 +105,9 @@
     vrc-get
 
     ydotool
+  #boot.extraModulePackages = with config.boot.kernelPackages; [
+  #  apfs
+  #];
   ];
 
   # required for NixOS SteamVR to work
