@@ -26,6 +26,7 @@
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
     vscode-ext.url = "github:nix-community/nix-vscode-extensions";
     flatpaks.url = "github:GermanBread/declarative-flatpak/stable-v3";
     #anyrun = {

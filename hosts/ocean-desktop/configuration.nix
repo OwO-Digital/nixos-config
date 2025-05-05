@@ -97,6 +97,7 @@
   };
   programs.adb.enable = true; # wired ALVR
   environment.systemPackages = with pkgs; [
+    wayvr-dashboard
     wlx-overlay-s
 
     # VRChat creation
