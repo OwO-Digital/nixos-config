@@ -639,7 +639,6 @@ in
   #  enable = true;
   #};
 
-
   services.kdeconnect = {
     inherit (config.programs.plasma) enable;
     indicator = true;
