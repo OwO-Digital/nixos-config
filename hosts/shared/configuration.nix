@@ -132,8 +132,6 @@
       gcc
       git
       glxinfo # Required for "OpenGL (GLX)" page of KDE's Info Center
-      kdePackages.kdesu # required by ksystemlog
-      kdePackages.ksystemlog # handy system log viewer, needs to be system package for policykit config
       libnotify
       lm_sensors
       man-pages
