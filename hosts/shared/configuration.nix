@@ -189,6 +189,7 @@
       enable = true;
       flake = "/etc/nixos";
     };
+    niri.enable = true;
 
     # Bitwarden system integration
     ## needs to be here to set up background services and stuff

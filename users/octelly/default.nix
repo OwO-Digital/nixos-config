@@ -389,7 +389,10 @@ in
     };
     keyboard = {
       layout = "us,cz(qwerty)";
-      options = "grp:win_space_toggle";
+      options = [
+        "grp:win_space_toggle"
+        "compose:ralt"
+      ];
     };
 
     language =
@@ -910,12 +913,20 @@ in
       enable = true;
       xdgOpenUsePortal = true;
 
-      config.plasma.default = [ "kde" "gtk" ];
+      config.common."org.freedesktop.impl.portal.Secret" = [ "kwallet" ];
+
+      config.plasma.default = [
+        "kde"
+        "gtk" # good generic portal
+      ];
 
       # NOTE: "extra" is misleading here
       # you need to set this if you set xdg.portal.enable to true
-      extraPortals = [ pkgs.xdg-desktop-portal-gtk ]
-        ++ lib.optional config.programs.plasma.enable pkgs.kdePackages.xdg-desktop-portal-kde;
+      extraPortals = [
+        pkgs.xdg-desktop-portal-gtk
+        pkgs.kdePackages.xdg-desktop-portal-kde
+        pkgs.kdePackages.kwallet
+      ];
     };
 
     userDirs =
@@ -1323,5 +1334,6 @@ in
     ./shell
     ./lutris.nix
     ./nvim.nix
+    ./desktop_environments/niri
   ];
 }

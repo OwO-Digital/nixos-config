@@ -143,6 +143,7 @@ in
       #inputs.hyprland.homeManagerModules.default
       inputs.plasma-manager.homeManagerModules.plasma-manager
       inputs.nixvim.homeManagerModules.nixvim
+      inputs.niri.homeModules.niri
     ];
     users = homeCfg;
   };

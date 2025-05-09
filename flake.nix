@@ -13,6 +13,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home";
     };
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -109,6 +113,7 @@
     , nur
     , f2k
     , vscode-ext
+    , niri
     , ...
     } @ inputs:
     let
@@ -134,6 +139,7 @@
             nur.overlay
             f2k.overlays.default
             vscode-ext.overlays.default
+            niri.overlays.niri
           ];
       };
 
