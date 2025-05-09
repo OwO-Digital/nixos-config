@@ -427,13 +427,13 @@ in
     #file.".sdks/jdk17-openjfx".source = (pkgs.jdk17.override { enableJavaFX = true; });
   };
 
-  programs.thunderbird = {
-    enable = false;
+  #programs.thunderbird = {
+  #  enable = false;
 
-    profiles.default = {
-      isDefault = true;
-    };
-  };
+  #  profiles.default = {
+  #    isDefault = true;
+  #  };
+  #};
 
   programs.obs-studio = {
     enable = true;
