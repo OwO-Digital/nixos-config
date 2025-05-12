@@ -9,17 +9,15 @@ in
     ../../swaync
   ];
 
-  programs.niri.settings.spawn-at-startup = [
-    # swaync
-    {
-      command = [ swaync ];
-    }
-  ];
+  programs.niri.settings.spawn-at-startup = [{ command = [ swaync ]; }];
 
   programs.niri.settings.binds = with config.lib.niri.actions; {
     # NOTE:
     # `Mod` is a special modifier that is equal to `Super` when running niri on a TTY,
     # and to `Alt` when running niri as a nested winit window
-    "Mod+a".action = spawn swaync-client "-t" "-sw";
+    "Mod+a" = {
+      action = spawn swaync-client "-t" "-sw";
+      hotkey-overlay.title = "Toggle Notification Center";
+    };
   };
 }

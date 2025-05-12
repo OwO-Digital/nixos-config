@@ -187,7 +187,10 @@
       enable = true;
       flake = "/etc/nixos";
     };
-    niri.enable = true;
+    niri = {
+      enable = true;
+      package = pkgs.niri-unstable;
+    };
 
     # Bitwarden system integration
     ## needs to be here to set up background services and stuff

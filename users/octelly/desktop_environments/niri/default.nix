@@ -11,11 +11,19 @@
     # Inherit home-manager settings, where possible
     ./defaults_from_hm.nix
 
-    # KDE Wallet
-    ./keyring.nix
+    #./screenshots.nix
+    ./osd.nix
+    ./wallpaper.nix
+    ./xwayland.nix
+
+    # KDE integration
+    ./kde_integration.nix
 
     # notification center
     ./swaync.nix
+
+    # App launcher / search
+    ./gauntlet.nix
   ];
 
   programs.niri = {
@@ -35,11 +43,9 @@
     xdgOpenUsePortal = true;
 
     config.niri = {
-      "org.freedesktop.impl.portal.Secret" = [ "kwallet" ];
       "org.freedesktop.impl.portal.ScreenCast" = [ "gnome" ];
-      "org.freedesktop.impl.portal.FileChooser" = [ "kde" ];
 
-      default = [ "gtk" ];
+      default = [ "kwallet" "gtk" "kde" ];
     };
   };
 
@@ -50,19 +56,27 @@
     _JAVA_AWT_WM_NONREPARENTING = 1;
   };
 
-  programs.niri.settings.spawn-at-startup = [
-    # XWayland support
-    {
-      command = [ "${pkgs.xwayland-satellite}" ];
-    }
-  ];
 
-
-  programs.niri.settings.binds = with config.lib.niri.actions; {
+  programs.niri.settings.binds = with config.lib.niri.actions; let
+    sh = spawn "sh" "-c";
+  in
+  {
     # NOTE:
     # `Mod` is a special modifier that is equal to `Super` when running niri on a TTY,
     # and to `Alt` when running niri as a nested winit window
-    "Mod+Return".action = spawn "wezterm";
+    "Mod+Return" = {
+      action = spawn "wezterm";
+      hotkey-overlay.title = "Open Terminal";
+    };
+    "Mod+Shift+q" = {
+      action = quit;
+      hotkey-overlay.title = "Logout";
+    };
+
+    "Mod+q".action = close-window;
+    "Mod+d".action = fullscreen-window;
+    "Control+Mod+Space".action = toggle-window-floating;
+
     "Mod+WheelScrollDown".action = focus-workspace-down;
     "Mod+WheelScrollUp".action = focus-workspace-up;
 
@@ -70,6 +84,17 @@
     "Mod+Shift+WheelScrollDown".action = focus-column-right;
     "Mod+WheelScrollLeft".action = focus-column-left;
     "Mod+WheelScrollRight".action = focus-column-right;
+
+    "Mod+Tab".action = toggle-overview;
+
+    "Mod+w" = {
+      action = spawn
+        (builtins.toString (pkgs.writeScript "maximize" ''
+          niri msg action expand-column-to-available-width;
+          niri msg action reset-window-height;
+        ''));
+      hotkey-overlay.title = "Maximize Window";
+    };
   };
 
   programs.niri.settings.outputs = {
@@ -86,4 +111,23 @@
       variable-refresh-rate = true;
     };
   };
+
+  programs.niri.settings.window-rules = [
+    {
+      border.enable = false;
+      clip-to-geometry = true;
+      draw-border-with-background = false;
+      focus-ring.enable = true;
+      geometry-corner-radius =
+        let
+          r = 12.0;
+        in
+        {
+          top-left = r;
+          top-right = r;
+          bottom-left = r;
+          bottom-right = r;
+        };
+    }
+  ];
 }
