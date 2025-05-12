@@ -14,6 +14,7 @@
     #./screenshots.nix
     ./osd.nix
     ./wallpaper.nix
+    ./window_rules.nix
     ./xwayland.nix
 
     # KDE integration
@@ -24,6 +25,7 @@
 
     # App launcher / search
     ./gauntlet.nix
+
   ];
 
   programs.niri = {
@@ -111,6 +113,9 @@
       variable-refresh-rate = true;
     };
   };
+
+  # FIXME: disabled entirely until I can blacklist my Dualsense specifically
+  programs.niri.settings.input.touchpad.enable = false;
 
   programs.niri.settings.window-rules = [
     {
