@@ -106,10 +106,12 @@ in
 
     hotkeys.commands = {
       launch-terminal = {
+        name = "Launch Terminal";
         key = "Meta+Return";
         command = "wezterm";
       };
       launch-system-monitor = {
+        name = "Launch System Monitor";
         key = "Ctrl+Shift+Escape";
         command = "kioclient exec ${pkgs.btop}/share/applications/btop.desktop";
       };
