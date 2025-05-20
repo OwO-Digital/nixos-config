@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ pkgs, ... }: {
 
   modules = {
     desktop = {
@@ -21,6 +21,7 @@
             wii = true;
           };
           sony = {
+            ps3 = true;
             ps2 = true;
             psp = true;
           };

@@ -29,6 +29,7 @@ in
 
     sony = {
       ps2 = mkEnableOption "Playstation 2";
+      ps3 = mkEnableOption "Playstation 3";
       psp = mkEnableOption "Playstation Portable";
     };
 
@@ -50,6 +51,8 @@ in
     modules.desktop.gaming.utils.gamemode = mkDefault true;
 
     modules.desktop.gaming.utils.joycond = mkDefault cfg.nintendo.switch;
+
+    modules.desktop.gaming.utils.rusty-psn = mkDefault cfg.sony.ps3;
 
     modules.desktop.gaming.emulation.retroarch_cores = with pkgs.libretro;
       optional cfg.nce.pc_engine beetle-pce
@@ -75,6 +78,7 @@ in
       ++ optional cfg.nintendo.primehack dolphin-emu-primehack
       ++ optional cfg.nintendo.switch ryubing # maintained Ryujinx fork
       ++ optional cfg.sony.ps2 pcsx2 # libretro core doesn't support RetroAchievements
+      ++ optional cfg.sony.ps3 rpcs3
     ;
   };
 }

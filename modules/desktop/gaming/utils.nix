@@ -33,6 +33,8 @@ in
     sgdboop = mkEnableDefault "SGDBoop - SteamGridDB URL handler for setting custom Steam library art" false;
 
     joycond = mkEnableDefault "joycond - daemon for Nintendo Switch controllers" false;
+
+    rusty-psn = mkEnableDefault "rusty-psn - PS3 game updater" false;
   };
 
   config = {
@@ -43,11 +45,13 @@ in
 
     services.joycond.enable = mkDefault cfg.joycond;
 
-    environment.systemPackages =
-      optional cfg.overlayConfigGUI pkgs.goverlay
-      ++ optional cfg.overlays.mangohud pkgs.mangohud
-      ++ optional cfg.overlays.vkbasalt pkgs.vkbasalt
-      ++ optional cfg.protonup pkgs.protonup-qt
-      ++ optional cfg.sgdboop pkgs.nur.repos.bandithedoge.sgdboop-bin;
+    environment.systemPackages = with pkgs;
+      optional cfg.overlayConfigGUI goverlay
+      ++ optional cfg.overlays.mangohud mangohud
+      ++ optional cfg.overlays.vkbasalt vkbasalt
+      ++ optional cfg.protonup protonup-qt
+      ++ optional cfg.sgdboop nur.repos.bandithedoge.sgdboop-bin
+      ++ optional cfg.rusty-psn rusty-psn-gui
+    ;
   };
 }
