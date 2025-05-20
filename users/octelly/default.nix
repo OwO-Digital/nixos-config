@@ -337,6 +337,7 @@ in
         # GTK theme
         adw-gtk3
 
+        kdePackages.filelight
         kdePackages.isoimagewriter
         kdePackages.kclock
         kdePackages.ktorrent
@@ -369,13 +370,14 @@ in
         #aseprite
 
         thunderbird
-        planify
+        #planify
         #newsflash
         #fluent-reader # replacing Newsflash
         rssguard # replacing Fluent Reader
         eyedropper
         junction
         qpwgraph
+        bleachbit
 
         inputs.wezterm.packages.${system}.default
         waypipe # Xorg SSH forwarding but for Wayland
@@ -758,8 +760,8 @@ in
       "debug.console.fontFamily" = "'Maple Mono NF', 'Cartograph CF', 'FiraCode Nerd Font Mono', 'monospace', monospace";
       "editor.fontLigatures" = "'cv02', 'cv03', 'cv04'";
       "editor.fontVariations" = true;
-      "editor.fontSize" = 15;
-      "debug.console.fontSize" = 15;
+      "editor.fontSize" = 13;
+      "debug.console.fontSize" = 13;
 
       "todohighlight.defaultStyle" = {
         "backgroundColor" = "#0000";
