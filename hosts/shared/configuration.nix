@@ -7,17 +7,21 @@
       "https://fortuneteller2k.cachix.org"
       "https://cosmic.cachix.org/" # Cosmic DE
       "https://ezkea.cachix.org" # Hoyoverse
+      "https://wezterm.cachix.org"
     ];
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "fortuneteller2k.cachix.org-1:kXXNkMV5yheEQwT0I4XYh1MaCSz+qg72k8XAi2PthJI="
       "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
       "ezkea.cachix.org-1:ioBmUbJTZIKsHmWWXPe1FSFbeVe+afhfgqgTSNd34eI="
+      "wezterm.cachix.org-1:kAbhjYUC9qvblTE+s7S+kl5XM1zVa4skO+E/1IDWdH0="
     ];
     trusted-users = [
       "nixremote"
       "@wheel"
     ];
+    lazy-trees = true;
+    auto-optimise-store = true;
   };
 
   boot = {

@@ -101,6 +101,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
+
     # Nixpkgs
     unstable-small.url = "github:nixos/nixpkgs/nixos-unstable-small";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";

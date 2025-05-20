@@ -11,10 +11,9 @@ lib.nixosSystem {
     }
 
     inputs.home.nixosModules.home-manager
-    #inputs.niri.nixosModules.niri
     inputs.flatpaks.nixosModules.declarative-flatpak
     inputs.nixpkgs-xr.nixosModules.nixpkgs-xr
-    #inputs.nixos-cosmic.nixosModules.default
+    inputs.determinate.nixosModules.default
 
     # hardware modules
     inputs.nixHW.nixosModules.common-cpu-amd
