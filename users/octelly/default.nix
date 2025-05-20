@@ -377,7 +377,7 @@ in
         junction
         qpwgraph
 
-        wezterm
+        inputs.wezterm.packages.${system}.default
         waypipe # Xorg SSH forwarding but for Wayland
         waycheck
 
@@ -777,7 +777,7 @@ in
       "workbench.startupEditor" = "none";
 
       # terminal
-      "terminal.external.linuxExec" = "${pkgs.wezterm}/bin/wezterm";
+      "terminal.external.linuxExec" = "wezterm";
       "terminal.integrated.cursorBlinking" = true;
       "terminal.integrated.cursorStyle" = "line";
       #"terminal.integrated.defaultProfile.linux" = "zsh";
@@ -1334,5 +1334,6 @@ in
     ./lutris.nix
     ./nvim.nix
     ./desktop_environments/niri
+    ./bitwarden-ssh-agent.nix
   ];
 }

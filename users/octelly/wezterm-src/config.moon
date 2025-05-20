@@ -3,8 +3,9 @@ wezterm = require 'wezterm'
 {
 	check_for_updates: false
 	front_end: "WebGpu"
-	--front_end: "OpenGL"
-	--front_end: "Software"
+
+	--NOTE: nightly-only as of writing
+	default_ssh_auth_sock: os.getenv 'SSH_AUTH_SOCK'
 
 	keys: {
 		{
@@ -19,7 +20,7 @@ wezterm = require 'wezterm'
 		'Maple Mono NF'
 		'Twemoji'
 	}
-	font_size: 11.0
+	font_size: 10.0
 	bold_brightens_ansi_colors: false
 
 	adjust_window_size_when_changing_font_size: false
