@@ -1337,5 +1337,6 @@ in
     ./nvim.nix
     ./desktop_environments/niri
     ./bitwarden-ssh-agent.nix
+    #./programs/mopidy
   ];
 }
