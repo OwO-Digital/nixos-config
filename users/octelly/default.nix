@@ -300,6 +300,7 @@ in
 
         jellyfin-media-player
         moonlight-qt
+        grayjay
 
 
         #networkmanagerapplet
