@@ -35,6 +35,11 @@ in
     joycond = mkEnableDefault "joycond - daemon for Nintendo Switch controllers" false;
 
     rusty-psn = mkEnableDefault "rusty-psn - PS3 game updater" false;
+
+    # default is set to initrd amdgpu module
+    # because nixos-hardware sets this by default
+    # when using the common-gpu-amd module
+    amdgpu-top = mkEnableDefault "AMDGPU_TOP - in-depth GPU monitoring" config.hardware.amdgpu.initrd.enable;
   };
 
   config = {
@@ -50,8 +55,9 @@ in
       ++ optional cfg.overlays.mangohud mangohud
       ++ optional cfg.overlays.vkbasalt vkbasalt
       ++ optional cfg.protonup protonup-qt
-      ++ optional cfg.sgdboop nur.repos.bandithedoge.sgdboop-bin
+      ++ optional cfg.sgdboop nur.repos.bandithedoge.sgdboop-bin # https://github.com/NixOS/nixpkgs/pull/405710
       ++ optional cfg.rusty-psn rusty-psn-gui
+      ++ optional cfg.amdgpu-top amdgpu_top
     ;
   };
 }
