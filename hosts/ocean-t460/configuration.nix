@@ -1,6 +1,6 @@
-{ config, pkgs, ... }: {
+{ pkgs, ... }: {
 
-  nix.buildMachines = [ {
+  nix.buildMachines = [{
     hostName = "192.168.1.238";
     system = "x86_64-linux";
     protocol = "ssh-ng";
@@ -40,7 +40,11 @@
       };
     };
   };
+
   networking.firewall.allowedTCPPorts = [ 25565 ];
+
+  virtualisation.waydroid.enable = true;
+
   #nix.buildMachines = [{
   #  hostName = "192.168.1.137";
   #  system = "x86_64-linux";

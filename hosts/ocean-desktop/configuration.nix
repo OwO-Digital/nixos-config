@@ -57,6 +57,8 @@
 
   programs.corectrl.enable = true;
 
+  virtualisation.waydroid.enable = true;
+
   virtualisation.vmware.host = {
     enable = true;
     extraConfig = ''
