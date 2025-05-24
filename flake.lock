@@ -182,6 +182,29 @@
         "type": "github"
       }
     },
+    "emacs-overlay": {
+      "inputs": {
+        "nixpkgs": [
+          "unstable"
+        ],
+        "nixpkgs-stable": [
+          "stable"
+        ]
+      },
+      "locked": {
+        "lastModified": 1747931129,
+        "narHash": "sha256-kiZHNTbdMRdKFZlBcx1PI5hBu8Hounl/JQdueAoufqM=",
+        "owner": "nix-community",
+        "repo": "emacs-overlay",
+        "rev": "67fa10fdfd0e958dceb60ce893956aad1ed6bce4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "emacs-overlay",
+        "type": "github"
+      }
+    },
     "f2k": {
       "inputs": {
         "emacs": "emacs",
@@ -1630,6 +1653,7 @@
         "breeze-icons-chameleon": "breeze-icons-chameleon",
         "darkly": "darkly",
         "determinate": "determinate",
+        "emacs-overlay": "emacs-overlay",
         "f2k": "f2k",
         "flatpaks": "flatpaks",
         "gauntlet": "gauntlet",
