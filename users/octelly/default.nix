@@ -724,6 +724,7 @@ in
       mrmlnc.vscode-json5
       geequlim.godot-tools
       yesterday17.zenscript
+      jcs090218.ellsp
       # this one broken somehow, bruh:
       #rust-lang.rust-analyzer
 
@@ -1339,5 +1340,6 @@ in
     ./desktop_environments/niri
     ./bitwarden-ssh-agent.nix
     #./programs/mopidy
+    #./programs/emacs
   ];
 }

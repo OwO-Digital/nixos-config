@@ -46,6 +46,14 @@
     #  inputs.nixpkgs.follows = "nixpkgs";
     #};
 
+    emacs-overlay = {
+      type = "github";
+      owner = "nix-community";
+      repo = "emacs-overlay";
+      inputs.nixpkgs.follows = "unstable";
+      inputs.nixpkgs-stable.follows = "stable";
+    };
+
     ## Hyprland stuff
     hyprland.url = "github:hyprwm/Hyprland/v0.47.2-b";
     hyprland-plugins = {
@@ -124,6 +132,7 @@
     , f2k
     , vscode-ext
     , niri
+    , emacs-overlay
     , ...
     } @ inputs:
     let
@@ -150,6 +159,7 @@
             f2k.overlays.default
             vscode-ext.overlays.default
             niri.overlays.niri
+            emacs-overlay.overlay
           ];
       };
 
