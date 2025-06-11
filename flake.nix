@@ -114,7 +114,7 @@
     # Nixpkgs
     unstable-small.url = "github:nixos/nixpkgs/nixos-unstable-small";
     unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    stable.url = "github:nixos/nixpkgs/nixos-24.11";
+    stable.url = "github:nixos/nixpkgs/nixos-25.05";
 
     nixpkgs.follows = "unstable";
 
@@ -155,7 +155,7 @@
 
         overlays = importNixFiles ./overlays ++
           [
-            nur.overlay
+            nur.overlays.default
             f2k.overlays.default
             vscode-ext.overlays.default
             niri.overlays.niri
