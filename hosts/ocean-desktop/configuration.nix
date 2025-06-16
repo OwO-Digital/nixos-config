@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ config, pkgs, ... }: {
 
   modules = {
     desktop = {
@@ -45,6 +45,12 @@
       };
     };
     hardware.bluetooth.enable = true;
+  };
+
+  nix.settings = {
+    system-features = [
+      "gccarch-znver3"
+    ];
   };
 
   hardware.graphics = {
@@ -114,9 +120,11 @@
     scream # good VM audio
   ];
 
-  #boot.extraModulePackages = with config.boot.kernelPackages; [
-  #  apfs
-  #];
+  #boot.kernelPackages = pkgs.unstable-znver3.linuxPackages_zen;
+
+  boot.extraModulePackages = with config.boot.kernelPackages; [
+    apfs
+  ];
 
   boot.kernelModules = [
     "kvm-amd"
