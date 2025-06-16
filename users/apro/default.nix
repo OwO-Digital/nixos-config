@@ -65,10 +65,15 @@
 
   gtk = {
     enable = true;
-    theme = {
-      name = "phocus";
-      package = pkgs.everblush.phocus;
-    };
+
+    # NOTE:
+    # the Phocus build is currently broken,
+    # please look into a fix if you want to use it
+    #
+    #theme = {
+    #  name = "phocus";
+    #  package = pkgs.everblush.phocus;
+    #};
 
     iconTheme = {
       name = "Papirus-Dark";
