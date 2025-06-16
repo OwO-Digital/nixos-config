@@ -184,6 +184,11 @@
   #  modprobe -i vfio-pci
   #'';
 
+  #services.desktopManager.cosmic = {
+  #  enable = true;
+  #  xwayland.enable = true;
+  #};
+
 
 
   # required for NixOS SteamVR to work
