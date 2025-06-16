@@ -341,6 +341,7 @@ in
         kdePackages.filelight
         kdePackages.isoimagewriter
         kdePackages.kclock
+        kdePackages.kjournald
         kdePackages.ktorrent
         kdePackages.partitionmanager
         qdiskinfo
