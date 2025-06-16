@@ -236,6 +236,11 @@
     25565 # minecra
     3216 # EA App
   ];
+  networking.firewall.allowedTCPPortRanges = [
+    # FTP active mode (KIO + 3DS ftpd)
+    # ``cat /proc/sys/net/ipv4/ip_local_port_range``
+    { from = 32768; to = 60999; }
+  ];
 
   # WARN: experimental gaming settings
   #       https://github.com/ryuheechul/dotfiles/blob/b31301b146b8efd33170ffede8861379cb87c62f/nix/nixos/recipes/perf-tweaks.nix#L45
