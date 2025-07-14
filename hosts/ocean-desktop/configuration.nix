@@ -117,7 +117,7 @@
     # https://www.reddit.com/r/VFIO/comments/63hr88/why_is_pcie_acs_overridedownstreammultifunction/dfv4n4u/
     "pcie_acs_override=downstream,multifunction"
 
-    "vfio-pci.ids=1002:67ef,1002:aae0"
+    #"vfio-pci.ids=1002:67ef,1002:aae0"
     "pci=noats" # AMD-Vi times out without this
   ];
 
@@ -126,7 +126,13 @@
   # the module still loads later and binds to the host GPU
   boot.blacklistedKernelModules = [ "amdgpu" ];
   boot.initrd.kernelModules = [ "vfio_pci" ];
+  boot.initrd.availableKernelModules = [ ];
+
+  # seems to be pulling in amdgpu way too early
+  boot.initrd.includeDefaultModules = false;
+
   boot.initrd.preDeviceCommands = ''
+    modprobe -i vfio-pci
     echo "vfio-pci" > /sys/bus/pci/devices/0000:07:00.0/driver_override
     echo "vfio-pci" > /sys/bus/pci/devices/0000:07:00.1/driver_override
     echo 0000:07:00.0 > /sys/bus/pci/drivers_probe
@@ -162,13 +168,6 @@
   #'';
 
   #boot.initrd.availableKernelModules = [ "amdgpu" "vfio-pci" ];
-  #boot.initrd.preDeviceCommands = ''
-  #  DEVS="0000:07:00.0 0000:07:00.1"
-  #  for DEV in $DEVS; do
-  #    echo "vfio-pci" > /sys/bus/pci/devices/$DEV/driver_override
-  #  done
-  #  modprobe -i vfio-pci
-  #'';
 
   #services.desktopManager.cosmic = {
   #  enable = true;
