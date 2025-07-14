@@ -18,6 +18,9 @@
     {
       device = "/dev/disk/by-uuid/23f48d9f-cce6-488a-ba7f-5e2e0d13dd5d";
       fsType = "btrfs";
+      options = [
+        "compress=zstd:6"
+      ];
     };
 
   fileSystems."/boot/efi" =
@@ -33,6 +36,7 @@
       fsType = "btrfs";
       options = [
         "noatime"
+        "compress=zstd:6"
       ];
     };
 
@@ -40,12 +44,19 @@
     {
       device = "/dev/disk/by-uuid/da172f79-f4f5-425b-a000-0f4486c2932f";
       fsType = "btrfs";
+      options = [
+        "compress=zstd:3"
+      ];
     };
 
-  fileSystems."/archHome" = {
-    device = "/dev/disk/by-uuid/0d196eaf-8a57-410a-a702-2fd0508e387e";
-    fsType = "ext4";
-  };
+  fileSystems."/archHome" =
+    {
+      device = "/dev/disk/by-uuid/0d196eaf-8a57-410a-a702-2fd0508e387e";
+      fsType = "ext4";
+      options = [
+        "commit=60"
+      ];
+    };
 
   swapDevices =
     [{ device = "/dev/disk/by-uuid/37c98e08-e2a7-4875-a126-899e6e124e4b"; }];
