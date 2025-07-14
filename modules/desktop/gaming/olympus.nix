@@ -9,12 +9,12 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.flatpak = {
-      enable = true;
-      packages = [ "flathub:app/io.github.everestapi.Olympus//stable" ];
-      remotes = {
-        "flathub" = "https://dl.flathub.org/repo/flathub.flatpakrepo";
-      };
-    };
+    #services.flatpak = {
+    #  enable = true;
+    #  packages = [ "flathub:app/io.github.everestapi.Olympus//stable" ];
+    #  remotes = {
+    #    "flathub" = "https://dl.flathub.org/repo/flathub.flatpakrepo";
+    #  };
+    #};
   };
 }

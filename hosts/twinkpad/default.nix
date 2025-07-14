@@ -12,7 +12,7 @@ lib.nixosSystem {
 
     inputs.home.nixosModules.home-manager
     inputs.nixHW.nixosModules.lenovo-thinkpad-t460s
-    inputs.flatpaks.nixosModules.declarative-flatpak
+    #inputs.flatpaks.nixosModules.declarative-flatpak
     #inputs.nixos-cosmic.nixosModules.default
 
     ../shared/configuration.nix

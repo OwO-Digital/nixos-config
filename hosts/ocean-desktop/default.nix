@@ -11,7 +11,7 @@ lib.nixosSystem {
     }
 
     inputs.home.nixosModules.home-manager
-    inputs.flatpaks.nixosModules.declarative-flatpak
+    #inputs.flatpaks.nixosModules.declarative-flatpak
     inputs.nixpkgs-xr.nixosModules.nixpkgs-xr
     inputs.determinate.nixosModules.default
 
