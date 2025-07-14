@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 {
   programs.nushell = {
     enable = true;
@@ -30,9 +30,20 @@
         "[](fg:red)"
         "[$directory](fg:white bg:red)"
         "[ ](fg:red)"
+        "[](fg:red)"
+        "[\${custom.mountpoint}](fg:white bg:red)"
+        "[ ](fg:red)"
         "\n"
         "$shell"
       ];
+
+      custom.mountpoint = {
+        description = "Mountpoint of the current directory";
+        command = "findmnt -no SOURCE,TARGET -T .";
+        when = "true";
+        shell = [ "${lib.getExe pkgs.zsh}" ];
+        format = "$output";
+      };
 
       directory.format = "$path";
 
