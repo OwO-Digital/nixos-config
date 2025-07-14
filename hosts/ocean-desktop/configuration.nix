@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, lib, ... }: {
 
   modules = {
     desktop = {
@@ -98,7 +98,7 @@
     #scream # good VM audio
   ];
 
-  #boot.kernelPackages = pkgs.unstable-znver3.linuxPackages_zen;
+  boot.kernelPackages = lib.mkForce pkgs.unstable-znver3.linuxPackages_zen;
 
   boot.extraModulePackages = with config.boot.kernelPackages; [
     apfs
