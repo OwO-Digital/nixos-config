@@ -206,6 +206,8 @@
     interval = "weekly";
   };
 
+  networking.firewall.enable = false;
+
   networking.firewall.allowedTCPPorts = [
     25565 # minecra
     3216 # EA App
