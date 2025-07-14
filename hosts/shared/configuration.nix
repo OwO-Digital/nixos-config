@@ -71,7 +71,6 @@
 
   networking.networkmanager = {
     enable = true;
-    enableStrongSwan = true;
   };
   networking.firewall = {
     allowedTCPPorts = [
@@ -213,10 +212,6 @@
 
     openssh.enable = true;
     xl2tpd.enable = true;
-    strongswan = {
-      enable = true;
-      secrets = [ "ipsec.d/ipsec.nm-l2tp.secrets" ];
-    };
     gvfs.enable = true;
     tumbler.enable = true;
 
