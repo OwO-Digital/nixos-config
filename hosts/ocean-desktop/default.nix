@@ -14,6 +14,7 @@ lib.nixosSystem {
     #inputs.flatpaks.nixosModules.declarative-flatpak
     inputs.nixpkgs-xr.nixosModules.nixpkgs-xr
     inputs.determinate.nixosModules.default
+    inputs.lsfg-vk-flake.nixosModules.default
 
     # hardware modules
     inputs.nixHW.nixosModules.common-cpu-amd

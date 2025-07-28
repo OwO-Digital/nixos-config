@@ -16,6 +16,8 @@ lib.nixosSystem {
 
     inputs.nixHW.nixosModules.lenovo-thinkpad-t460
 
+    inputs.lsfg-vk-flake.nixosModules.default
+
     ../shared/configuration.nix
     ./configuration.nix
     ./hardware-configuration.nix

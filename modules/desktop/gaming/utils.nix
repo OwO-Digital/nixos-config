@@ -40,12 +40,19 @@ in
     # because nixos-hardware sets this by default
     # when using the common-gpu-amd module
     amdgpu-top = mkEnableDefault "AMDGPU_TOP - in-depth GPU monitoring" config.hardware.amdgpu.initrd.enable;
+
+    lsfg = mkEnableDefault "Lossless Scaling for Gaming Vulkan - frame generation and more for any game" false;
   };
 
   config = {
     programs.gamemode = mkIf cfg.gamemode {
       enable = true;
       enableRenice = mkDefault true;
+    };
+
+    services.lsfg-vk = mkIf cfg.lsfg {
+      enable = true;
+      ui.enable = mkDefault true;
     };
 
     services.joycond.enable = mkDefault cfg.joycond;

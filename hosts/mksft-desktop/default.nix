@@ -10,6 +10,7 @@ lib.nixosSystem {
       networking.hostName = "mksft-desktop";
     }
 
+    inputs.lsfg-vk-flake.nixosModules.default
     inputs.home.nixosModules.home-manager
     #inputs.flatpaks.nixosModules.declarative-flatpak
     #inputs.nixos-cosmic.nixosModules.default

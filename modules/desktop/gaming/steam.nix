@@ -25,9 +25,10 @@ in {
     modules.desktop.gaming.utils = {
       protonup = mkDefault true;
 
-      # both gamemode and mangohud will have to be enabled manually per game
+      # gamemode, mangohud and lsfg will have to be enabled manually per game
       gamemode = mkDefault true;
       overlays.mangohud = mkDefault true;
+      lsfg = mkDefault true;
 
       # SteamGridDB helper
       sgdboop = mkDefault true;
