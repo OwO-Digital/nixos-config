@@ -24,7 +24,7 @@
     ./swaync.nix
 
     # App launcher / search
-    #./gauntlet.nix # FIXME: https://github.com/project-gauntlet/gauntlet/issues/73
+    ./gauntlet.nix
 
   ];
 

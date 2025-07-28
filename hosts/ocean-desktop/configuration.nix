@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, lib, ... }: {
 
   modules = {
     desktop = {
@@ -81,28 +81,6 @@
   programs.alvr = {
     enable = true;
     openFirewall = true;
-
-    # FIXME: tried to pin the previous version, but couldn't get it to work
-    # https://github.com/NixOS/nixpkgs/issues/359680#issuecomment-2679625425
-
-    #package = pkgs.alvr.overrideAttrs (final: prev: rec {
-    #  pname = "alvr";
-    #  version = "20.12.0";
-    #
-    #  src = pkgs.fetchFromGitHub {
-    #    owner = "alvr-org";
-    #    repo = "ALVR";
-    #    tag = "v${version}";
-    #    fetchSubmodules = true;
-    #    hash = "sha256-4tilgZCUY5PehR0SQDOBahLaPVH4n5cgE7Ghw+SCgQk=";
-    #  };
-    #
-    #  cargoDeps = prev.cargoDeps.overrideAttrs (lib.const {
-    #    name = "${pname}-vendor.tar.gz";
-    #    inherit (final) src;
-    #    outputHash = "sha256-ocwNVdozZeF0hYDhYMshSbRHKfBFawIcO7UbTwk10xc=";
-    #  });
-    #});
   };
   programs.adb.enable = true; # wired ALVR
   environment.systemPackages = with pkgs; [
@@ -110,17 +88,17 @@
     wlx-overlay-s
 
     # VRChat creation
-    unityhub
+    #unityhub # broken 6.7.2025
     alcom
     vrc-get
 
     ydotool
 
     looking-glass-client # good VM video
-    scream # good VM audio
+    #scream # good VM audio
   ];
 
-  #boot.kernelPackages = pkgs.unstable-znver3.linuxPackages_zen;
+  boot.kernelPackages = lib.mkForce pkgs.unstable-znver3.linuxPackages_zen;
 
   boot.extraModulePackages = with config.boot.kernelPackages; [
     apfs
@@ -139,7 +117,7 @@
     # https://www.reddit.com/r/VFIO/comments/63hr88/why_is_pcie_acs_overridedownstreammultifunction/dfv4n4u/
     "pcie_acs_override=downstream,multifunction"
 
-    "vfio-pci.ids=1002:67ef,1002:aae0"
+    #"vfio-pci.ids=1002:67ef,1002:aae0"
     "pci=noats" # AMD-Vi times out without this
   ];
 
@@ -148,7 +126,13 @@
   # the module still loads later and binds to the host GPU
   boot.blacklistedKernelModules = [ "amdgpu" ];
   boot.initrd.kernelModules = [ "vfio_pci" ];
+  boot.initrd.availableKernelModules = [ ];
+
+  # seems to be pulling in amdgpu way too early
+  boot.initrd.includeDefaultModules = false;
+
   boot.initrd.preDeviceCommands = ''
+    modprobe -i vfio-pci
     echo "vfio-pci" > /sys/bus/pci/devices/0000:07:00.0/driver_override
     echo "vfio-pci" > /sys/bus/pci/devices/0000:07:00.1/driver_override
     echo 0000:07:00.0 > /sys/bus/pci/drivers_probe
@@ -167,16 +151,16 @@
     "f /dev/shm/looking-glass 0660 octelly qemu-libvirtd -"
     "f /dev/shm/scream 0660 octelly qemu-libvirtd -"
   ];
-  systemd.user.services.scream-ivshmem = {
-    enable = true;
-    description = "Scream IVSHMEM";
-    serviceConfig = {
-      ExecStart = "${pkgs.scream}/bin/scream -m /dev/shm/scream -o pulse -v";
-      Restart = "always";
-    };
-    wantedBy = [ "multi-user.target" ];
-    requires = [ "pulseaudio.service" ];
-  };
+  #systemd.user.services.scream-ivshmem = {
+  #  enable = true;
+  #  description = "Scream IVSHMEM";
+  #  serviceConfig = {
+  #    ExecStart = "${pkgs.scream}/bin/scream -m /dev/shm/scream -o pulse -v";
+  #    Restart = "always";
+  #  };
+  #  wantedBy = [ "multi-user.target" ];
+  #  requires = [ "pulseaudio.service" ];
+  #};
 
   #boot.extraModprobeConfig = ''
   #  softdep drm pre: vfio-pci
@@ -184,13 +168,6 @@
   #'';
 
   #boot.initrd.availableKernelModules = [ "amdgpu" "vfio-pci" ];
-  #boot.initrd.preDeviceCommands = ''
-  #  DEVS="0000:07:00.0 0000:07:00.1"
-  #  for DEV in $DEVS; do
-  #    echo "vfio-pci" > /sys/bus/pci/devices/$DEV/driver_override
-  #  done
-  #  modprobe -i vfio-pci
-  #'';
 
   #services.desktopManager.cosmic = {
   #  enable = true;
@@ -227,6 +204,8 @@
     enable = true;
     interval = "weekly";
   };
+
+  networking.firewall.enable = false;
 
   networking.firewall.allowedTCPPorts = [
     25565 # minecra

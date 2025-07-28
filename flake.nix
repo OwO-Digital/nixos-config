@@ -109,6 +109,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    lsfg-vk-flake = {
+      type = "github";
+      owner = "pabloaul";
+      repo = "lsfg-vk-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
 
     # Nixpkgs
