@@ -444,7 +444,7 @@ in
     playerName = "octelly_at_${lib.replaceString "-" "_" nixConfig.networking.hostName}";
 
     # FIXME: upstream issue https://github.com/jecaro/mprisqueeze/issues/2
-    mprisqueeze.enable = true;
+    mprisqueeze.enable = false;
   };
 
   programs.obs-studio = {
