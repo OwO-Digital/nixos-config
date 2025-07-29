@@ -137,13 +137,14 @@ in
   config.home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    extraSpecialArgs = { inherit inputs system; };
+    extraSpecialArgs = { inherit inputs system; nixConfig = config; };
     sharedModules = [
       #inputs.anyrun.homeManagerModules.default
       #inputs.hyprland.homeManagerModules.default
       inputs.plasma-manager.homeManagerModules.plasma-manager
       inputs.nixvim.homeManagerModules.nixvim
       inputs.niri.homeModules.niri
+      ../home/squeezelite.nix
     ];
     users = homeCfg;
   };

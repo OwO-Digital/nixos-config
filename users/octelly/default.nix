@@ -1,4 +1,4 @@
-{ config, inputs, lib, pkgs, system, ... }:
+{ config, nixConfig, inputs, lib, pkgs, system, ... }:
 
 let
   chromiumFlags = [
@@ -438,6 +438,14 @@ in
   #    isDefault = true;
   #  };
   #};
+
+  services.squeezelite = {
+    enable = true;
+    playerName = "octelly_at_${lib.replaceString "-" "_" nixConfig.networking.hostName}";
+
+    # FIXME: upstream issue https://github.com/jecaro/mprisqueeze/issues/2
+    mprisqueeze.enable = true;
+  };
 
   programs.obs-studio = {
     enable = true;

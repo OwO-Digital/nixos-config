@@ -116,6 +116,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    mprisqueeze = {
+      type = "github";
+      owner = "jecaro";
+      repo = "mprisqueeze";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
 
     # Nixpkgs
