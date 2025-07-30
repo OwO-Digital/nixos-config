@@ -63,7 +63,9 @@
   #	};
 
   programs.ncmpcpp = {
-    enable = true;
+    # 2025/07/30
+    # configure: error: cannot find Boost headers version >= 1.60.0
+    #enable = true;
     package = pkgs.ncmpcpp.override { visualizerSupport = true; clockSupport = true; taglibSupport = true; };
     mpdMusicDir = "/home/apro/Music";
 
