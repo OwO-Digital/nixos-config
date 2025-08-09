@@ -58,8 +58,7 @@ in
     };
 
     wantedBy = mkOption {
-      default = "graphical.target";
-      example = "default.target";
+      default = "default.target";
       type = types.str;
       description = ''
         Set the WantedBy value for the systemd service.
@@ -109,6 +108,17 @@ in
           then mprisqueezeCommand
           else squeezeliteCommand;
         Restart = "on-failure";
+
+        # Security
+        CapabilityBoundingSet = [ ];
+        LockPersonality = true;
+        NoNewPrivileges = true;
+        PrivateDevices = true;
+        PrivateTmp = true;
+        PrivateUsers = true;
+        RestrictSUIDSGID = true;
+        ProtectSystem = "full";
+        ProtectProc = true;
       };
     };
   };
