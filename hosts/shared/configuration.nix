@@ -206,6 +206,16 @@
     enable = true;
   };
 
+  security.wrappers = {
+    go-hass-agent = {
+      source = lib.getExe pkgs.go-hass-agent;
+      owner = "root";
+      group = "root";
+      # https://github.com/joshuar/go-hass-agent/blob/22920ac0545c9804103fc350377f359aabd1f886/assets/postinstall.sh#L9
+      capabilities = "cap_sys_rawio,cap_sys_admin,cap_mknod,cap_dac_override=+ep";
+    };
+  };
+
   services = {
     dbus.enable = true;
     fwupd.enable = true; # Required for "Firmware Security" page of KDE's Info Center
@@ -232,6 +242,8 @@
     enable = true;
     enableGraphical = true;
   };
+
+  hardware.i2c.enable = true;
 
   system.stateVersion = "22.11";
 

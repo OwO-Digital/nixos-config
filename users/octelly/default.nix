@@ -356,6 +356,8 @@ in
 
         #krdc
 
+        go-hass-agent
+
         rustup
 
         inputs.zen-browser.packages."${system}".default

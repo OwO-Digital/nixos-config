@@ -20,7 +20,9 @@ with lib; let
           # ADB
           ++ lib.optional config.programs.adb.enable "adbusers"
           # Docker
-          ++ lib.optional config.virtualisation.docker.enable "docker";
+          ++ lib.optional config.virtualisation.docker.enable "docker"
+          # i2c
+          ++ lib.optional config.hardware.i2c.enable config.hardware.i2c.group;
         homeMode = "755";
         initialPassword = "gay";
         shell = v.shell or null;
