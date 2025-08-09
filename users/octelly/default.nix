@@ -302,6 +302,9 @@ in
         moonlight-qt
         grayjay
 
+        tail-tray
+
+        ddcutil
 
         #networkmanagerapplet
         #networkmanager-l2tp

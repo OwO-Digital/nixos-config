@@ -53,6 +53,8 @@
     ];
   };
 
+  hardware.amdgpu.opencl.enable = true;
+
   hardware.graphics = {
     enable = true;
     #extraPackages = with pkgs; [
@@ -124,20 +126,20 @@
   # this prevents the amdgpu module from loading during boot
   # (and thus prevent amdgpu from snatching out VM guest GPU)
   # the module still loads later and binds to the host GPU
-  boot.blacklistedKernelModules = [ "amdgpu" ];
+  #boot.blacklistedKernelModules = [ "amdgpu" ];
   boot.initrd.kernelModules = [ "vfio_pci" ];
-  boot.initrd.availableKernelModules = [ ];
+  #boot.initrd.availableKernelModules = [ ];
 
   # seems to be pulling in amdgpu way too early
-  boot.initrd.includeDefaultModules = false;
+  #boot.initrd.includeDefaultModules = false;
 
-  boot.initrd.preDeviceCommands = ''
-    modprobe -i vfio-pci
-    echo "vfio-pci" > /sys/bus/pci/devices/0000:07:00.0/driver_override
-    echo "vfio-pci" > /sys/bus/pci/devices/0000:07:00.1/driver_override
-    echo 0000:07:00.0 > /sys/bus/pci/drivers_probe
-    echo 0000:07:00.1 > /sys/bus/pci/drivers_probe
-  '';
+  #boot.initrd.preDeviceCommands = ''
+  #  modprobe -i vfio-pci
+  #  echo "vfio-pci" > /sys/bus/pci/devices/0000:07:00.0/driver_override
+  #  echo "vfio-pci" > /sys/bus/pci/devices/0000:07:00.1/driver_override
+  #  echo 0000:07:00.0 > /sys/bus/pci/drivers_probe
+  #  echo 0000:07:00.1 > /sys/bus/pci/drivers_probe
+  #'';
 
   virtualisation.libvirtd = {
     enable = true;
@@ -149,7 +151,7 @@
   programs.virt-manager.enable = true;
   systemd.tmpfiles.rules = [
     "f /dev/shm/looking-glass 0660 octelly qemu-libvirtd -"
-    "f /dev/shm/scream 0660 octelly qemu-libvirtd -"
+    #"f /dev/shm/scream 0660 octelly qemu-libvirtd -"
   ];
   #systemd.user.services.scream-ivshmem = {
   #  enable = true;
@@ -162,10 +164,15 @@
   #  requires = [ "pulseaudio.service" ];
   #};
 
-  #boot.extraModprobeConfig = ''
-  #  softdep drm pre: vfio-pci
-  #  options vfio-pci ids=1002:67ef,1002:aae0
-  #'';
+  boot.extraModprobeConfig = lib.concatStringsSep "\n" [
+    # make vfio-pci a pre-dependency of the usual video modules
+    # forcing it to load first
+    "softdep amdgpu pre: vfio-pci"
+    "softdep drm pre: vfio-pci"
+
+    # have vfio-pci grab the RX 560 on boot
+    "options vfio-pci ids=1002:67ef,1002:aae0"
+  ];
 
   #boot.initrd.availableKernelModules = [ "amdgpu" "vfio-pci" ];
 
@@ -190,6 +197,8 @@
   ];
 
   services.flatpak.enable = true;
+
+  services.tailscale.enable = true;
 
   fileSystems."/tmp" = {
     device = "none";
