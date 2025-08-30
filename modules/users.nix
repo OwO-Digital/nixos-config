@@ -25,7 +25,7 @@ with lib; let
           ++ lib.optional config.hardware.i2c.enable config.hardware.i2c.group;
         homeMode = "755";
         initialPassword = "gay";
-        shell = v.shell or null;
+        shell = v.shell or config.users.defaultUserShell;
       })
       cfg;
 

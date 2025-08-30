@@ -46,9 +46,6 @@
         # look
         fontSize = 20;
 
-        # auto populate boot entries
-        useOSProber = true;
-
         # add netboot.xyz as an entry
         extraFiles."netboot-xyz.efi" = pkgs.netbootxyz-efi;
         extraEntries = ''

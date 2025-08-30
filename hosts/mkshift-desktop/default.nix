@@ -7,11 +7,12 @@ lib.nixosSystem {
   modules = [
     {
       nixpkgs = repoConf;
-      networking.hostName = "mksft-desktop";
+      networking.hostName = "mkshift-desktop";
     }
 
     inputs.lsfg-vk-flake.nixosModules.default
     inputs.home.nixosModules.home-manager
+    inputs.determinate.nixosModules.default
     #inputs.flatpaks.nixosModules.declarative-flatpak
     #inputs.nixos-cosmic.nixosModules.default
 
