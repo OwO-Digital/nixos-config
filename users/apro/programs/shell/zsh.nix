@@ -8,7 +8,7 @@
 		autosuggestion.enable = true;
 		syntaxHighlighting.enable = true;
 		enableCompletion = true;
-		dotDir = ".config/zsh";
+		dotDir = config.xdg.configHome + "zsh";
 
 		shellAliases = {
 			"ls" = "exa --icons";
@@ -49,7 +49,7 @@
 			":wq" = "exit";
 		};
 
-		initExtra = ''
+		initContent = ''
 			setopt autocd extendedglob nomatch
 			unsetopt beep notify
 			bindkey -e

@@ -87,6 +87,7 @@ final: prev: {
       description = "A Home Assistant, native app for desktop/laptop devices.";
       homepage = "https://github.com/joshuar/go-hass-agent";
       license = lib.licenses.mit;
+	  mainProgram = "go-hass-agent";
     };
   };
 }
