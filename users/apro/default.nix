@@ -67,14 +67,10 @@
 	gtk = {
 		enable = true;
 
-		# NOTE:
-		# the Phocus build is currently broken,
-		# please look into a fix if you want to use it
-		#
-		#theme = {
-		#	name = "phocus";
-		#	package = pkgs.everblush.phocus;
-		#};
+		theme = {
+			name = "phocus";
+			package = pkgs.everblush.phocus;
+		};
 
 		iconTheme = {
 			name = "Papirus-Dark";
@@ -82,7 +78,7 @@
 		};
 
 		font = {
-			name = "Roboto Condensed";
+			name = "Atkinson Hyperlegible Next";
 			size = 12;
 		};
 
@@ -107,12 +103,12 @@
 				"inode/directory" = [ "pcmanfm.desktop" ];
 				"video" = [ "mpv.desktop" ];
 				"image" = [ "sxiv.desktop" ];
-				"default-web-browser" = [ "zen.desktop" ];
-				"text/html" = [ "zen.desktop" ];
-				"x-scheme-handler/http" = [ "zen.desktop" ];
-				"x-scheme-handler/https" = [ "zen.desktop" ];
-				"x-scheme-handler/about" = [ "zen.desktop" ];
-				"x-scheme-handler/unknown" = [ "zen.desktop" ];
+				"default-web-browser" = [ "zen-beta.desktop" ];
+				"text/html" = [ "zen-beta.desktop" ];
+				"x-scheme-handler/http" = [ "zen-beta.desktop" ];
+				"x-scheme-handler/https" = [ "zen-beta.desktop" ];
+				"x-scheme-handler/about" = [ "zen-beta.desktop" ];
+				"x-scheme-handler/unknown" = [ "zen-beta.desktop" ];
 			};
 		};
 
@@ -132,10 +128,10 @@
 		};
 
 		configFile = {
-			# awesome.source = ./config/awesome;
-			picom.source = ./config/picom;
-			rofi.source = ./config/rofi;
-			"libinput-gestures.conf".source = ./config/libinput-gestures.conf;
+			# awesome.source = ./dots/awesome;
+			picom.source = ./dots/picom;
+			rofi.source = ./dots/rofi;
+			"libinput-gestures.conf".source = ./dots/libinput-gestures.conf;
 
 			"mimeapps.list".force = true;
 		};
@@ -146,20 +142,20 @@
 	};
 
 	imports = [
-		./programs/shell
+		./modules/shell
 
-		./programs/utils/bat.nix
-		./programs/utils/direnv.nix
-		./programs/utils/eza.nix
-		./programs/utils/git.nix
+		./modules/utils/bat.nix
+		./modules/utils/direnv.nix
+		./modules/utils/eza.nix
+		./modules/utils/git.nix
 
-		# ./programs/apps/discocss.nix
-		./programs/apps/firefox.nix
-		./programs/apps/foot.nix
-		./programs/apps/mpd.nix
-		./programs/apps/vscodium.nix
-		./programs/apps/wezterm.nix
+		# ./modules/apps/discocss.nix
+		./modules/apps/firefox.nix
+		./modules/apps/foot.nix
+		./modules/apps/mpd.nix
+		./modules/apps/vscodium.nix
+		./modules/apps/wezterm.nix
 
-		./programs/wms/hyprland
+		./modules/wms/hyprland
 	];
 }
