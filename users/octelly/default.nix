@@ -337,6 +337,9 @@ in
         inputs.kwin-effects-forceblur.packages.${pkgs.system}.default
         kde-rounded-corners
         klassy
+        plasma-panel-colorizer
+        plasma-wallpaper-effects
+        python313Packages.kde-material-you-colors
 
         # GTK theme
         adw-gtk3
