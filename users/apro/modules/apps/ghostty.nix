@@ -1,8 +1,8 @@
-{ config, lib, pkgs, inputs, ... }: {
+{ config, lib, pkgs, inputs, system, ... }: {
 
   programs.ghostty = {
     enable = true;
-	package = inputs.ghostty.packages.x86_64-linux.default;
+	# package = inputs.ghostty.packages.${system}.default;
 	
 	installVimSyntax = true;
 	enableBashIntegration = true;
@@ -11,7 +11,7 @@
 
 	settings = {
 	  font-family = [
-	    "Maple Mono NF"
+		"Maple Mono NF"
 		"Blobmoji"
 	  ];
 	  font-size = 11;
