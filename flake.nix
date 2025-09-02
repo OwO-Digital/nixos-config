@@ -25,10 +25,10 @@
       url = "github:wezterm/wezterm?dir=nix";
       inputs.nixpkgs.follows = "unstable";
     };
-	ghostty = {
-		url = "github:ghostty-org/ghostty";
-		inputs.nixpkgs.follows = "unstable";
-	};
+    ghostty = {
+      url = "github:ghostty-org/ghostty";
+      inputs.nixpkgs.follows = "unstable";
+    };
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
