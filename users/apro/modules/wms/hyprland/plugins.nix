@@ -1,21 +1,21 @@
 { config, inputs, lib, pkgs, system, ... }: {
 
   wayland.windowManager.hyprland = {
-    #plugins = (with inputs.hyprland-plugins.packages.${system}; [
-    #  # hyprbars #crashes with hyprtrails but hyprbars suck anyways
+    plugins = (with inputs.hyprland-plugins.packages.${system}; [
+       hyprbars #crashes with hyprtrails but hyprbars suck anyways
 
-    #  #hyprtrails #crashes with hyprbars
-    #  # elly: prevents system update
+      #hyprtrails #crashes with hyprbars
+      # elly: prevents system update
 
-    #  #hyprexpo
-    #  # elly: prevents system update
-    #]) ++ [
-    #  # inputs.hyprsplit.packages.${system}.hyprsplit
-    #  # elly: prevents system update
+      #hyprexpo
+      # elly: prevents system update
+    ]) ++ [
+       inputs.hyprsplit.packages.${system}.hyprsplit
+       # elly: prevents system update
 
-    #  #inputs.hypr-dynamic-cursors.packages.${system}.hypr-dynamic-cursors
-    #  # elly: prevents system update
-    #];
+      inputs.hypr-dynamic-cursors.packages.${system}.hypr-dynamic-cursors
+      # elly: prevents system update
+    ];
 
     settings = {
       plugin = {

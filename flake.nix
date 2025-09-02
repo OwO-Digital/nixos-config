@@ -59,7 +59,7 @@
     };
 
     ## Hyprland stuff
-    hyprland.url = "github:hyprwm/Hyprland/v0.47.2-b";
+    hyprland.url = "github:hyprwm/Hyprland";
     hyprland-plugins = {
       url = "github:hyprwm/hyprland-plugins";
       inputs.hyprland.follows = "hyprland";
@@ -168,6 +168,7 @@
             "cinny-unwrapped-4.2.3"
             "cinny-4.2.3"
             "olm-3.2.16" # this is what marks fluffy and many other matrix things as insecure
+			"qtwebengine-5.15.19" # apparently needed for fontconfig (according to what elly told me -emi)
           ];
         };
 
