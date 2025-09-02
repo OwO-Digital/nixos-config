@@ -64,6 +64,7 @@ menuentry 'Arch Linux' --class arch --class gnu-linux --class gnu --class os {
   };
 
   services.flatpak.enable = true;
+  services.tailscale.enable = true;
 
   services.btrfs.autoScrub = {
     enable = true;
