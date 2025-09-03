@@ -102,9 +102,9 @@
 
   boot.kernelPackages = lib.mkForce pkgs.unstable-znver3.linuxPackages_zen;
 
-  boot.extraModulePackages = with config.boot.kernelPackages; [
-    apfs
-  ];
+  #boot.extraModulePackages = with config.boot.kernelPackages; [
+  #  apfs
+  #];
 
   boot.kernelModules = [
     "kvm-amd"
