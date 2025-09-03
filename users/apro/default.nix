@@ -37,12 +37,13 @@
 			inputs.zen-browser.packages.${system}.default
 			vesktop
 			nheko
-		go-hass-agent
+			go-hass-agent
 
 			(giph.override { ffmpeg = (ffmpeg_6.override { ffmpegVariant = "full"; }); })
 			# etterna
 			comma
 		]);
+
 
 		pointerCursor = {
 			x11.enable = true;
