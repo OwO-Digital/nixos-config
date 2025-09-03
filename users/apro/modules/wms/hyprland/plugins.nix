@@ -38,11 +38,11 @@
           bar_color = "rgb(141b1e)";
           "col.text" = "rgb(dadada)";
           bar_text_size = "12";
-          bar_text_font = "Roboto Condensed";
+          bar_text_font = "Atkinson Hyperlegible Next";
           hyprbars-button = [
-            "rgb(e57474), 12, x, hyprctl dispatch killactive"
-            "rgb(e5c76b), 12, o, hyprctl dispatch fullscreen 1"
-            "rgb(8ccf7e), 12, m, hyprctl dispatch swapwithmaster"
+            "rgb(e57474), 12,, hyprctl dispatch killactive"
+            "rgb(e5c76b), 12,, hyprctl dispatch swapwithmaster"
+            "rgb(8ccf7e), 12,, hyprctl dispatch fullscreen 1"
           ];
         };
 

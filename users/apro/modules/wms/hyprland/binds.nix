@@ -8,13 +8,16 @@
 		run = "rofi -show drun";
 	in {
 
+		gesture = [
+			"3, vertical, workspace"
+		];
 		bind = [
 			"${mod}, Return, exec, ${term}"
 			"${mod}, Q, killactive"
 			"${mod}_SHIFT, BackSpace, exit"
 			"${mod}_SHIFT, space, togglefloating"
 			"${mod}, R, exec, ${run}"
-			"${mod}, slash, hyprexpo:expo, toggle"
+			# "${mod}, slash, hyprexpo:expo, toggle"
 
 			"${mod}, J, cyclenext"
 			"${mod}, K, cyclenext, prev"
