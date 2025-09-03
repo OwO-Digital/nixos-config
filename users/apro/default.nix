@@ -44,7 +44,6 @@
 			comma
 		]);
 
-
 		pointerCursor = {
 			x11.enable = true;
 			gtk.enable = true;
@@ -260,12 +259,10 @@ headerbar {
 	};
 
 	imports = [
-		./modules/shell/zsh.nix
+		./modules/shell/fish.nix
+		# ./modules/shell/zsh.nix
 		./modules/shell/starship.nix
-		./modules/shell/bat.nix
-		./modules/shell/direnv.nix
-		./modules/shell/eza.nix
-		./modules/shell/git.nix
+		./modules/shell/utils.nix
 
 		# ./modules/apps/discocss.nix
 		./modules/apps/firefox.nix

@@ -151,7 +151,7 @@
     ++ lib.optional config.services.desktopManager.plasma6.enable pkgs.kdePackages.kpmcore;
 
     # WARN: polkit will error out with shells not listed here
-    shells = with pkgs; [ zsh bash nushell elvish ];
+    shells = with pkgs; [ fish zsh bash nushell elvish ];
     binsh = "${pkgs.bash}/bin/bash";
 
     variables = {
@@ -182,6 +182,7 @@
       viAlias = true;
       vimAlias = true;
     };
+    fish.enable = true;
     zsh.enable = true;
     nh = {
       enable = true;
