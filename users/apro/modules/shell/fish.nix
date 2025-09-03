@@ -77,7 +77,6 @@
   			'';
 		};
 
-		direnv.enableFishIntegration = true;
 		eza.enableFishIntegration = true;
 		starship = {
 			enableFishIntegration = true;
