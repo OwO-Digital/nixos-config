@@ -26,8 +26,10 @@
             psp = true;
           };
         };
+        fangames = {
+          ringracers = true;
+        };
         #ports = {
-        #  enable = true;
         #  zelda.majora = true;
         #  zelda.ocarina = true;
         #};
