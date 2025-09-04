@@ -5,7 +5,6 @@ with lib;
 let cfg = config.modules.desktop.gaming.ports;
 in {
   options.modules.desktop.gaming.ports = {
-    enable = mkEnableOption "the emulation module";
     zelda = {
       majora = mkEnableOption "The Legend of Zelda: Majora's Mask";
       ocarina = mkEnableOption "The Legend of Zelda: Ocarina of Time";
@@ -15,7 +14,7 @@ in {
     };
   };
 
-  config = mkIf cfg.enable {
+  config = {
     environment.systemPackages =
       optional cfg.zelda.majora pkgs._2ship2harkinian
       ++ optional cfg.zelda.ocarina pkgs.shipwright
