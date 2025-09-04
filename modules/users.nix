@@ -35,7 +35,8 @@ with lib; let
         n: v:
           let
             dir = toString ../users/${n};
-          in {
+          in
+          {
             home = rec {
               username = n;
               homeDirectory = "/home/${n}";
@@ -47,15 +48,15 @@ with lib; let
               '';
             };
             programs.home-manager.enable = true;
-			fonts.fontconfig = {
-				enable = true;
-				defaultFonts = {
-					sansSerif = v.fc.defaultFonts.sansSerif;
-					serif = v.fc.defaultFonts.serif;
-					monospace = v.fc.defaultFonts.monospace;
-					emoji = v.fc.defaultFonts.emoji;
-				};
-			};
+            fonts.fontconfig = {
+              enable = true;
+              defaultFonts = {
+                sansSerif = v.fc.defaultFonts.sansSerif;
+                serif = v.fc.defaultFonts.serif;
+                monospace = v.fc.defaultFonts.monospace;
+                emoji = v.fc.defaultFonts.emoji;
+              };
+            };
             imports =
               [
                 dir
@@ -72,19 +73,21 @@ in
       apro = {
         desc = "Emi Pikner";
         modules = [ ];
-		shell = pkgs.fish;
+        shell = pkgs.fish;
         fc = {
           # `fonts` takes a list of packages
           fonts = with pkgs; [
-		  	maple-mono.NF
-			cozette
-			atkinson-hyperlegible-next
-			roboto
-			twemoji-color-font
-			noto-fonts noto-fonts-cjk-sans noto-fonts-cjk-serif
-			noto-fonts-emoji-blob-bin
-			material-design-icons
-		  ];
+            maple-mono.NF
+            cozette
+            atkinson-hyperlegible-next
+            roboto
+            twemoji-color-font
+            noto-fonts
+            noto-fonts-cjk-sans
+            noto-fonts-cjk-serif
+            noto-fonts-emoji-blob-bin
+            material-design-icons
+          ];
           # list of pkgs.nerd-fonts attributes
           nerd-fonts = [ "iosevka" "jetbrains-mono" ];
           defaultFonts = {
@@ -132,8 +135,8 @@ in
     sharedModules = [
       #inputs.anyrun.homeManagerModules.default
       #inputs.hyprland.homeManagerModules.default
-      inputs.plasma-manager.homeManagerModules.plasma-manager
-      inputs.nixvim.homeManagerModules.nixvim
+      inputs.plasma-manager.homeModules.plasma-manager
+      inputs.nixvim.homeModules.nixvim
       inputs.niri.homeModules.niri
       ../home/squeezelite.nix
     ];
