@@ -19,7 +19,7 @@ final: prev: {
       # than I'm willing to put into this 
       leaveDotGit = true;
 
-      hash = "sha256-ad1VAsfoAivZ3Lr2gp8qFgJQ6FUFx9pH/a9ib7aVwRk=";
+      hash = "sha256-Wg2SLzDyOdHYS4EGnMczpEwaFhazDJhsym22CI0rJek=";
     };
 
     desktopItems = [
@@ -87,7 +87,7 @@ final: prev: {
       description = "A Home Assistant, native app for desktop/laptop devices.";
       homepage = "https://github.com/joshuar/go-hass-agent";
       license = lib.licenses.mit;
-	  mainProgram = "go-hass-agent";
+      mainProgram = "go-hass-agent";
     };
   };
 }
