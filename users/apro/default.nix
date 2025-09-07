@@ -270,7 +270,7 @@ headerbar {
 		./modules/apps/ghostty.nix
 		./modules/apps/mpd.nix
 		./modules/apps/vscodium.nix
-		# ./modules/apps/wezterm.nix
+		./modules/apps/wezterm.nix
 
 		./modules/wms/hyprland
 	];

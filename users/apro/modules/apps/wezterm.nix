@@ -2,7 +2,7 @@
 
   programs.wezterm = {
     enable = true;
-    package = pkgs.stable.wezterm;
+    package = pkgs.wezterm;
 
     extraConfig = /* lua */ ''
       wezterm.on('format-tab-title', function(tab, tabs, panes, config, hover, max_width)
@@ -63,25 +63,30 @@
       		-- Font
       		font = wezterm.font_with_fallback {
       			{
-      				family = "Iosevka Nerd Font",
-      				harfbuzz_features = { "ss14=1" },
+      				family = "Maple Mono NF",
+      				harfbuzz_features = {
+						"calt", "ss08", "ss11", -- ligatures
+						"cv01", -- no gaps in special symbols
+						"cv64", -- >= and <= with straight bottomline
+						"cv02", -- "cv31", -- a with a top arm
+						"cv09", "cv42", -- 7 with strikethrough
+						-- "zero", -- dotted 0
+					},
       			},
       			"Blobmoji",
-      		},
-      		font_rules = {
-      			{
-      				italic = true,
-      				font = wezterm.font {
-      					family = "Maple Mono",
-      					style  = "Italic",
-      				}
-      			}
       		},
       		-- Font size
       		font_size = 12.0,
       		default_cursor_style = "BlinkingUnderline",
       		use_fancy_tab_bar = false,
       		tab_bar_at_bottom = true,
+
+			window_padding = {
+				left = 12,
+				right = 12,
+				top = 12,
+				bottom = 12,
+			},
 
       		color_scheme = 'Everblush',
       		-- Tab Colors
