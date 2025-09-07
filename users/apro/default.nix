@@ -263,6 +263,7 @@ headerbar {
 		# ./modules/shell/zsh.nix
 		./modules/shell/starship.nix
 		./modules/shell/utils.nix
+		./modules/shell/fetch.nix
 
 		# ./modules/apps/discocss.nix
 		./modules/apps/firefox.nix
