@@ -76,7 +76,7 @@
       			"Blobmoji",
       		},
       		-- Font size
-      		font_size = 12.0,
+      		font_size = 11.0,
       		default_cursor_style = "BlinkingUnderline",
       		use_fancy_tab_bar = false,
       		tab_bar_at_bottom = true,
