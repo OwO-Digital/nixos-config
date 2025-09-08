@@ -148,7 +148,8 @@
       zip
     ]
     # adds PolicyKit rules
-    ++ lib.optional config.services.desktopManager.plasma6.enable pkgs.kdePackages.kpmcore;
+    ++ lib.optional config.services.desktopManager.plasma6.enable pkgs.kdePackages.kpmcore
+    ++ lib.optional config.services.desktopManager.plasma6.enable pkgs.kdePackages.plasma-welcome;
 
     # WARN: polkit will error out with shells not listed here
     shells = with pkgs; [ fish zsh bash nushell elvish ];
