@@ -2,7 +2,7 @@
 
   programs.ghostty = {
     enable = true;
-	# package = inputs.ghostty.packages.${system}.default;
+	package = inputs.ghostty.packages.${system}.default;
 	
 	installVimSyntax = true;
 	enableBashIntegration = true;
