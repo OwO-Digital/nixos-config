@@ -742,6 +742,8 @@ in
       geequlim.godot-tools
       yesterday17.zenscript
       jcs090218.ellsp
+      ronnidc.nunjucks
+      unifiedjs.vscode-mdx
       # this one broken somehow, bruh:
       #rust-lang.rust-analyzer
 
