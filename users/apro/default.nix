@@ -17,7 +17,6 @@
 			obsidian
 			zed-editor
 			nicotine-plus # yarr harr
-			obs-studio
 			blockbench-electron
 			#jrnl
 			feh
@@ -256,6 +255,17 @@ headerbar {
 
 	services = {
 		gnome-keyring.enable = true;
+	};
+
+	programs = {
+		obs-studio = {
+			enable = true;
+			plugins = with pkgs.obs-studio-plugins; [
+				obs-vaapi
+				obs-vkcapture
+				obs-gstreamer
+			];
+		};
 	};
 
 	imports = [
