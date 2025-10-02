@@ -225,10 +225,13 @@
       # see project directory (cd into project with :cd)
       nvim-tree = {
         enable = true;
-        sync_root_with_cwd = true;
 
-        # colours are enough imo
-        settings.renderer.icons.show.git = false;
+        settings = {
+          sync_root_with_cwd = true;
+
+          # colours are enough imo
+          renderer.icons.show.git = false;
+        };
       };
 
       # icons provider for nvim-tree, trouble and other plugins
