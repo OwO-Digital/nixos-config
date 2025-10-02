@@ -23,6 +23,7 @@
           enable = true;
           nintendo.wii = true;
         };
+        fangames.ringracers = true;
       };
       awesome = {
         enable = true;
@@ -40,6 +41,12 @@
       };
     };
   };
+
+  hardware.graphics = {
+    enable = true;
+  };
+
+  services.tailscale.enable = true;
 
   networking.firewall.allowedTCPPorts = [ 25565 ];
 
