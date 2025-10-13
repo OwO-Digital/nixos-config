@@ -234,6 +234,11 @@
       browsing = true;
     };
 
+    # document scanning
+    saned = {
+      enable = true;
+    };
+
     desktopManager.plasma6.enable = true;
   };
 
