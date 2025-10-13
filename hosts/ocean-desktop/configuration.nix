@@ -29,10 +29,6 @@
         fangames = {
           ringracers = true;
         };
-        #ports = {
-        #  zelda.majora = true;
-        #  zelda.ocarina = true;
-        #};
         utils.overlays.vkbasalt = true;
       };
       awesome = {
@@ -59,10 +55,6 @@
 
   hardware.graphics = {
     enable = true;
-    #extraPackages = with pkgs; [
-    #  # p sure this was here only for Davinki
-    #  #rocmPackages.clr.icd
-    #];
   };
 
   programs.corectrl.enable = true;
@@ -91,23 +83,19 @@
     wayvr-dashboard
     wlx-overlay-s
 
-    # VRChat creation
-    #unityhub # broken 6.7.2025
-    alcom
-    vrc-get
-
     ydotool
 
     looking-glass-client # good VM video
-    #scream # good VM audio
   ];
 
   boot.kernelPackages = lib.mkForce pkgs.unstable-znver3.linuxPackages_zen;
 
+  # NOTE: apfs breaks very often and is often temporarily disabled
   #boot.extraModulePackages = with config.boot.kernelPackages; [
   #  apfs
   #];
 
+  # FIXME: test what parts of this entire vfio section are necessary
   boot.kernelModules = [
     "kvm-amd"
     "vfio"
@@ -124,25 +112,7 @@
     #"vfio-pci.ids=1002:67ef,1002:aae0"
     "pci=noats" # AMD-Vi times out without this
   ];
-
-  # this prevents the amdgpu module from loading during boot
-  # (and thus prevent amdgpu from snatching out VM guest GPU)
-  # the module still loads later and binds to the host GPU
-  #boot.blacklistedKernelModules = [ "amdgpu" ];
   boot.initrd.kernelModules = [ "vfio_pci" ];
-  #boot.initrd.availableKernelModules = [ ];
-
-  # seems to be pulling in amdgpu way too early
-  #boot.initrd.includeDefaultModules = false;
-
-  #boot.initrd.preDeviceCommands = ''
-  #  modprobe -i vfio-pci
-  #  echo "vfio-pci" > /sys/bus/pci/devices/0000:07:00.0/driver_override
-  #  echo "vfio-pci" > /sys/bus/pci/devices/0000:07:00.1/driver_override
-  #  echo 0000:07:00.0 > /sys/bus/pci/drivers_probe
-  #  echo 0000:07:00.1 > /sys/bus/pci/drivers_probe
-  #'';
-
   virtualisation.libvirtd = {
     enable = true;
     qemuOvmf = true;
@@ -153,19 +123,7 @@
   programs.virt-manager.enable = true;
   systemd.tmpfiles.rules = [
     "f /dev/shm/looking-glass 0660 octelly qemu-libvirtd -"
-    #"f /dev/shm/scream 0660 octelly qemu-libvirtd -"
   ];
-  #systemd.user.services.scream-ivshmem = {
-  #  enable = true;
-  #  description = "Scream IVSHMEM";
-  #  serviceConfig = {
-  #    ExecStart = "${pkgs.scream}/bin/scream -m /dev/shm/scream -o pulse -v";
-  #    Restart = "always";
-  #  };
-  #  wantedBy = [ "multi-user.target" ];
-  #  requires = [ "pulseaudio.service" ];
-  #};
-
   boot.extraModprobeConfig = lib.concatStringsSep "\n" [
     # make vfio-pci a pre-dependency of the usual video modules
     # forcing it to load first
@@ -176,17 +134,11 @@
     "options vfio-pci ids=1002:67ef,1002:aae0"
   ];
 
-  #boot.initrd.availableKernelModules = [ "amdgpu" "vfio-pci" ];
-
-  #services.desktopManager.cosmic = {
-  #  enable = true;
-  #  xwayland.enable = true;
-  #};
-
-
 
   # required for NixOS SteamVR to work
   # https://wiki.nixos.org/wiki/VR/en#SteamVR
+  # WARN: requires compiling the kernel
+  # NOTE: opportunity taken to compile with znver3 optimizations (see above)
   boot.kernelPatches = [
     {
       name = "amdgpu-ignore-ctx-privileges";
@@ -202,6 +154,7 @@
 
   services.tailscale.enable = true;
 
+  # useful for kernel compilation
   fileSystems."/tmp" = {
     device = "none";
     fsType = "tmpfs";
@@ -216,31 +169,39 @@
     interval = "weekly";
   };
 
-  networking.firewall.enable = false;
+  # NOTE: stale, not used in a long while, to be tested and re-enabled if needed
+  #networking.firewall.enable = false;
 
   networking.firewall.allowedTCPPorts = [
     25565 # minecra
-    3216 # EA App
+
+    # NOTE: stale, not used in a long while, to be tested and re-enabled if needed
+    #3216 # EA App
   ];
   networking.firewall.allowedUDPPorts = [
     25565 # minecra
-    3216 # EA App
+
+    # NOTE: stale, not used in a long while, to be tested and re-enabled if needed
+    #3216 # EA App
   ];
-  networking.firewall.allowedTCPPortRanges = [
-    # FTP active mode (KIO + 3DS ftpd)
-    # ``cat /proc/sys/net/ipv4/ip_local_port_range``
-    { from = 32768; to = 60999; }
-  ];
+
+  # NOTE: stale, not used in a long while, to be tested and re-enabled if needed
+  #networking.firewall.allowedTCPPortRanges = [
+  #  # FTP active mode (KIO + 3DS ftpd)
+  #  # ``cat /proc/sys/net/ipv4/ip_local_port_range``
+  #  { from = 32768; to = 60999; }
+  #];
 
   # WARN: experimental gaming settings
   #       https://github.com/ryuheechul/dotfiles/blob/b31301b146b8efd33170ffede8861379cb87c62f/nix/nixos/recipes/perf-tweaks.nix#L45
-
-  #boot.kernel.sysctl."vm.swappiness" = 1;
-  # let system reclaim some RAM in the background
-  # (we have 32GB, no neeed to be so aggressive)
-  boot.kernel.sysctl."vm.swappiness" = 20;
-  boot.kernel.sysctl."vm.compaction_proactiveness" = 0;
-  boot.kernel.sysctl."vm.page_lock_unfairness" = 1;
+  boot.kernel.sysctl = {
+    #"vm.swappiness" = 1;
+    # let system reclaim some RAM in the background
+    # (we have 32GB, no neeed to be so aggressive)
+    "vm.swappiness" = 20;
+    "vm.compaction_proactiveness" = 0;
+    "vm.page_lock_unfairness" = 1;
+  };
   systemd.tmpfiles.settings."10-gaming-hugepages.conf" = {
     "/sys/kernel/mm/transparent_hugepage/enabled".w = {
       #argument = "always";
@@ -254,5 +215,13 @@
     "/sys/kernel/mm/transparent_hugepage/shmem_enabled".w = {
       argument = "advise";
     };
+  };
+
+  # more responsive IO (hopefully)
+  boot.kernel.sysctl = {
+    "vm.dirty_background_bytes" = "33554432"; # ~32 MiB
+    "vm.dirty_bytes" = "268435456"; # ~256 MiB
+    "vm.dirty_writeback_centisecs" = "100"; # 1 s
+    "vm.dirty_expire_centisecs" = "100"; # 1 s
   };
 }
