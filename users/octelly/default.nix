@@ -489,6 +489,9 @@ in
   programs.floorp = {
     enable = true;
 
+    # FIXME: temporary change until unstable builds again
+    package = pkgs.stable.floorp;
+
     nativeMessagingHosts = lib.optional config.programs.plasma.enable pkgs.kdePackages.plasma-browser-integration;
 
     policies = {

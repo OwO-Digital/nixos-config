@@ -44,7 +44,7 @@
     };
     nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
     vscode-ext.url = "github:nix-community/nix-vscode-extensions";
-    flatpaks.url = "github:GermanBread/declarative-flatpak/stable-v3";
+    flatpaks.url = "github:in-a-dil-emma/declarative-flatpak/latest";
     #anyrun = {
     #  url = "github:Kirottu/anyrun";
     #  inputs.nixpkgs.follows = "nixpkgs";
@@ -168,7 +168,7 @@
             "cinny-unwrapped-4.2.3"
             "cinny-4.2.3"
             "olm-3.2.16" # this is what marks fluffy and many other matrix things as insecure
-			"qtwebengine-5.15.19" # apparently needed for fontconfig (according to what elly told me -emi)
+            "qtwebengine-5.15.19" # apparently needed for fontconfig (according to what elly told me -emi)
           ];
         };
 
