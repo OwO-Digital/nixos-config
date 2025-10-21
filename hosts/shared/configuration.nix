@@ -240,6 +240,27 @@
     };
 
     desktopManager.plasma6.enable = true;
+
+    # easy local network service sharing
+    # printers, files, etc.
+    avahi = {
+      enable = true;
+
+      # transparent .local domain resolution
+      nssmdns4 = true;
+      nssmdns6 = config.services.avahi.ipv6;
+
+      openFirewall = true;
+
+      publish = {
+        enable = true;
+
+        addresses = true;
+        domain = true;
+        userServices = true;
+        workstation = true;
+      };
+    };
   };
 
   hardware.logitech.wireless = {
