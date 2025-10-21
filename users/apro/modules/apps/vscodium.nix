@@ -7,7 +7,7 @@
 	profiles.default = {
     	userSettings = {
     	  editor = {
-    	    fontFamily = "'Iosevka NF'";
+    	    fontFamily = "'Maple Mono NF'";
     	    fontLigatures = "'ss14'";
     	    cursorBlinking = "smooth";
     	    cursorSmoothCaretAnimation = "on";
@@ -50,7 +50,6 @@
 
     	  # themes
     	  catppuccin.catppuccin-vsc
-    	  #mangeshrex.everblush
 
     	  # icons
     	  pkief.material-product-icons
@@ -82,6 +81,7 @@
     	])
     	++ (with pkgs.vscode-marketplace; [
     	  # not on open-vsx anymore
+    	  mangeshrex.everblush
     	  editorconfig.editorconfig
 
     	  # leftover language support
