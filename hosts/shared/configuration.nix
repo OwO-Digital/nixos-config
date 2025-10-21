@@ -46,6 +46,7 @@
         # look
         fontSize = 20;
 
+        # FIXME: doesn't work
         # add netboot.xyz as an entry
         extraFiles."netboot-xyz.efi" = pkgs.netbootxyz-efi;
         extraEntries = ''
@@ -69,6 +70,7 @@
   networking.networkmanager = {
     enable = true;
   };
+
   networking.firewall = {
     allowedTCPPorts = [
       53317 # LocalSend
@@ -85,6 +87,7 @@
   };
 
   networking.hosts = {
+    # blacklisted hosts (redirect to nowhere)
     "0.0.0.0" = [
       # Genshin logging servers (do not remove!)
       # Global version
@@ -108,7 +111,7 @@
 
   time = {
     timeZone = "Europe/Prague";
-    hardwareClockInLocalTime = true;
+    hardwareClockInLocalTime = true; # Windows default
   };
 
   i18n = {
@@ -156,7 +159,10 @@
     binsh = "${pkgs.bash}/bin/bash";
 
     variables = {
+      # we don't mind proprietary software
       NIXPKGS_ALLOW_UNFREE = "1";
+
+      # better touchpad (and I think touchscreen too) support
       MOZ_USE_XINPUT2 = "1";
     };
 
@@ -167,6 +173,7 @@
     # to your system configuration so that the portal definitions and DE
     # provided configurations get linked.
 
+    # we do a little debloating
     plasma6.excludePackages = with pkgs.kdePackages; [
       elisa
       kate
@@ -185,20 +192,20 @@
     };
     fish.enable = true;
     zsh.enable = true;
+
+    # Nix helper CLI
     nh = {
       enable = true;
       flake = "/etc/nixos";
     };
+
     niri = {
       enable = true;
       package = pkgs.niri-unstable;
     };
-
-    # Bitwarden system integration
-    ## needs to be here to set up background services and stuff
-    #goldwarden.enable = true;
   };
 
+  # gtklock access to password verification (PAM)
   security.pam.services.gtklock.text = lib.readFile "${pkgs.gtklock}/etc/pam.d/gtklock";
 
   security.polkit = {
@@ -217,13 +224,26 @@
 
   services = {
     dbus.enable = true;
-    fwupd.enable = true; # Required for "Firmware Security" page of KDE's Info Center
 
+    # firmware updates (you probably call it BIOS)
+    # Required for "Firmware Security" page of KDE's Info Center
+    fwupd.enable = true;
+
+    # SSH access
     openssh.enable = true;
+
+    # NOTE: what is this?
     xl2tpd.enable = true;
+
+    # GNOME filesystem mounting
+    # (virtual filesystems, e.g. smb, ftp, ssh, etc.)
     gvfs.enable = true;
+
+    # D-Bus thumbnailer
+    # NOTE: what is this for?
     tumbler.enable = true;
 
+    # CUPS (Common UNIX Printing System)
     printing = {
       enable = true;
       drivers = with pkgs; [
@@ -234,7 +254,7 @@
       browsing = true;
     };
 
-    # document scanning
+    # scanning (Scanner Access Now Easy Daemon)
     saned = {
       enable = true;
     };
@@ -263,15 +283,19 @@
     };
   };
 
+  # Logitech mice and other configurable devices
   hardware.logitech.wireless = {
     enable = true;
     enableGraphical = true;
   };
 
+  # NOTE: why is this enabled?
   hardware.i2c.enable = true;
 
+  # WARN: do not change (ever!)
   system.stateVersion = "22.11";
 
+  # default xdg portal config
   xdg.portal = {
     enable = true;
     wlr.enable = true;
