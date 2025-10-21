@@ -197,7 +197,7 @@
     #"vm.swappiness" = 1;
     # let system reclaim some RAM in the background
     # (we have 32GB, no neeed to be so aggressive)
-    "vm.swappiness" = 20;
+    "vm.swappiness" = 10;
     "vm.compaction_proactiveness" = 0;
     "vm.page_lock_unfairness" = 1;
   };
@@ -217,10 +217,23 @@
   };
 
   # more responsive IO (hopefully)
+  # partially based on: https://gitlab.com/cscs/maxperfwiz/-/blob/main/maxperfwiz
   boot.kernel.sysctl = {
-    "vm.dirty_background_bytes" = "33554432"; # ~32 MiB
-    "vm.dirty_bytes" = "268435456"; # ~256 MiB
-    "vm.dirty_writeback_centisecs" = "100"; # 1 s
-    "vm.dirty_expire_centisecs" = "100"; # 1 s
+    #"vm.dirty_background_bytes" = "33554432"; # ~32 MiB
+    #"vm.dirty_background_bytes" = "134217728"; # ~128 MiB
+    "vm.dirty_background_bytes" = "268435456"; # ~256 MiB
+    #"vm.dirty_bytes" = "268435456"; # ~256 MiB
+    "vm.dirty_bytes" = "536870912"; # ~512 MiB
+    #"vm.dirty_bytes" = "1073741824"; # ~1 GiB
+    #"vm.dirty_writeback_centisecs" = "100"; # 1 s
+    "vm.dirty_writeback_centisecs" = "1500"; # 15 s
+    #"vm.dirty_expire_centisecs" = "100"; # 1 s
+    "vm.dirty_expire_centisecs" = "3000"; # 30 s
+    "vm.min_free_kbytes" = "118654"; # ~116 MiB
+  };
+
+  boot.kernel.sysctl = {
+    # unnecessary on a PC
+    "kernel.nmi_watchdog" = "0";
   };
 }
