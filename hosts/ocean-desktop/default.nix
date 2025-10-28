@@ -10,11 +10,11 @@ lib.nixosSystem {
       networking.hostName = "ocean-desktop";
     }
 
-    inputs.home.nixosModules.home-manager
-    #inputs.flatpaks.nixosModules.declarative-flatpak
-    inputs.nixpkgs-xr.nixosModules.nixpkgs-xr
     inputs.determinate.nixosModules.default
+    inputs.eden-emu.nixosModules.default
+    inputs.home.nixosModules.home-manager
     inputs.lsfg-vk-flake.nixosModules.default
+    inputs.nixpkgs-xr.nixosModules.nixpkgs-xr
 
     # hardware modules
     inputs.nixHW.nixosModules.common-cpu-amd

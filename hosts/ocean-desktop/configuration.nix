@@ -248,4 +248,6 @@
       SUBSYSTEMS=="usb", ATTRS{idVendor}=="320f", ATTRS{idProduct}=="5055", MODE="0660"
     '';
   };
+
+  programs.eden.enable = true;
 }

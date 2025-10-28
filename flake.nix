@@ -89,6 +89,11 @@
 
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
 
+    eden-emu = {
+      url = "github:grantimatter/eden-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # QT/KDE theming
     darkly = {
       url = "github:Bali10050/Darkly";
