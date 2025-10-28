@@ -175,11 +175,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1760807225,
-        "narHash": "sha256-6Dxn88efx9qHXblx8KnXvbqyNiUWrkHtTgWJ0vpyric=",
+        "lastModified": 1761573825,
+        "narHash": "sha256-qEa+gv3qanwTxI7wyeNEz0KZk+cz527iJG+V89bZIXY=",
         "owner": "grantimatter",
         "repo": "eden-flake",
-        "rev": "cbb80664a4a3a28505c371bb10a79dcdb183e788",
+        "rev": "f33193d175cb59a48a0b06dfe2a5f39838218be2",
         "type": "github"
       },
       "original": {
