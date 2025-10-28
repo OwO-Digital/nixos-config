@@ -236,4 +236,16 @@
     # unnecessary on a PC
     "kernel.nmi_watchdog" = "0";
   };
+
+  programs.wireshark = {
+    enable = true;
+    usbmon.enable = true;
+  };
+
+  services.udev = {
+    extraRules = ''
+      SUBSYSTEM=="usbmon", GROUP="wireshark", MODE="0640"
+      SUBSYSTEMS=="usb", ATTRS{idVendor}=="320f", ATTRS{idProduct}=="5055", MODE="0660"
+    '';
+  };
 }
