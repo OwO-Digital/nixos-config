@@ -855,13 +855,6 @@ in
   #  enableZshIntegration = true;
   #};
 
-  programs.btop = {
-    enable = true;
-    package = pkgs.btop.override {
-      rocmSupport = true;
-    };
-  };
-
   dconf.settings =
     let
       color-scheme = if darkMode then "prefer-dark" else "prefer-light";
@@ -1363,5 +1356,6 @@ in
     ./bitwarden-ssh-agent.nix
     #./programs/mopidy
     #./programs/emacs
+    ./programs/btop
   ];
 }
