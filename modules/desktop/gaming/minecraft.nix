@@ -17,6 +17,7 @@ in {
           jdk21
           #graalvmPackages.graalvm-oracle
           temurin-bin-21 # formerly adoptopenjdk (this is adoptium)
+          temurin-bin-25
         ];
       })
     ];
