@@ -1,7 +1,8 @@
 { pkgs, ... }: {
 
-  # WARN: this module is broken due to an upstream issue:
-  # https://github.com/mopidy/mopidy-mpd/issues/73
+  # NOTE: waiting on PR so rmpc works with mopidy:
+  # https://github.com/mopidy/mopidy-mpd/pull/57
+  # (rmpc requires binary responses, mopidy doesn't provide them yet, rmpc doesn't check protocol version)
 
   services.mopidy = {
     enable = true;
