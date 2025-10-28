@@ -22,7 +22,9 @@ with lib; let
           # Docker
           ++ lib.optional config.virtualisation.docker.enable "docker"
           # i2c
-          ++ lib.optional config.hardware.i2c.enable config.hardware.i2c.group;
+          ++ lib.optional config.hardware.i2c.enable config.hardware.i2c.group
+          # wireshonk
+          ++ lib.optional config.programs.wireshark.enable "wireshark";
         homeMode = "755";
         initialPassword = "gay";
         shell = v.shell or config.users.defaultUserShell;
