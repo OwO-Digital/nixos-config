@@ -6,20 +6,21 @@
     # General
     home = {
       url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "unstable";
     };
     plasma-manager = {
       url = "github:pjones/plasma-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "unstable";
       inputs.home-manager.follows = "home";
     };
     niri = {
       url = "github:sodiboo/niri-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "unstable";
+      inputs.nixpkgs-stable.follows = "stable";
     };
     gauntlet = {
       url = "github:project-gauntlet/gauntlet";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "unstable";
     };
     wezterm = {
       url = "github:wezterm/wezterm?dir=nix";
@@ -31,24 +32,23 @@
     };
     nixvim = {
       url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "unstable";
     };
     nixHW.url = "github:nixos/nixos-hardware/master";
     f2k = {
       url = "github:moni-dz/nixpkgs-f2k";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "unstable-small";
     };
     nur = {
       url = "github:nix-community/NUR";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "unstable";
     };
-    nixpkgs-xr.url = "github:nix-community/nixpkgs-xr";
+    nixpkgs-xr = {
+      url = "github:nix-community/nixpkgs-xr";
+      inputs.nixpkgs.follows = "unstable";
+    };
     vscode-ext.url = "github:nix-community/nix-vscode-extensions";
     flatpaks.url = "github:in-a-dil-emma/declarative-flatpak/latest";
-    #anyrun = {
-    #  url = "github:Kirottu/anyrun";
-    #  inputs.nixpkgs.follows = "nixpkgs";
-    #};
 
     emacs-overlay = {
       type = "github";
@@ -72,36 +72,25 @@
       url = "github:VirtCode/hypr-dynamic-cursors";
       inputs.hyprland.follows = "hyprland";
     };
-    #hypr-smw = {
-    #  url = "github:Duckonaut/split-monitor-workspaces/d0012b8b0f764e32dd7b82f7a94b8c30197d7dc8";
-    #  inputs.hyprland.follows = "hyprland";
-    #};
-    #hypr-hy3 = {
-    #  url = "github:outfoxxed/hy3?ref=hl0.36.0";
-    #  inputs.hyprland.follows = "hyprland";
-    #};
 
-    # Flake for testing COSMIC on NixOS
-    #nixos-cosmic = {
-    #  url = "github:lilyinstarlight/nixos-cosmic";
-    #  inputs.nixpkgs.follows = "nixpkgs";
-    #};
-
-    zen-browser.url = "github:0xc000022070/zen-browser-flake";
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "unstable";
+    };
 
     eden-emu = {
       url = "github:grantimatter/eden-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "unstable";
     };
 
     # QT/KDE theming
     darkly = {
       url = "github:Bali10050/Darkly";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "unstable";
     };
     kwin-effects-forceblur = {
       url = "github:taj-ny/kwin-effects-forceblur";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "unstable";
     };
     breeze-icons-chameleon = {
       # doesn't have releases, which would make it
@@ -115,21 +104,21 @@
     # Hoyoverse games
     aagl = {
       url = "github:ezKEa/aagl-gtk-on-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "unstable";
     };
 
     lsfg-vk-flake = {
       type = "github";
       owner = "pabloaul";
       repo = "lsfg-vk-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "unstable";
     };
 
     mprisqueeze = {
       type = "github";
       owner = "jecaro";
       repo = "mprisqueeze";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "stable";
     };
 
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
@@ -140,12 +129,6 @@
     stable.url = "github:nixos/nixpkgs/nixos-25.05";
 
     nixpkgs.follows = "unstable";
-
-    ### newm is currently unmaintained...
-    # newm = {
-    # 	url = "github:jbuchermn/newm";
-    # 	inputs.nixpkgs.follows = "nixpkgs";
-    # };
   };
 
   outputs =
