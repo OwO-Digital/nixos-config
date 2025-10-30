@@ -220,7 +220,8 @@ in
 
         # conclusion: I hate Matrix clients
 
-        nur.repos.deeunderscore.nheko-unstable
+        nheko
+        #nur.repos.deeunderscore.nheko-unstable
         #nur.repos.deeunderscore.nheko-krunner
 
         localsend
