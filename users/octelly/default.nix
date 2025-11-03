@@ -330,7 +330,7 @@ in
         tetrio-desktop
         xonotic-glx
         #emulationstation-de
-        inputs.aagl.packages.${pkgs.system}.sleepy-launcher
+        #inputs.aagl.packages.${pkgs.system}.sleepy-launcher
 
         # plasma theme thing
         breeze-icons-chameleon
@@ -384,7 +384,7 @@ in
         #planify
         #newsflash
         #fluent-reader # replacing Newsflash
-        rssguard # replacing Fluent Reader
+        #rssguard # replacing Fluent Reader
         eyedropper
         junction
         qpwgraph
@@ -671,7 +671,7 @@ in
   };
 
   services.nextcloud-client = {
-    enable = true;
+    enable = false;
     startInBackground = true;
   };
 
