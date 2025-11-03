@@ -105,7 +105,7 @@ in
         };
       };
       octelly = {
-        desc = "Eli Štefků";
+        desc = "Eliška Štefková";
         modules = [ ];
         fc = {
           # `fonts` takes a list of packages
